@@ -28,6 +28,8 @@ public class User {
     private String fetStatus;
     private String company;
     private String telegramHandle;
+    private String telegramSignUpToken;
+    private String telegramChatId;
 
     @ManyToOne
     @JoinColumn(name = "shop_id")

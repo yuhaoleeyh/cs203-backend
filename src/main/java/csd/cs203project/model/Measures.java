@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.*;
 
 @Entity
@@ -19,8 +18,10 @@ import lombok.*;
 public class Measures {
     //admin keys this
     private @Id @GeneratedValue Long id;
+    @NotNull
     private String typeOfShop;
-    private boolean isActive;
+    @NotNull
+    private Boolean isActive;
     private int dineInSize;
     private int maxGrpSizeVacc;
     private int maxGrpSizeNonVacc;
@@ -28,4 +29,7 @@ public class Measures {
     private Date closingTime;
     private String phase;
 
+    public boolean getIsActive() {
+        return isActive;
+    }
 }

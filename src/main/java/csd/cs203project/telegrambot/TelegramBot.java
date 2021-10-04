@@ -10,10 +10,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
-@PropertySource(value="classpath:value.properties")
 public class TelegramBot extends TelegramLongPollingBot {
 
-    @Value("${telegram.bot.token}")
+    @Value("${telegramBotToken}")
     private String botToken;
 
     @Override
@@ -46,6 +45,17 @@ public class TelegramBot extends TelegramLongPollingBot {
             } catch (TelegramApiException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void sendMessage(String message, String chatId) {
+        SendMessage telegramMessage = new SendMessage();
+        telegramMessage.setText(message);
+        telegramMessage.setChatId(chatId);
+        try{
+            execute(telegramMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
         }
     }
 }

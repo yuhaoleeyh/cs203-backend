@@ -1,4 +1,4 @@
-package csd.cs203project.controller.supervisor;
+package csd.cs203project.controller.measures;
 
 import csd.cs203project.model.Measures;
 import csd.cs203project.service.measures.MeasuresService;
@@ -23,4 +23,6 @@ public class MeasuresController {
         measuresService.addMeasures(measures);
 
     }
+
+
 }

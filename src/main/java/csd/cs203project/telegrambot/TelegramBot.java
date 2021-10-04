@@ -9,15 +9,21 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.security.SecureRandom;
+import java.util.Base64;
+
 @Component
+//@PropertySource("classpath:value.properties")
 public class TelegramBot extends TelegramLongPollingBot {
+    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
+    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
 
     @Value("${telegramBotToken}")
     private String botToken;
 
     @Override
     public String getBotUsername() {
-        return "SpringTestBot";
+        return "Covid19_FnB_Bot";
     }
 
     @Override
@@ -57,5 +63,11 @@ public class TelegramBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
+    }
+
+    public String generateSignUpToken(Long userId) {
+        byte[] randomBytes = new byte[24];
+        secureRandom.nextBytes(randomBytes);
+        return base64Encoder.encodeToString(randomBytes);
     }
 }

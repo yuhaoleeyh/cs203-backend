@@ -4,29 +4,33 @@ import csd.cs203project.model.Measures;
 import csd.cs203project.model.User;
 import csd.cs203project.repository.measures.MeasuresRepository;
 import csd.cs203project.repository.user.UserRepository;
-import csd.cs203project.service.measures.MeasuresService;
+import csd.cs203project.service.SES.SESService;
 import csd.cs203project.service.telegrambot.TelegramBotService;
+import csd.cs203project.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MeasuresServiceImpl implements MeasuresService {
 
     private MeasuresRepository measuresRepository;
 
-    private UserRepository userRepository;
+    private UserService userService;
 
     private TelegramBotService telegramBotService;
 
+    private SESService sesService;
+
     @Autowired
-    public MeasuresServiceImpl(MeasuresRepository measuresRepository, UserRepository userRepository, TelegramBotService telegramBotService) {
+    public MeasuresServiceImpl(MeasuresRepository measuresRepository, UserService userService, TelegramBotService telegramBotService, SESService sesService) {
         this.measuresRepository = measuresRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.telegramBotService = telegramBotService;
+        this.sesService = sesService;
     }
 
     @Override
@@ -39,7 +43,13 @@ public class MeasuresServiceImpl implements MeasuresService {
 
         List<String> changes = getChangeInMeasures(oldMeasures, measures);
 
-        List<User> affectedUsers = userRepository.findByShopShopType(measures.getTypeOfShop());
+        List<User> affectedUsers = userService.findByShopShopType(measures.getTypeOfShop());
+
+        List<String> affectedUsersEmails = affectedUsers.stream()
+                .map(affectedUser -> affectedUser.getEmail())
+                .collect(Collectors.toList());
+
+        //sesService.sendMessageEmailRequest("fake", "faker", affectedUserEmails);
 
         telegramBotService.sendUpdate(changes, affectedUsers);
 

@@ -36,7 +36,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return "Covid19_FnB_Bot";
+        return "SpringTestBot";
     }
 
     @Override

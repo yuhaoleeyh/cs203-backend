@@ -1,6 +1,6 @@
 package csd.cs203project;
 
-import csd.cs203project.telegrambot.TelegramBot;
+// import csd.cs203project.telegrambot.TelegramBot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -26,14 +26,14 @@ public class Cs203ProjectApplication {
         System.out.println("[Add shop]: " + shops.save(new Shop("Coffee Bean")));
 		System.out.println("[Add user]: " + users.save(new User("Mary", "Supervisor", "NUS")));
         System.out.println("[Add user]: " + users.save(new User("James", "Admin", "SMU")));
-		TelegramBot bot = ctx.getBean(TelegramBot.class);
-		try {
-			TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-			telegramBotsApi.registerBot(bot);
+		// TelegramBot bot = ctx.getBean(TelegramBot.class);
+		// try {
+		// 	TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+		// 	telegramBotsApi.registerBot(bot);
 
-		} catch (TelegramApiException e) {
-			e.printStackTrace();
-		}
+		// } catch (TelegramApiException e) {
+		// 	e.printStackTrace();
+		// }
 	}
 
 }

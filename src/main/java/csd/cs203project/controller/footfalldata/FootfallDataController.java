@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class FootfallDataController {
     private FootfallDataServiceImpl footfallDataServiceImpl;
@@ -21,11 +21,6 @@ public class FootfallDataController {
     public void reloadFootfallData () {
         footfallDataServiceImpl.reloadFootfallData();
     }
-
-//    @GetMapping("/footfallData")
-//    public List<FootfallData> listFootfallData () {
-//        return footfallDataServiceImpl.listFootfallData();
-//    }
 
     @GetMapping("/footfallData")
     public String getJsonResponse() {

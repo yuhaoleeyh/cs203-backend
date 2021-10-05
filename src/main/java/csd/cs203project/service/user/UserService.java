@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UserService {
     List<User> findByShopShopType(String typeOfShop);
+
+    void addUser(User user);
 }

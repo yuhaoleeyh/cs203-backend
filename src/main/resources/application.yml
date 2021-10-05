@@ -7,5 +7,5 @@ com:
   kb:
     jwt:
       aws:
-        userPoolId: "ap-southeast-1_aSekQHKbP"
+        userPoolId: "ap-southeast-1_jVulnk9is"
         region: "ap-southeast-1"

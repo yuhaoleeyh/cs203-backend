@@ -3,10 +3,13 @@ package csd.cs203project.controller.measures;
 import csd.cs203project.model.Measures;
 import csd.cs203project.service.measures.MeasuresService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import javax.validation.Valid;
 
 @RestController
@@ -21,8 +24,11 @@ public class MeasuresController {
     @PostMapping("/measures")
     public void addMeasures(@RequestBody @Valid Measures measures) {
         measuresService.addMeasures(measures);
-
     }
 
+    @GetMapping("/measures/{shopType}")
+    public Measures getMeasures(@PathVariable("shopType") String shopType){
+        return measuresService.findByTypeOfShop(shopType);
+    }
 
 }

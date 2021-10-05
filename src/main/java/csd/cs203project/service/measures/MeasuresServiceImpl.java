@@ -35,30 +35,27 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     @Override
     public void addMeasures(Measures measures) {
-        Measures oldMeasures = findByTypeOfShopAndIsActive(
-                measures.getTypeOfShop(), measures.getIsActive()
-        ).get(0);
+     
+        Measures oldMeasures = findByTypeOfShop(measures.getTypeOfShop());
+
+        if (oldMeasures != null){
+            List<String> changes = getChangeInMeasures(oldMeasures, measures);
+            List<User> affectedUsers = userService.findByShopShopType(measures.getTypeOfShop());
+            List<String> affectedUsersEmails = affectedUsers.stream()
+                    .map(affectedUser -> affectedUser.getEmail())
+                    .collect(Collectors.toList());
+            telegramBotService.sendUpdate(changes, affectedUsers);
+            //sesService.sendMessageEmailRequest("fake", "faker", affectedUserEmails);
+            measuresRepository.deleteByTypeOfShop(measures.getTypeOfShop());
+        }
 
         measuresRepository.save(measures);
-
-        List<String> changes = getChangeInMeasures(oldMeasures, measures);
-
-        List<User> affectedUsers = userService.findByShopShopType(measures.getTypeOfShop());
-
-        List<String> affectedUsersEmails = affectedUsers.stream()
-                .map(affectedUser -> affectedUser.getEmail())
-                .collect(Collectors.toList());
-
-        //sesService.sendMessageEmailRequest("fake", "faker", affectedUserEmails);
-
-        telegramBotService.sendUpdate(changes, affectedUsers);
 
     }
 
     @Override
-    public List<Measures> findByTypeOfShopAndIsActive(String typeOfShop, Boolean isActive) {
-        List<Measures> measures = measuresRepository.findByTypeOfShopAndIsActive(typeOfShop, isActive);
-        if (measures.size() == 0) throw new RuntimeException("Cannot find existing active measures for this type of shop");
+    public Measures findByTypeOfShop(String typeOfShop) {
+        Measures measures = measuresRepository.findByTypeOfShop(typeOfShop);
         return measures;
     }
 

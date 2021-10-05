@@ -15,30 +15,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FootfallDataIntegrationTests {
-    @LocalServerPort
-    private int port;
-
-    private final String baseUrl = "http://localhost:";
-
-    @Autowired
-    /**
-     * Use TestRestTemplate for testing a real instance of your application as an external actor.
-     * TestRestTemplate is just a convenient subclass of RestTemplate that is suitable for integration tests.
-     * It is fault tolerant, and optionally can carry Basic authentication headers.
-     */
-    private TestRestTemplate restTemplate;
-
-    @Autowired
-    private FootfallDataRepository footfallDataRepository;
-
-    @Test
-    public void getFootfallData_Success () throws Exception {
-        URI uri = new URI(baseUrl + port + "/footfallData");
-
-        ResponseEntity<FootfallData[]> result = restTemplate.getForEntity(uri, FootfallData[].class);
-        FootfallData[] footfallDataArr = result.getBody();
-
-        assertEquals(200, result.getStatusCode().value());
-        assertEquals(60, footfallDataArr.length);
-    }
+//    @LocalServerPort
+//    private int port;
+//
+//    private final String baseUrl = "http://localhost:";
+//
+//    @Autowired
+//    /**
+//     * Use TestRestTemplate for testing a real instance of your application as an external actor.
+//     * TestRestTemplate is just a convenient subclass of RestTemplate that is suitable for integration tests.
+//     * It is fault tolerant, and optionally can carry Basic authentication headers.
+//     */
+//    private TestRestTemplate restTemplate;
+//
+//    @Autowired
+//    private FootfallDataRepository footfallDataRepository;
+//
+//    @Test
+//    public void getFootfallData_Success () throws Exception {
+//        URI uri = new URI(baseUrl + port + "/footfallData");
+//
+//        ResponseEntity<FootfallData[]> result = restTemplate.getForEntity(uri, FootfallData[].class);
+//        FootfallData[] footfallDataArr = result.getBody();
+//
+//        assertEquals(200, result.getStatusCode().value());
+//        assertEquals(60, footfallDataArr.length);
+//    }
 }

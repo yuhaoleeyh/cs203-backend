@@ -23,9 +23,6 @@ public class Cs203ProjectApplication {
 		// JPA user repository init
         UserRepository users = ctx.getBean(UserRepository.class);
 		ShopRepository shops = ctx.getBean(ShopRepository.class);
-        System.out.println("[Add shop]: " + shops.save(new Shop("Coffee Bean")));
-		System.out.println("[Add user]: " + users.save(new User("Mary", "Supervisor", "NUS")));
-        System.out.println("[Add user]: " + users.save(new User("James", "Admin", "SMU")));
 		TelegramBot bot = ctx.getBean(TelegramBot.class);
 		try {
 			TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);

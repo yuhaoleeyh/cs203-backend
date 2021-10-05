@@ -1,6 +1,7 @@
 package csd.cs203project.model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,16 +21,11 @@ public class Measures {
     private @Id @GeneratedValue Long id;
     @NotNull
     private String typeOfShop;
-    @NotNull
-    private Boolean isActive;
     private int dineInSize;
     private int maxGrpSizeVacc;
     private int maxGrpSizeNonVacc;
     private int socialDistance;
-    private Date closingTime;
+    private Time closingTime;
     private String phase;
 
-    public boolean getIsActive() {
-        return isActive;
-    }
 }

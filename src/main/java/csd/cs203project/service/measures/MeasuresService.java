@@ -9,7 +9,7 @@ public interface MeasuresService {
 
     void addMeasures(Measures measures);
 
-    List<Measures> findByTypeOfShopAndIsActive(String typeOfShop, Boolean isActive);
+    Measures findByTypeOfShop(String typeOfShop);
 
     List<String> getChangeInMeasures(Measures oldMeasures, Measures newMeasures);
 }

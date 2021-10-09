@@ -18,14 +18,12 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
+// @PropertySource("classpath:value.properties")
 public class TelegramBot extends TelegramLongPollingBot {
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
 
     private UserRepository userRepository;
-
-    @Value("${telegramBotUsername")
-    private String botUsername;
 
     @Autowired
     public TelegramBot(UserRepository userRepository) {
@@ -38,7 +36,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return botUsername;
+        return "SpringTestBot";
     }
 
     @Override

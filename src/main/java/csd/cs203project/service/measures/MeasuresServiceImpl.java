@@ -45,19 +45,21 @@ public class MeasuresServiceImpl implements MeasuresService {
             List<String> affectedUsersEmails = affectedUsers.stream()
                     .map(affectedUser -> affectedUser.getEmail())
                     .collect(Collectors.toList());
-            telegramBotService.sendUpdate(changes, affectedUsers);
-            //sesService.sendMessageEmailRequest("fake", "faker", affectedUserEmails);
-            measuresRepository.deleteByTypeOfShop(measures.getTypeOfShop());
+            if (changes.size() > 0) {
+                telegramBotService.sendUpdate(changes, affectedUsers);
+                //sesService.sendMessageEmailRequest("fake", "faker", affectedUserEmails);
+                measuresRepository.deleteByTypeOfShop(measures.getTypeOfShop());
+                measuresRepository.save(measures);
+            }
         }
-
-        // measuresRepository.save(measures);
 
     }
 
     @Override
     public Measures findByTypeOfShop(String typeOfShop) {
-        Measures measures = measuresRepository.findByTypeOfShop(typeOfShop);
-        return measures;
+        List<Measures> measures = measuresRepository.findByTypeOfShop(typeOfShop);
+        if (measures.size() > 0) return measures.get(0);
+        else return null;
     }
 
     @Override
@@ -91,18 +93,18 @@ public class MeasuresServiceImpl implements MeasuresService {
                             + " to " + newMeasures.getSocialDistance()
             );
         }
-        if (oldMeasures.getClosingTime().equals(newMeasures.getClosingTime())) {
+        if (!oldMeasures.getClosingTime().equals(newMeasures.getClosingTime())) {
             changes.add(
                     "The Closing Time changed from "
                             + oldMeasures.getClosingTime()
                             + " to " + newMeasures.getClosingTime()
             );
         }
-        if (oldMeasures.getPhase().equals(newMeasures.getPhase())) {
+        if (!oldMeasures.getPhase().equals(newMeasures.getPhase())) {
             changes.add(
                     "The Phase changed from "
-                            + oldMeasures.getClosingTime()
-                            + " to " + newMeasures.getClosingTime()
+                            + oldMeasures.getPhase()
+                            + " to " + newMeasures.getPhase()
             );
         }
         return changes;

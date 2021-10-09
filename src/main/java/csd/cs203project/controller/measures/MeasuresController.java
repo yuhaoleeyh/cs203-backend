@@ -24,7 +24,8 @@ public class MeasuresController {
     }
 
     @PostMapping("/measures")
-    public void addMeasures(@RequestBody @Valid Measures measures) {
+    public void addMeasures(@RequestBody Measures measures) {
+        System.out.println(measures);
         measuresService.addMeasures(measures);
     }
 

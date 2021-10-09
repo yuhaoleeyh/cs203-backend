@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface MeasuresRepository extends JpaRepository<Measures, Long> {
-    Measures findByTypeOfShop(String typeOfShop);
+    List<Measures> findByTypeOfShop(String typeOfShop);
     @Transactional
     void deleteByTypeOfShop(String typeOfShop);
 }

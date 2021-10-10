@@ -14,6 +14,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 @Entity
@@ -33,6 +37,7 @@ public class Shop {
     private int numTables;
     private double sizeTables;
 
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<User> users;
 

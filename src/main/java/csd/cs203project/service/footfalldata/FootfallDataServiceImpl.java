@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,6 +48,7 @@ public class FootfallDataServiceImpl implements FootfallDataService {
         jsonObject.put("lastUpdated", lastUpdateDate.getDataLastUpdated());
         jsonObject.put("list", listFootfallData());
         //.subList(48, 60)
+        jsonObject.put("averages", calculateAverage());
 
         return jsonObject.toString();
     }
@@ -159,7 +161,23 @@ public class FootfallDataServiceImpl implements FootfallDataService {
         return null;
     }
 
-    public void calculateMovingAverage() {
+    public List<Double> calculateAverage() {
+        List<FootfallData> data = listFootfallData().subList(55, 60);
+        Double restaurant = 0.0, fastFoodOutlet = 0.0, caterer = 0.0, other = 0.0;
 
+        for (int i = 0; i < 5; i++) {
+            restaurant += data.get(i).getRestaurants() / 5;
+            fastFoodOutlet += data.get(i).getFastFoodOutlets() / 5;
+            caterer += data.get(i).getCaterers() / 5;
+            other += data.get(i).getOtherPlaces() / 5;
+        }
+
+        List<Double> averages = new ArrayList<>();
+        averages.add(restaurant);
+        averages.add(fastFoodOutlet);
+        averages.add(caterer);
+        averages.add(other);
+
+        return averages;
     }
 }

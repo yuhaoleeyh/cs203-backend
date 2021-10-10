@@ -1,13 +1,13 @@
 package csd.cs203project.service.user;
 
-import csd.cs203project.model.User;
-import csd.cs203project.repository.user.UserRepository;
-import csd.cs203project.telegrambot.TelegramBot;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import csd.cs203project.model.User;
+import csd.cs203project.repository.user.UserRepository;
+import csd.cs203project.telegrambot.TelegramBot;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -37,8 +37,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findByEmail(String s) {
-        System.out.println("service: " + s);
-        return userRepository.findByEmail(s).orElse(null);
+    public User getUser(String email) {
+        return userRepository.findByEmail(email).map(user -> {
+            return user;
+        }).orElse(null);
+    }
+
+    @Override
+    public User updateUser(String email, User newUserInfo) {
+        return userRepository.findByEmail(email).map(user -> {
+            user.setName(newUserInfo.getName());
+            user.setTelegramHandle(newUserInfo.getTelegramHandle());
+            return userRepository.save(user);
+        }).orElse(null);
     }
 }

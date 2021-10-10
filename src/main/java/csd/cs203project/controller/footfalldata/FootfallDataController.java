@@ -24,6 +24,7 @@ public class FootfallDataController {
 
     @GetMapping("/footfallData")
     public String getJsonResponse() {
+        System.out.println("yea executed");
         return footfallDataServiceImpl.getJsonResponse();
     }
 }

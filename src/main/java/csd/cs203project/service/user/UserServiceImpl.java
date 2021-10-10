@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -33,5 +34,11 @@ public class UserServiceImpl implements UserService{
         user.setTelegramSignUpToken(telegramSignUpToken);
 
         userRepository.save(user);
+    }
+
+    @Override
+    public User findByEmail(String s) {
+        System.out.println("service: " + s);
+        return userRepository.findByEmail(s).orElse(null);
     }
 }

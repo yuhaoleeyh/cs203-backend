@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import csd.cs203project.model.*;
 import csd.cs203project.repository.user.UserRepository;
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService  {
@@ -34,4 +35,9 @@ public class AdminServiceImpl implements AdminService  {
         // }
         return user;
     }
+
+    // @Override
+    // public List<User> findSupervisorsAndEmployeesUnderCompany(String company) {
+    //     return userRepository.findEmployeesAndSupervisorsByCompany(company, "Admin");
+    // }
 }

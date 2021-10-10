@@ -18,9 +18,10 @@ public class SupervisorServiceImpl implements SupervisorService {
     }
 
     @Override
-    public List<User> findByCompany(String company) {
-        return userRepository.findByCompany(company);
+    public List<User> findEmployeesByCompany(String company) {
+        return userRepository.findEmployeesByCompany(company, "Admin");
     }
+
 
     @Override
     public User addValidUser(User user) {
@@ -33,7 +34,10 @@ public class SupervisorServiceImpl implements SupervisorService {
     @Override
     public User updateValidUser(User user) {
         if (user.getUserType().equals("Employee")) {
-            userRepository.save(user);
+            return userRepository.save(user);
         }
+        return null;
     }
+
+
 }

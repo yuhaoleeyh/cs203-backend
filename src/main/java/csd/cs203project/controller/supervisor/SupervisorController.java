@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -30,10 +31,23 @@ public class SupervisorController {
         return supervisorService.findEmployeesByCompany(company);
     }
 
-    @PostMapping("/users/validUser") 
-    public void addValidUser(@RequestBody @Valid User user) {
-        supervisorService.addValidUser(user);
+    @PutMapping("/users/{company}")
+    public User editValidUsers(@PathVariable (value = "company") String company, @RequestBody User listOfUsers) {
+        System.out.println(company);
+        System.out.println(listOfUsers);
+        System.out.println(listOfUsers.getName());
+        return listOfUsers;
+        // supervisorService.editValidUsers(company, listOfUsers);
     }
+
+    // @PostMapping("/users/{company}")
+    // public User testing(@PathVariable String company, @RequestBody User listOfUsers) {
+    //     System.out.println(company);
+    //     System.out.println(listOfUsers);
+    //     System.out.println(listOfUsers.getId());
+    //     return listOfUsers;
+    //     // supervisorService.editValidUsers(company, listOfUsers);
+    // }
 
     
 }

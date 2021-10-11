@@ -24,7 +24,8 @@ public class SupervisorServiceImpl implements SupervisorService {
 
 
     @Override
-    public User addValidUser(User user) {
+    public User editValidUsers(String company, List <User> listOfUsers) {
+        User user = null;
         if (user.getUserType().equals("Employee")) {
             return userRepository.save(user);
         }

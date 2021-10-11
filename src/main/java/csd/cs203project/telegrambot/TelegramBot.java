@@ -18,7 +18,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
-// @PropertySource("classpath:value.properties")
+//@PropertySource("classpath:value.properties")
 public class TelegramBot extends TelegramLongPollingBot {
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe

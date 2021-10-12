@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -14,7 +15,6 @@ import javax.validation.Valid;
 
 import csd.cs203project.model.*;
 import csd.cs203project.service.supervisor.*;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController

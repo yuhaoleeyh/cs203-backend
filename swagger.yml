@@ -1,7 +1,10 @@
 openapi: 3.0.1
 info:
   title: CovFeed API
-  version: v0
+  version: 1.0.0-oas3
+  
+servers:
+  - url: api.covfeed.link
   
 paths:
   /users:
@@ -63,6 +66,28 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/User'
+                
+  /users/{company}:
+    get:
+      summary: get users by company
+      tags:
+      - users
+      operationId: getUsersUnderCompany
+      parameters:
+      - name: company
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
   
   /measures:
     get:
@@ -138,27 +163,6 @@ paths:
       responses:
         "200":
           description: OK
-  /users/{company}:
-    get:
-      summary: get users by company
-      tags:
-      - supervisor
-      operationId: getUsersUnderCompany
-      parameters:
-      - name: company
-        in: path
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: OK
-          content:
-            '*/*':
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
 
   /health:
     get:

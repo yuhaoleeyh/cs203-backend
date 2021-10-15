@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import csd.cs203project.model.User;
 
@@ -21,4 +23,11 @@ public interface UserRepository extends JpaRepository <User, Long> {
     Optional<User> findByTelegramSignUpToken(String s);
 
     Optional<User> findByEmail(String email);
+
+    @Transactional
+    @Modifying
+    @Query(
+    value = "DELETE FROM user u WHERE u.email = ?1", 
+    nativeQuery = true)
+    int deleteByEmail(String email);
 }

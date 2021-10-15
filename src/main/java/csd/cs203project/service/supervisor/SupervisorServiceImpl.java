@@ -23,9 +23,24 @@ public class SupervisorServiceImpl implements SupervisorService {
     }
 
 
+    // @Override
+    // public User editValidUsers(String company, List <User> listOfUsers) {
+    //     if (user.getUserType().equals("Employee")) {
+    //         return userRepository.save(user);
+    //     }
+    //     return null;
+    // }
+
+    // @Override
+    // public User updateValidUser(User user) {
+    //     if (user.getUserType().equals("Employee")) {
+    //         return userRepository.save(user);
+    //     }
+    //     return null;
+    // }
+
     @Override
-    public User editValidUsers(String company, List <User> listOfUsers) {
-        User user = null;
+    public User addEmployee(User user) {
         if (user.getUserType().equals("Employee")) {
             return userRepository.save(user);
         }
@@ -33,11 +48,25 @@ public class SupervisorServiceImpl implements SupervisorService {
     }
 
     @Override
-    public User updateValidUser(User user) {
-        if (user.getUserType().equals("Employee")) {
+    public User updateEmployee(String email, User newEmployeeInfo) {
+        Optional<User> u = userRepository.findByEmail(email);
+        if (u.isPresent()){
+            User user = u.get();
+            user.setName(newEmployeeInfo.getName());
+            user.setVaccinationStatus(newEmployeeInfo.getVaccinationStatus());
+            user.setSwabTestResult(newEmployeeInfo.getSwabTestResult());
+            user.setFetStatus(newEmployeeInfo.getFetStatus());
+            user.setCompany(newEmployeeInfo.getCompany());
+
             return userRepository.save(user);
+        } else {
+            return null;
         }
-        return null;
+    }
+
+    @Override
+    public void deleteEmployee(String email) {
+        userRepository.deleteByEmail(email);
     }
 
 

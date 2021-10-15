@@ -8,7 +8,13 @@ import org.springframework.data.jpa.repository.Query;
 public interface SupervisorService {
     List<User> findEmployeesByCompany(String company);
 
-    User editValidUsers(String company, List<User> user);
+    // User editValidUsers(String company, List<User> user);
 
-    User updateValidUser(User user);
+    // User updateValidUser(User user);
+
+    User addEmployee(User user);
+
+    User updateEmployee(String email, User newEmployeeInfo);
+
+    void deleteEmployee(String email);
 }

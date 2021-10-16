@@ -32,13 +32,10 @@ public class SupervisorController {
         return supervisorService.findEmployeesByCompany(company);
     }
 
-    @PutMapping("/employees/{company}")
-    public User editValidUsers(@PathVariable (value = "company") String company, @RequestBody User listOfUsers) {
+    @GetMapping("/employees/administrator/{company}")
+    public List<User> getEmployeesAndAdminsUnderCompany(@PathVariable (value = "company") String company) {
         System.out.println(company);
-        System.out.println(listOfUsers);
-        System.out.println(listOfUsers.getName());
-        return listOfUsers;
-        // supervisorService.editValidUsers(company, listOfUsers);
+        return supervisorService.findEmployeesAndAdminsUnderCompany(company);
     }
 
     @PostMapping("/employees")
@@ -47,7 +44,7 @@ public class SupervisorController {
         return supervisorService.addEmployee(employee);
     }
 
-    @PostMapping("/employees/{email}")
+    @PutMapping("/employees/{email}")
     public User updateEmployee(@PathVariable String email, @RequestBody User newEmployeeInfo) {
         return supervisorService.updateEmployee(email, newEmployeeInfo);
     }
@@ -60,5 +57,7 @@ public class SupervisorController {
             System.out.println(e.getMessage());
         }
     }
+
+    
     
 }

@@ -2,6 +2,8 @@ package csd.cs203project.service.supervisor;
 
 import csd.cs203project.repository.user.UserRepository;
 import java.util.List;
+import java.util.Optional;
+
 import csd.cs203project.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,34 +24,21 @@ public class SupervisorServiceImpl implements SupervisorService {
         return userRepository.findEmployeesByCompany(company, "Admin");
     }
 
-
-    // @Override
-    // public User editValidUsers(String company, List <User> listOfUsers) {
-    //     if (user.getUserType().equals("Employee")) {
-    //         return userRepository.save(user);
-    //     }
-    //     return null;
-    // }
-
-    // @Override
-    // public User updateValidUser(User user) {
-    //     if (user.getUserType().equals("Employee")) {
-    //         return userRepository.save(user);
-    //     }
-    //     return null;
-    // }
+    @Override
+    public List<User> findEmployeesAndAdminsUnderCompany(String company) {
+        return userRepository.findEmployeesByCompany(company, "NULL");
+    }
 
     @Override
     public User addEmployee(User user) {
-        if (user.getUserType().equals("Employee")) {
-            return userRepository.save(user);
-        }
-        return null;
+        return userRepository.save(user);
     }
 
     @Override
     public User updateEmployee(String email, User newEmployeeInfo) {
         Optional<User> u = userRepository.findByEmail(email);
+        System.out.println(u);
+        System.out.println(newEmployeeInfo);
         if (u.isPresent()){
             User user = u.get();
             user.setName(newEmployeeInfo.getName());

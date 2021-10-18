@@ -6,8 +6,7 @@ import java.util.List;
 
 public interface FootfallDataService {
     /**
-     * Returns list of FootfallData objects from db
-     * @return List
+     * @return list of FootfallData objects from db
      */
     List<FootfallData> listFootfallData();
 
@@ -15,8 +14,7 @@ public interface FootfallDataService {
     void reloadFootfallData();
 
     /**
-     * Gets JSON response
-     * @return String
+     * @return JSON response as a String
      */
     String getJsonResponse();
 }

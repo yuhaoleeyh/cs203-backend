@@ -37,8 +37,6 @@ public class SupervisorServiceImpl implements SupervisorService {
     @Override
     public User updateEmployee(String email, User newEmployeeInfo) {
         Optional<User> u = userRepository.findByEmail(email);
-        System.out.println(u);
-        System.out.println(newEmployeeInfo);
         if (u.isPresent()){
             User user = u.get();
             user.setName(newEmployeeInfo.getName());

@@ -26,7 +26,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "users")
 // @JsonIdentityInfo(generator = ObjectIdGenerator.None.class,property = "id")
 public class Shop {
     private @Id @GeneratedValue Long id;

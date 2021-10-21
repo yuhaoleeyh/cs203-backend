@@ -1,24 +1,28 @@
 package csd.cs203project.service.newsarticle;
 
-import csd.cs203project.model.NewsArticle;
-import csd.cs203project.repository.newsarticle.NewsArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
-
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import csd.cs203project.model.NewsArticle;
+import csd.cs203project.repository.newsarticle.NewsArticleRepository;
+
+@Configuration
+@EnableScheduling
 @Service
 public class NewsArticleServiceImpl implements NewsArticleService {
     private NewsArticleRepository newsArticleRepository;
@@ -41,6 +45,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
         newsArticleRepository.save(newsArticle);
     }
 
+    /** Call the News API at 7am and 7pm every day */
+    @Scheduled(cron = "0 0 7,19 * * *")
     @Override
     public void callNewsAPI() {
         LocalDate fromDate = LocalDate.now().minusDays(2);

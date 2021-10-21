@@ -25,10 +25,14 @@ public class NewsArticle {
     private LocalDate date;
     private String url;
 
-    public NewsArticle(String title, String description, LocalDate date, String url) {
+    @Lob
+    private String imageUrl;
+
+    public NewsArticle(String title, String description, LocalDate date, String url, String imageUrl) {
         this.title = title;
         this.description = description;
         this.date = date;
         this.url = url;
+        this.imageUrl = imageUrl;
     }
 }

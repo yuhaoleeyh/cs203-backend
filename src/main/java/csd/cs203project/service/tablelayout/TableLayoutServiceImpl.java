@@ -59,9 +59,11 @@ public class TableLayoutServiceImpl implements TableLayoutService {
                 } else { //indicating a table should be filled there
                     if (counterForTables == numOfTables) {
                         setTables = false;
+                        hashInnerMap.put("y", 0);
+                    } else {
+                        hashInnerMap.put("y", 100);
+                        counterForTables++;
                     }
-                    hashInnerMap.put("y", 100);
-                    counterForTables++;
                     
                 }
 

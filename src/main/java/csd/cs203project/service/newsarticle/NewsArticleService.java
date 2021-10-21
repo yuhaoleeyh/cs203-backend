@@ -8,7 +8,7 @@ public interface NewsArticleService {
     /**
      * @return list of NewsArticle from db
      */
-    List<NewsArticle> listNewsArticles();
+    List<NewsArticle> getLatestArticles();
 
     /**
      * Adds NewsArticle into db

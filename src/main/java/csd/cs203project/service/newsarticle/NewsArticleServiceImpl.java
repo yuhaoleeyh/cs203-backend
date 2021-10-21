@@ -32,8 +32,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
     }
 
     @Override
-    public List<NewsArticle> listNewsArticles () {
-        return newsArticleRepository.findAll();
+    public List<NewsArticle> getLatestArticles () {
+        return newsArticleRepository.findTop5ByOrderByIdDesc();
     }
 
     @Override

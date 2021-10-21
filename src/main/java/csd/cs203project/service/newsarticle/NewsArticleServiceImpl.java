@@ -54,7 +54,6 @@ public class NewsArticleServiceImpl implements NewsArticleService {
             apiUrlString += "pageSize=20&";
             apiUrlString += "domains=straitstimes.com,channelnewsasia.com,todayonline.com&";
             apiUrlString += "apiKey=" + newsApiKey;
-            System.out.println("apiUrlString:"+ apiUrlString);
 
             URL urlForGetRequest = new URL(apiUrlString);
             String readLine = null;
@@ -71,7 +70,6 @@ public class NewsArticleServiceImpl implements NewsArticleService {
                 } in.close();
 
                 String jsonString = response.toString();
-                System.out.println("JSON String Result " + jsonString);
 
                 JSONObject jsonObject = new JSONObject(jsonString);
                 handleNewsApiResponse(jsonObject);
@@ -83,7 +81,6 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
     public void handleNewsApiResponse(JSONObject jsonObject) throws IOException, JSONException {
         JSONArray jsonArray = jsonObject.getJSONArray("articles");
-        System.out.println("Number of articles: " + jsonArray.length());
 
         // Limit to top 5 articles
         int numArticles = 5;

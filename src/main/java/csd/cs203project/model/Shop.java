@@ -29,10 +29,10 @@ import lombok.*;
 @EqualsAndHashCode(exclude = "users")
 // @JsonIdentityInfo(generator = ObjectIdGenerator.None.class,property = "id")
 public class Shop {
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue int id;
 
     private String name;
-    private String shopType;
+    private String shopType; 
     private double area;
     private int numTables;
     private double sizeTables;

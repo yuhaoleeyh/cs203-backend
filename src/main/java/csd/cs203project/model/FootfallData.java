@@ -30,4 +30,9 @@ public class FootfallData {
     private double fastFoodOutlets;
     private double caterers;
     private double otherPlaces;
+
+    public FootfallData(String month, double total) {
+        this.month = month;
+        this.total = total;
+    }
 }

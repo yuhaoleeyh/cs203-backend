@@ -13,7 +13,8 @@ phases:
   post_build:
     commands:
     - echo Build completed on `date`
-    - mv target/cs203-project-0.0.1-SNAPSHOT.jar
+    - mv target/cs203-project-0.0.1-SNAPSHOT.jar cs203-project-0.0.1-SNAPSHOT.jar 
+    
 artifacts:
   files:
   - cs203-project-0.0.1-SNAPSHOT.jar

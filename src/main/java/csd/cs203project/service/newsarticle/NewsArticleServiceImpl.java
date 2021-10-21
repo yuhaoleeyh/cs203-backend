@@ -100,11 +100,12 @@ public class NewsArticleServiceImpl implements NewsArticleService {
             
             String description = articleObject.getString("description");
             String url = articleObject.getString("url");
+            String imageUrl = articleObject.getString("urlToImage");
 
             String dateString = articleObject.getString("publishedAt").substring(0,10);
             LocalDate date = LocalDate.parse(dateString);
 
-            NewsArticle article = new NewsArticle(title, description, date, url);
+            NewsArticle article = new NewsArticle(title, description, date, url, imageUrl);
             addNewsArticle(article);
             System.out.println("Added article: " + article);
         }

@@ -1,24 +1,28 @@
 package csd.cs203project.service.newsarticle;
 
-import csd.cs203project.model.NewsArticle;
-import csd.cs203project.repository.newsarticle.NewsArticleRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.LocalDate;
-
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import csd.cs203project.model.NewsArticle;
+import csd.cs203project.repository.newsarticle.NewsArticleRepository;
+
+@Configuration
+@EnableScheduling
 @Service
 public class NewsArticleServiceImpl implements NewsArticleService {
     private NewsArticleRepository newsArticleRepository;
@@ -32,8 +36,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
     }
 
     @Override
-    public List<NewsArticle> listNewsArticles () {
-        return newsArticleRepository.findAll();
+    public List<NewsArticle> getLatestArticles () {
+        return newsArticleRepository.findTop5ByOrderByIdDesc();
     }
 
     @Override
@@ -41,6 +45,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
         newsArticleRepository.save(newsArticle);
     }
 
+    /** Call the News API at 7am and 7pm every day */
+    @Scheduled(cron = "0 0 7,19 * * *")
     @Override
     public void callNewsAPI() {
         LocalDate fromDate = LocalDate.now().minusDays(2);
@@ -54,7 +60,6 @@ public class NewsArticleServiceImpl implements NewsArticleService {
             apiUrlString += "pageSize=20&";
             apiUrlString += "domains=straitstimes.com,channelnewsasia.com,todayonline.com&";
             apiUrlString += "apiKey=" + newsApiKey;
-            System.out.println("apiUrlString:"+ apiUrlString);
 
             URL urlForGetRequest = new URL(apiUrlString);
             String readLine = null;
@@ -71,7 +76,6 @@ public class NewsArticleServiceImpl implements NewsArticleService {
                 } in.close();
 
                 String jsonString = response.toString();
-                System.out.println("JSON String Result " + jsonString);
 
                 JSONObject jsonObject = new JSONObject(jsonString);
                 handleNewsApiResponse(jsonObject);
@@ -83,7 +87,6 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
     public void handleNewsApiResponse(JSONObject jsonObject) throws IOException, JSONException {
         JSONArray jsonArray = jsonObject.getJSONArray("articles");
-        System.out.println("Number of articles: " + jsonArray.length());
 
         // Limit to top 5 articles
         int numArticles = 5;
@@ -92,6 +95,9 @@ public class NewsArticleServiceImpl implements NewsArticleService {
             JSONObject articleObject = jsonArray.getJSONObject(i);
 
             String title = articleObject.getString("title");
+            if (newsArticleRepository.existsByTitle(title))
+                continue;
+            
             String description = articleObject.getString("description");
             String url = articleObject.getString("url");
 

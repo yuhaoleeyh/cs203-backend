@@ -23,8 +23,8 @@ public class NewsArticleController {
     }
 
     @GetMapping("/newsArticle")
-    public List<NewsArticle> listNewsArticles() {
-        return newsArticleService.listNewsArticles();
+    public List<NewsArticle> getNewsArticles() {
+        return newsArticleService.getLatestArticles();
     }
 
     @GetMapping("/callNewsAPI")

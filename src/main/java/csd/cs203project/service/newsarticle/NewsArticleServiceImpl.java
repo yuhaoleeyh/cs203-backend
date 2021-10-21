@@ -95,6 +95,9 @@ public class NewsArticleServiceImpl implements NewsArticleService {
             JSONObject articleObject = jsonArray.getJSONObject(i);
 
             String title = articleObject.getString("title");
+            if (newsArticleRepository.existsByTitle(title))
+                continue;
+            
             String description = articleObject.getString("description");
             String url = articleObject.getString("url");
 

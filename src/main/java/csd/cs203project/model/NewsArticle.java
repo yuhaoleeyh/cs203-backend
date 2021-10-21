@@ -24,4 +24,11 @@ public class NewsArticle {
     private String description;
     private LocalDate date;
     private String url;
+
+    public NewsArticle(String title, String description, LocalDate date, String url) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.url = url;
+    }
 }

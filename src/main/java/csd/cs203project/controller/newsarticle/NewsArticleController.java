@@ -26,4 +26,9 @@ public class NewsArticleController {
     public List<NewsArticle> listNewsArticles() {
         return newsArticleService.listNewsArticles();
     }
+
+    @GetMapping("/callNewsAPI")
+    public void callNewsAPI() {
+        newsArticleService.callNewsAPI();
+    }
 }

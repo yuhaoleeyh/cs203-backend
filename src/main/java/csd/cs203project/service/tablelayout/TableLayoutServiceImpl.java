@@ -45,7 +45,7 @@ public class TableLayoutServiceImpl implements TableLayoutService {
         boolean setTables = true;
 
 
-        for (int i = 0; i < numOfHeights; i++) { //iterate through the height
+        for (int i = 0; i < numOfHeights; i++) { //iterate through the height given
             
 
             ArrayList<HashMap<String, Integer>> innerList = new ArrayList<>();

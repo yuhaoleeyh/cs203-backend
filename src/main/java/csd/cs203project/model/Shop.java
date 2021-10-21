@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+
 import javax.persistence.OneToMany;
 import javax.persistence.CascadeType;
 
@@ -21,12 +26,13 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "users")
+// @JsonIdentityInfo(generator = ObjectIdGenerator.None.class,property = "id")
 public class Shop {
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue int id;
 
     private String name;
-    private String shopType;
+    private String shopType; 
     private double area;
     private int numTables;
     private double sizeTables;

@@ -18,7 +18,7 @@ import java.util.List;
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class SupervisorTests {
+public class SupervisorIntegrationTest {
     @LocalServerPort
     private int port;
 

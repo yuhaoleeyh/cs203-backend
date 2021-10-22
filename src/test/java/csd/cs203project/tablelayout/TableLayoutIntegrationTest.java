@@ -58,7 +58,7 @@ import org.springframework.http.MediaType;
 // @RunWith(.class)
 // @ExtendWith(SpringExtension.class)
 // @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-// public class TableLayoutUnitTests {
+// public class TableLayoutIntegrationTest {
 //    @LocalServerPort
 //    private int port;
 

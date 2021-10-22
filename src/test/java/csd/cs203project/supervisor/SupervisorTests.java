@@ -1,6 +1,7 @@
 package csd.cs203project.supervisor;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -16,26 +17,31 @@ import java.net.URI;
 import java.util.List;
 
 
-// @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-// public class SupervisorTests {
-//     @LocalServerPort
-//     private int port;
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+public class SupervisorTests {
+    @LocalServerPort
+    private int port;
 
-//     private final String baseUrl = "http://localhost:";
+    private final String baseUrl = "http://localhost:";
 
-//     @Autowired
-//     private TestRestTemplate restTemplate;
+    @Autowired
+    private TestRestTemplate restTemplate;
 
 
-//     // @Test
-//     public void getEmployeesTest() throws Exception {
-//         URI uri = new URI(baseUrl + port + "/employees/KFC");
+    @Test
+    public void getEmployeesTest() throws Exception {
+        URI uri = new URI(baseUrl + port + "/employees/KFC");
 
-//        ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
-//        User[] listOfEmployees = result.getBody();
+       ResponseEntity<Object[]> result = restTemplate.getForEntity(uri, Object[].class);
+       Object[] listOfEmployees = result.getBody();
 
-//        assertEquals(200, result.getStatusCode().value());
+       assertEquals(200, result.getStatusCode().value());
     
-//     }
+    }
 
-// }
+    @Test 
+    public void testAddition() {
+        assertEquals(3, 3);
+    }
+
+}

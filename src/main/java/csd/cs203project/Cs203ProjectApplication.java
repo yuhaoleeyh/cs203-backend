@@ -23,9 +23,5 @@ public class Cs203ProjectApplication {
 		ApplicationContext ctx = SpringApplication.run(Cs203ProjectApplication.class, args);
 	}
 
-	@Bean
-	public RestTemplate getRestTemplate() {
-		return new RestTemplate();
-	}
 
 }

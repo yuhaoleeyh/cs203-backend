@@ -16,27 +16,26 @@ import java.net.URI;
 import java.util.List;
 
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class SupervisorTests {
-    @LocalServerPort
-    private int port;
+// @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+// public class SupervisorTests {
+//     @LocalServerPort
+//     private int port;
 
-    private final String baseUrl = "http://localhost:";
+//     private final String baseUrl = "http://localhost:";
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+//     @Autowired
+//     private TestRestTemplate restTemplate;
 
 
-    //Work in progress, not working at the moment. Other tests will be added into the final project repo
-    // @Test
-    // public void getEmployeesTest() throws Exception {
-    //     URI uri = new URI(baseUrl + port + "/employees/KFC");
+//     // @Test
+//     public void getEmployeesTest() throws Exception {
+//         URI uri = new URI(baseUrl + port + "/employees/KFC");
 
-    //    ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
-    //    User[] listOfEmployees = result.getBody();
+//        ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
+//        User[] listOfEmployees = result.getBody();
 
-    //    assertEquals(200, result.getStatusCode().value());
+//        assertEquals(200, result.getStatusCode().value());
     
-    // }
+//     }
 
-}
+// }

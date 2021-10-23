@@ -30,7 +30,7 @@ public class SupervisorServiceTest {
     private SupervisorServiceImpl supervisorService;
 
     @Test
-    void addNewUser_ReturnSavedUser() {
+    void addNewEmployee_ReturnSavedEmployee() {
         //arrange
         User user = new User("hi@gmail.com", "Mary", "Admin", "KFC");
         // mock the "findByEmail" operation
@@ -49,11 +49,11 @@ public class SupervisorServiceTest {
     }
 
     @Test 
-    void addUser_SameEmail_ReturnNull() {
+    void addEmployee_SameEmail_ReturnNull() {
         User user = new User("a@b", "Mary", "Admin", "KFC");
         // mock the "findByEmail" operation
         when(userRepository.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
-        // mock the "save" operation 
+        
 
         //act
         User savedUser = supervisorService.addEmployee(user);
@@ -63,6 +63,45 @@ public class SupervisorServiceTest {
 
         verify(userRepository).findByEmail(user.getEmail());
     }
+
+    @Test 
+    void updateEmployee_NotFound_ReturnNull(){
+        User user = new User("^FS*F^*DSFDSF", "Test", "Admin", "KFC");
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
+        
+        User updatedUser = supervisorService.updateEmployee(user.getEmail(), user);
+        
+        assertNull(updatedUser);
+        verify(userRepository).findByEmail(user.getEmail());
+    }
+
+    @Test 
+    void updateEmployee_Found_ReturnSavedUser(){
+        User user = new User("yay@gmail.com", "NewNameForMe", "Admin", "KFC");
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(new User("yay@gmail.com", "Marysss", "Admin", "CoffeeBean")));
+        // mock the "save" operation 
+        when(userRepository.save(any(User.class))).thenReturn(user);
+        
+        User updatedUser = supervisorService.updateEmployee(user.getEmail(), user);
+        
+        assertNotNull(updatedUser);
+        verify(userRepository).findByEmail(user.getEmail());
+        verify(userRepository).save(user);
+    }
+
+    @Test 
+    void deleteEmployee_Found() {
+        User user = new User("yay@gmail.com", "Marysss", "Admin", "CoffeeBean");
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+
+        supervisorService.deleteEmployee(user.getEmail());
+
+        verify(userRepository).findByEmail(user.getEmail());
+
+
+    }
+
+    
 
     
 }

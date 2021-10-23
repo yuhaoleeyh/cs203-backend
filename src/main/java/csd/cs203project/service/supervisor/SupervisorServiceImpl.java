@@ -58,7 +58,12 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public void deleteEmployee(String email) {
-        userRepository.deleteByEmail(email);
+        Optional<User> u = userRepository.findByEmail(email);
+        if (u.isPresent()){
+            userRepository.deleteByEmail(email);
+        } else {
+            return;
+        }
     }
 
 

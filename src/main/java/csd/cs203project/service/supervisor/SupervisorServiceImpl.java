@@ -31,7 +31,12 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public User addEmployee(User user) {
-        return userRepository.save(user);
+        Optional<User> u = userRepository.findByEmail(user.getEmail());
+        if(!u.isPresent()) {
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
     }
 
     @Override

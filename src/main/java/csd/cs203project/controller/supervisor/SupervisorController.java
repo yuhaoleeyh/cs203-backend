@@ -34,13 +34,11 @@ public class SupervisorController {
 
     @GetMapping("/employees/administrator/{company}")
     public List<User> getEmployeesAndAdminsUnderCompany(@PathVariable (value = "company") String company) {
-        System.out.println(company);
         return supervisorService.findEmployeesAndAdminsUnderCompany(company);
     }
 
     @PostMapping("/employees")
     public User addEmployee(@RequestBody User employee) {
-        System.out.println(employee);
         return supervisorService.addEmployee(employee);
     }
 

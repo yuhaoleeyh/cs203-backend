@@ -9,6 +9,9 @@ import csd.cs203project.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
+
  
 @Service
 public class SupervisorServiceImpl implements SupervisorService {
@@ -58,11 +61,10 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public void deleteEmployee(String email) {
-        Optional<User> u = userRepository.findByEmail(email);
-        if (u.isPresent()){
+        if (userRepository.findByEmail(email).isPresent()) {
             userRepository.deleteByEmail(email);
         } else {
-            return;
+            throw new EmptyResultDataAccessException(1); 
         }
     }
 

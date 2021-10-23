@@ -66,7 +66,7 @@ public class SupervisorServiceTest {
 
     @Test 
     void updateEmployee_NotFound_ReturnNull(){
-        User user = new User("^FS*F^*DSFDSF", "Test", "Admin", "KFC");
+        User user = new User("EFSGFDCDSFDSF", "Test", "Admin", "KFC");
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
         
         User updatedUser = supervisorService.updateEmployee(user.getEmail(), user);
@@ -89,19 +89,7 @@ public class SupervisorServiceTest {
         verify(userRepository).save(user);
     }
 
-    @Test 
-    void deleteEmployee_Found() {
-        User user = new User("yay@gmail.com", "Marysss", "Admin", "CoffeeBean");
-        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
-        supervisorService.deleteEmployee(user.getEmail());
-
-        verify(userRepository).findByEmail(user.getEmail());
-
-
-    }
-
-    
 
     
 }

@@ -31,7 +31,12 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public User addEmployee(User user) {
-        return userRepository.save(user);
+        Optional<User> u = userRepository.findByEmail(user.getEmail());
+        if(!u.isPresent()) {
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -53,7 +58,12 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public void deleteEmployee(String email) {
-        userRepository.deleteByEmail(email);
+        Optional<User> u = userRepository.findByEmail(email);
+        if (u.isPresent()){
+            userRepository.deleteByEmail(email);
+        } else {
+            return;
+        }
     }
 
 

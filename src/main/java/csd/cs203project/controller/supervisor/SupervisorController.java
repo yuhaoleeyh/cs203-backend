@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
+
 
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class SupervisorController {
         return supervisorService.findEmployeesAndAdminsUnderCompany(company);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employees")
     public User addEmployee(@RequestBody User employee) {
         return supervisorService.addEmployee(employee);

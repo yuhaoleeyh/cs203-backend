@@ -45,8 +45,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
         newsArticleRepository.save(newsArticle);
     }
 
-    /** Call the News API at 7am and 7pm every day */
-    @Scheduled(cron = "0 0 7,19 * * *")
+    /** Call the News API at 7am every day */
+    @Scheduled(cron = "0 0 7 * * *")
     @Override
     public void callNewsAPI() {
         LocalDate fromDate = LocalDate.now().minusDays(2);

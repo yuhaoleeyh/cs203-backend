@@ -27,8 +27,4 @@ public class NewsArticleController {
         return newsArticleService.getLatestArticles();
     }
 
-    @GetMapping("/callNewsAPI")
-    public void callNewsAPI() {
-        newsArticleService.callNewsAPI();
-    }
 }

@@ -4,6 +4,7 @@ import csd.cs203project.model.Measures;
 import csd.cs203project.model.User;
 import csd.cs203project.repository.measures.MeasuresRepository;
 import csd.cs203project.service.SES.SESService;
+import csd.cs203project.service.notifications.NotificationsService;
 import csd.cs203project.service.telegrambot.TelegramBotService;
 import csd.cs203project.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +18,14 @@ import java.util.stream.Collectors;
 public class MeasuresServiceImpl implements MeasuresService {
 
     private MeasuresRepository measuresRepository;
-
     private UserService userService;
-
-    private TelegramBotService telegramBotService;
-
-    private SESService sesService;
+    private NotificationsService notificationsService;
 
     @Autowired
-    public MeasuresServiceImpl(MeasuresRepository measuresRepository, UserService userService, TelegramBotService telegramBotService, SESService sesService) {
+    public MeasuresServiceImpl(MeasuresRepository measuresRepository, UserService userService, NotificationsService notificationsService) {
         this.measuresRepository = measuresRepository;
         this.userService = userService;
-        this.telegramBotService = telegramBotService;
-        this.sesService = sesService;
+        this.notificationsService = notificationsService;
     }
 
     @Override
@@ -40,12 +36,8 @@ public class MeasuresServiceImpl implements MeasuresService {
         if (oldMeasures != null){
             List<String> changes = getChangeInMeasures(oldMeasures, measures);
             List<User> affectedUsers = userService.findByShopShopType(measures.getTypeOfShop());
-            List<String> affectedUsersEmails = affectedUsers.stream()
-                    .map(affectedUser -> affectedUser.getEmail())
-                    .collect(Collectors.toList());
             if (changes.size() > 0) {
-                telegramBotService.sendUpdate(changes, affectedUsers);
-                //sesService.sendMessageEmailRequest("fake", "faker", affectedUserEmails);
+                notificationsService.sendChangedMeasures(changes, affectedUsers);
             }
         }
         measuresRepository.deleteByTypeOfShop(measures.getTypeOfShop());

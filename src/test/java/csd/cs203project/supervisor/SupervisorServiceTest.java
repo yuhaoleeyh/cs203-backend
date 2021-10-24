@@ -88,8 +88,4 @@ public class SupervisorServiceTest {
         verify(userRepository).findByEmail(user.getEmail());
         verify(userRepository).save(user);
     }
-
-
-
-    
 }

@@ -18,8 +18,8 @@ public class NewsArticleController {
     }
 
     @PostMapping("/newsArticle")
-    public void addNewsArticle (@RequestBody NewsArticle newsArticle) {
-        newsArticleService.addNewsArticle(newsArticle);
+    public NewsArticle addNewsArticle (@RequestBody NewsArticle newsArticle) {
+        return newsArticleService.addNewsArticle(newsArticle);
     }
 
     @GetMapping("/newsArticle")

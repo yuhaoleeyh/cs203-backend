@@ -41,8 +41,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
     }
 
     @Override
-    public void addNewsArticle (NewsArticle newsArticle) {
-        newsArticleRepository.save(newsArticle);
+    public NewsArticle addNewsArticle (NewsArticle newsArticle) {
+        return newsArticleRepository.save(newsArticle);
     }
 
     /** Call the News API at 7am and 7pm every day */

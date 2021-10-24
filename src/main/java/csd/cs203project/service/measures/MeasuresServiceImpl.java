@@ -29,7 +29,7 @@ public class MeasuresServiceImpl implements MeasuresService {
     }
 
     @Override
-    public Measures addMeasures(Measures measures) {
+    public Measures updateMeasures(Measures measures) {
      
         Measures oldMeasures = findByTypeOfShop(measures.getTypeOfShop());
         if (measures.getClosingTime().length() == 5) measures.setClosingTime(measures.getClosingTime()+":00");

@@ -6,12 +6,15 @@ import csd.cs203project.repository.measures.MeasuresRepository;
 import csd.cs203project.repository.user.UserRepository;
 import csd.cs203project.service.measures.MeasuresService;
 import csd.cs203project.service.measures.MeasuresServiceImpl;
+import csd.cs203project.service.notifications.NotificationsService;
 import csd.cs203project.service.supervisor.SupervisorService;
 import csd.cs203project.service.supervisor.SupervisorServiceImpl;
+import csd.cs203project.service.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
@@ -20,22 +23,23 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MeasuresServiceTest {
     @Mock
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Mock
     private MeasuresRepository measuresRepository;
 
+    @Mock
+    private NotificationsService notificationsService;
+
+    @Spy
     @InjectMocks
     private MeasuresServiceImpl measuresService;
 
-    @InjectMocks
-    private SupervisorServiceImpl supervisorService;
 
     @Test
     void findByTypeOfShop_ReturnFoundMeasures() {
@@ -105,8 +109,55 @@ public class MeasuresServiceTest {
 
     }
 
-    void addMeasures() {
+    @Test
+    void updateMeasures_NoOldMeasures_ReturnNewMeasures() {
+        //arrange
+        Measures newMeasures = new Measures(1L, "fastfoodoutlet", 3,3,3,3,"22:22:22", "2");
+        //mock the "findByTypeOfShop" operation
+        doReturn(null).when(measuresService).findByTypeOfShop(any(String.class));
+        //mock the "deleteByTypeOfShop" operation
+        doNothing().when(measuresRepository).deleteByTypeOfShop(any(String.class));
+        //mock the "save" operation
+        when(measuresRepository.save(any(Measures.class))).thenReturn(newMeasures);
 
+        //act
+        Measures measures = measuresService.updateMeasures(newMeasures);
+
+        //assert
+        assertEquals(newMeasures, measures);
+
+        verify(measuresService).findByTypeOfShop(newMeasures.getTypeOfShop());
+        verify(measuresRepository).deleteByTypeOfShop(newMeasures.getTypeOfShop());
+        verify(measuresRepository).save(newMeasures);
+    }
+
+    @Test
+    void updateMeasures_WithOldMeasures_ReturnNewMeasures() {
+        //arrange
+        Measures oldMeasures = new Measures(1L, "fastfoodoutlet", 2,2,2,2,"11:11:11", "3");
+        Measures newMeasures = new Measures(1L, "fastfoodoutlet", 3,3,3,3,"22:22:22", "2");
+        //mock the "findByTypeOfShop" operation
+        doReturn(oldMeasures).when(measuresService).findByTypeOfShop(any(String.class));
+        //mock the "getChangeInMeasures" operation
+        doReturn(new ArrayList<String>()).when(measuresService).getChangeInMeasures(any(Measures.class), any(Measures.class));
+        //mock the "findByShopShopType" operation
+        when(userService.findByShopShopType(any(String.class))).thenReturn(new ArrayList<>());
+        //mock the "deleteByTypeOfShop" operation
+        doNothing().when(measuresRepository).deleteByTypeOfShop(any(String.class));
+        //mock the "save" operation
+        when(measuresRepository.save(any(Measures.class))).thenReturn(newMeasures);
+
+        //act
+        Measures measures = measuresService.updateMeasures(newMeasures);
+
+        //assert
+        assertEquals(newMeasures, measures);
+
+        verify(measuresService).findByTypeOfShop(newMeasures.getTypeOfShop());
+        verify(measuresService).getChangeInMeasures(oldMeasures, newMeasures);
+        verify(userService).findByShopShopType(newMeasures.getTypeOfShop());
+        verify(measuresRepository).deleteByTypeOfShop(newMeasures.getTypeOfShop());
+        verify(measuresRepository).save(newMeasures);
     }
 
 

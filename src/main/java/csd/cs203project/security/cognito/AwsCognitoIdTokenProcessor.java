@@ -43,7 +43,7 @@ public class AwsCognitoIdTokenProcessor {
                 return new JwtAuthentication(user, claims, grantedAuthorities);
             }
         } else {
-            System.out.println("User not authenticated");
+            // System.out.println("User is not authenticated when calling this API endpoint");
         }
         return null;
     }

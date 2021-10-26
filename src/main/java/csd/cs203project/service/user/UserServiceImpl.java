@@ -1,6 +1,7 @@
 package csd.cs203project.service.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void addUser(User user) {
+    public User addUser(User user) {
+        Optional<User> u = userRepository.findByEmail(user.getEmail());
+        if (u.isPresent()) {
+            return null;
+        }
+        
         //Generate TelegramSignUpToken
         String telegramSignUpToken = telegramBot.generateSignUpToken(user.getId());
         user.setTelegramSignUpToken(telegramSignUpToken);
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override

@@ -1,13 +1,19 @@
 package csd.cs203project.model;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.ManyToOne;
 
@@ -25,7 +31,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class User {
+public class User implements UserDetails {
     private @Id @GeneratedValue Long id;
 
     private String name;
@@ -39,23 +45,49 @@ public class User {
     private String telegramSignUpToken;
     private String telegramChatId;
 
+    // Different roles/authorities: ROLE_PROF, ROLE_ADMIN, ROLE_SUPERVISOR, ROLE_EMPLOYEE
+    private String authorities = "ROLE_EMPLOYEE";
+
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToOne
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-
-    public User(String name, String userType, String company) {
-        this.name = name;
-        this.userType = userType;
-        this.company = company;
-    }
-
-    public User(String email, String name, String userType, String company) {
+    public User(String email, String name, String authorities, String company) {
         this.email = email;
         this.name = name;
-        this.userType = userType;
+        this.authorities = authorities;
         this.company = company;
     }
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Arrays.asList(new SimpleGrantedAuthority(authorities));
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+    
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

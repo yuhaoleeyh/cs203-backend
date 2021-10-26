@@ -32,7 +32,7 @@ public class SupervisorServiceTest {
     @Test
     void addNewEmployee_ReturnSavedEmployee() {
         //arrange
-        User user = new User("hi@gmail.com", "Mary", "Admin", "KFC");
+        User user = new User("hi@gmail.com", "Mary", "ROLE_ADMIN", "KFC");
         // mock the "findByEmail" operation
         when(userRepository.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(null));
         // mock the "save" operation 
@@ -50,7 +50,7 @@ public class SupervisorServiceTest {
 
     @Test 
     void addEmployee_SameEmail_ReturnNull() {
-        User user = new User("a@b", "Mary", "Admin", "KFC");
+        User user = new User("a@b", "Mary", "ROLE_ADMIN", "KFC");
         // mock the "findByEmail" operation
         when(userRepository.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
         
@@ -66,7 +66,7 @@ public class SupervisorServiceTest {
 
     @Test 
     void updateEmployee_NotFound_ReturnNull(){
-        User user = new User("EFSGFDCDSFDSF", "Test", "Admin", "KFC");
+        User user = new User("EFSGFDCDSFDSF", "Test", "ROLE_ADMIN", "KFC");
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.empty());
         
         User updatedUser = supervisorService.updateEmployee(user.getEmail(), user);
@@ -77,8 +77,8 @@ public class SupervisorServiceTest {
 
     @Test 
     void updateEmployee_Found_ReturnSavedUser(){
-        User user = new User("yay@gmail.com", "NewNameForMe", "Admin", "KFC");
-        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(new User("yay@gmail.com", "Marysss", "Admin", "CoffeeBean")));
+        User user = new User("yay@gmail.com", "NewNameForMe", "ROLE_ADMIN", "KFC");
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(new User("yay@gmail.com", "Marysss", "ROLE_ADMIN", "CoffeeBean")));
         // mock the "save" operation 
         when(userRepository.save(any(User.class))).thenReturn(user);
         

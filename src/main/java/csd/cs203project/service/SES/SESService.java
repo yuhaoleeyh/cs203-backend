@@ -7,7 +7,7 @@ import software.amazon.awssdk.services.ses.model.*;
 import java.util.List;
 
 public interface SESService {
-    public void sendMessageEmailRequest(List<String> recipient, String bodyHTML);
+    public void sendMessageEmailRequest(List<String> recipient, List<String> changes);
 
     void send(SesClient client,
                             String sender,

@@ -24,9 +24,9 @@ public class MeasuresController {
     }
 
     @PostMapping("/measures")
-    public Measures addMeasures(@RequestBody Measures measures) {
+    public Measures updateMeasures(@RequestBody Measures measures) {
         System.out.println(measures);
-        return measuresService.addMeasures(measures);
+        return measuresService.updateMeasures(measures);
     }
 
     @GetMapping("/measures/{shopType}")

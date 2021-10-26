@@ -9,11 +9,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
+
+import org.springframework.dao.EmptyResultDataAccessException;
+
+
 
 import java.util.List;
 
 import javax.validation.Valid;
 
+import csd.cs203project.exception.supervisor.EmployeeExistsException;
+import csd.cs203project.exception.supervisor.EmployeeNotFoundException;
 import csd.cs203project.model.*;
 import csd.cs203project.service.supervisor.*;
 
@@ -34,27 +42,35 @@ public class SupervisorController {
 
     @GetMapping("/employees/administrator/{company}")
     public List<User> getEmployeesAndAdminsUnderCompany(@PathVariable (value = "company") String company) {
-        System.out.println(company);
         return supervisorService.findEmployeesAndAdminsUnderCompany(company);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/employees")
     public User addEmployee(@RequestBody User employee) {
-        System.out.println(employee);
-        return supervisorService.addEmployee(employee);
+        User savedEmployee = supervisorService.addEmployee(employee);
+        if (savedEmployee == null) {
+            throw new EmployeeExistsException(employee.getEmail());
+        }
+        return savedEmployee;
     }
 
     @PutMapping("/employees/{email}")
     public User updateEmployee(@PathVariable String email, @RequestBody User newEmployeeInfo) {
-        return supervisorService.updateEmployee(email, newEmployeeInfo);
+        
+        User user = supervisorService.updateEmployee(email, newEmployeeInfo);
+        if (user == null) {
+            throw new EmployeeNotFoundException(email);
+        }
+        return user;
     }
 
     @DeleteMapping("/employees/{email}")
     public void deleteEmployee(@PathVariable String email) {
         try {
             supervisorService.deleteEmployee(email);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (EmptyResultDataAccessException e) {
+            throw new EmployeeNotFoundException(email);
         }
     }
 

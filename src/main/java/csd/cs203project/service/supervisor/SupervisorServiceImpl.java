@@ -9,6 +9,9 @@ import csd.cs203project.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
+
  
 @Service
 public class SupervisorServiceImpl implements SupervisorService {
@@ -31,7 +34,12 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public User addEmployee(User user) {
-        return userRepository.save(user);
+        Optional<User> u = userRepository.findByEmail(user.getEmail());
+        if(!u.isPresent()) {
+            return userRepository.save(user);
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -53,7 +61,11 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public void deleteEmployee(String email) {
-        userRepository.deleteByEmail(email);
+        if (userRepository.findByEmail(email).isPresent()) {
+            userRepository.deleteByEmail(email);
+        } else {
+            throw new EmptyResultDataAccessException(1); 
+        }
     }
 
 

@@ -5,8 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import csd.cs203project.model.*;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ShopRepository extends JpaRepository <Shop, Long> {
-    Shop findById(int shopId);
+    Optional<Shop> findById(Long shopId);
+
+    Optional<Shop> findByName(String name);
 }

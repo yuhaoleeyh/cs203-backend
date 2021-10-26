@@ -4,8 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,5 +86,15 @@ public class SupervisorServiceTest {
         assertNotNull(updatedUser);
         verify(userRepository).findByEmail(user.getEmail());
         verify(userRepository).save(user);
+    }
+
+    @Test
+    void deleteEmployee_Deleted() {
+        User user = new User("test@gmail.com", "Test", "Admin", "KFC");
+        when(userRepository.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
+
+        supervisorService.deleteEmployee(user.getEmail());
+
+        verify(userRepository, times(1)).deleteByEmail(user.getEmail());
     }
 }

@@ -1,5 +1,7 @@
 package csd.cs203project.security.cognito;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +17,11 @@ public class CognitoTestController {
     
     @GetMapping(path = "/cognito/only-authenticated")
     public String getResp(){
-        return  "Response: You are cognito-authenticated!";
+        User user = (User) (SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        String email = user.getUsername();
+        System.out.println("email: " + email);
+        
+        return  "Response: You are cognito-authenticated at this email: " + email;
     }
 
 }

@@ -16,9 +16,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
+import csd.cs203project.service.user.UserService;
+
 @Component
 public class AwsCognitoIdTokenProcessor {
-
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private JwtConfiguration jwtConfiguration;
@@ -32,16 +35,23 @@ public class AwsCognitoIdTokenProcessor {
             JWTClaimsSet claims = this.configurableJWTProcessor.process(this.getBearerToken(idToken),null);
             validateIssuer(claims);
             verifyIfIdToken(claims);
-            String username = getUserNameFrom(claims);
-            if (username != null) {
-                List<GrantedAuthority> grantedAuthorities = of( new SimpleGrantedAuthority("ROLE_ADMIN"));
-                User user = new User(username, "", of());
+
+            String email = getEmailFrom(claims);
+            if (email != null) {
+                List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) userService.getUser(email).getAuthorities();
+                User user = new User(email, "", of());
                 return new JwtAuthentication(user, claims, grantedAuthorities);
             }
+        } else {
+            System.out.println("User not authenticated");
         }
         return null;
     }
 
+    private String getEmailFrom(JWTClaimsSet claims) {
+        return claims.getClaims().get("email").toString();
+    }
+    
     private String getUserNameFrom(JWTClaimsSet claims) {
         return claims.getClaims().get(this.jwtConfiguration.getUserNameField()).toString();
     }

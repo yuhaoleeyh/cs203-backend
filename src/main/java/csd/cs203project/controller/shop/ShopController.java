@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import csd.cs203project.model.Shop;
 import csd.cs203project.service.shop.ShopService;
 
-import javax.ws.rs.Path;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -44,21 +43,21 @@ public class ShopController {
         return savedShop;
     }
 
-    @PutMapping("/shops/{id}")
-    public Shop updateShop (@PathVariable Long id, @RequestBody Shop newShopInfo) {
-        Shop shop = shopService.updateShop(id, newShopInfo);
+    @PutMapping("/shops/{name}")
+    public Shop updateShop (@PathVariable String name, @RequestBody Shop newShopInfo) {
+        Shop shop = shopService.updateShop(name, newShopInfo);
         if (shop == null) {
-            throw new ResourceNotFoundException("Shop with ID " + id);
+            throw new ResourceNotFoundException("Shop with name " + name);
         }
         return shop;
     }
 
-    @DeleteMapping("/shops/{id}")
-    public void deleteShop (@PathVariable Long id) {
+    @DeleteMapping("/shops/{name}")
+    public void deleteShop (@PathVariable String name) {
         try {
-            shopService.deleteShop(id);
+            shopService.deleteShop(name);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Shop with ID " + id);
+            throw new ResourceNotFoundException("Shop with name " + name);
         }
     }
 }

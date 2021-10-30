@@ -22,11 +22,11 @@ public class NotificationsServiceImpl implements NotificationsService{
     }
 
     @Override
-    public void sendChangedMeasures(List<String> changes, List<User> affectedUsers) {
+    public void sendChangedMeasures(List<String> changes, List<User> affectedUsers, String typeOfShop) {
         List<String> affectedUsersEmails = affectedUsers.stream()
                 .map(affectedUser -> affectedUser.getEmail())
                 .collect(Collectors.toList());
-        telegramBotService.sendUpdate(changes, affectedUsers);
+        telegramBotService.sendUpdate(changes, affectedUsers, typeOfShop);
         //sesService.sendMessageEmailRequest(affectedUsersEmails, changes);
 
     }

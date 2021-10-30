@@ -30,17 +30,17 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     @Override
     public Measures updateMeasures(Measures measures) {
-     
-        Measures oldMeasures = findByTypeOfShop(measures.getTypeOfShop());
+        String typeOfShop = measures.getTypeOfShop();
+        Measures oldMeasures = findByTypeOfShop(typeOfShop);
         if (measures.getClosingTime().length() == 5) measures.setClosingTime(measures.getClosingTime()+":00");
         if (oldMeasures != null){
             List<String> changes = getChangeInMeasures(oldMeasures, measures);
-            List<User> affectedUsers = userService.findByShopShopType(measures.getTypeOfShop());
+            List<User> affectedUsers = userService.findByShopShopType(typeOfShop);
             if (changes.size() > 0) {
-                notificationsService.sendChangedMeasures(changes, affectedUsers);
+                notificationsService.sendChangedMeasures(changes, affectedUsers, typeOfShop);
             }
         }
-        measuresRepository.deleteByTypeOfShop(measures.getTypeOfShop());
+        measuresRepository.deleteByTypeOfShop(typeOfShop);
         return measuresRepository.save(measures);
 
     }

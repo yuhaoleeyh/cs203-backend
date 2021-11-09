@@ -51,8 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			/** Users */
 			.antMatchers(HttpMethod.POST, "/users").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
 
-			/** All other requests should also be authenticated */
-			.anyRequest().authenticated()
+			/** All other requests do not need to be authenticated */
+			.anyRequest().permitAll()
 			.and()
 			.addFilterBefore(awsCognitoJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}

@@ -16,7 +16,7 @@ import csd.cs203project.model.Measures;
 
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment =  SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MeasuresIntergrationTest {
+public class MeasuresIntegrationTest {
     @LocalServerPort
     private int port;
 

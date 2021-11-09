@@ -53,7 +53,6 @@ public class UserServiceImpl implements UserService{
     public User updateUser(String email, User newUserInfo) {
         return userRepository.findByEmail(email).map(user -> {
             user.setName(newUserInfo.getName());
-            user.setTelegramHandle(newUserInfo.getTelegramHandle());
             return userRepository.save(user);
         }).orElse(null);
     }

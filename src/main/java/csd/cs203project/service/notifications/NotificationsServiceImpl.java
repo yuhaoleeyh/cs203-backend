@@ -27,7 +27,7 @@ public class NotificationsServiceImpl implements NotificationsService{
         List<String> affectedUsersEmails = affectedUsers.stream()
                 .map(affectedUser -> affectedUser.getEmail())
                 .collect(Collectors.toList());
-        //telegramBotService.sendUpdate(changes, affectedUsers, typeOfShop);
+        telegramBotService.sendUpdate(changes, affectedUsers, typeOfShop);
         sesService.sendMessageEmailRequest(changes, affectedUsers, typeOfShop);
 
     }

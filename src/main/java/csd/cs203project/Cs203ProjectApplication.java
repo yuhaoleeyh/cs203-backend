@@ -1,6 +1,7 @@
 package csd.cs203project;
 
 import csd.cs203project.telegrambot.TelegramBot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -19,8 +20,9 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 @SpringBootApplication
 public class Cs203ProjectApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		ApplicationContext ctx = SpringApplication.run(Cs203ProjectApplication.class, args);
+
 	}
 
 

@@ -13,7 +13,6 @@ import java.util.List;
 public class SESServiceImpl implements SESService{
 
     public void sendMessageEmailRequest(List<String> changes, List<User> recipients, String typeOfShop) {
-        //System.out.println(recipients);
         System.out.println(changes);
         String sender = "richardyer@gmail.com";
         Region region = Region.AP_SOUTHEAST_1;
@@ -24,7 +23,6 @@ public class SESServiceImpl implements SESService{
         for (String change: changes) {
             sb.append(change + "<br>");
         }
-        System.out.println("No fail");
         try {
             send(client, sender, recipients, typeOfShop, sb.toString());
             client.close();

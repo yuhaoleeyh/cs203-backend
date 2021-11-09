@@ -30,6 +30,7 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     @Override
     public Measures updateMeasures(Measures measures) {
+        System.out.println("Pass 1");
         String typeOfShop = measures.getTypeOfShop();
         Measures oldMeasures = findByTypeOfShop(typeOfShop);
         if (measures.getClosingTime().length() == 5) measures.setClosingTime(measures.getClosingTime()+":00");
@@ -37,6 +38,7 @@ public class MeasuresServiceImpl implements MeasuresService {
             List<String> changes = getChangeInMeasures(oldMeasures, measures);
             List<User> affectedUsers = userService.findByShopShopType(typeOfShop);
             if (changes.size() > 0) {
+                System.out.println("Pass 2");
                 notificationsService.sendChangedMeasures(changes, affectedUsers, typeOfShop);
             }
         }
@@ -57,21 +59,21 @@ public class MeasuresServiceImpl implements MeasuresService {
         ArrayList<String> changes = new ArrayList<>();
         if (oldMeasures.getDineInSize() != newMeasures.getDineInSize()) {
             changes.add(
-                    "Dine In Size changed from "
+                    "The Dine In Size changed from "
                     + oldMeasures.getDineInSize()
                     + " to " + newMeasures.getDineInSize()
             );
         }
         if (oldMeasures.getMaxGrpSizeVacc() != newMeasures.getMaxGrpSizeVacc()) {
             changes.add(
-                    "Max Group Size for Vaccinated customers changed from "
+                    "The Max Group Size for Vaccinated customers changed from "
                             + oldMeasures.getMaxGrpSizeVacc()
                             + " to " + newMeasures.getMaxGrpSizeVacc()
             );
         }
         if (oldMeasures.getMaxGrpSizeNonVacc() != newMeasures.getMaxGrpSizeNonVacc()) {
             changes.add(
-                    "Max Group Size for Non Vaccinated customers changed from "
+                    "The Max Group Size for Non Vaccinated customers changed from "
                             + oldMeasures.getMaxGrpSizeNonVacc()
                             + " to " + newMeasures.getMaxGrpSizeNonVacc()
             );

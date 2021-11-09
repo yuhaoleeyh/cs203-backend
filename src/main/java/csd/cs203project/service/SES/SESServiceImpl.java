@@ -1,5 +1,6 @@
 package csd.cs203project.service.SES;
 
+import csd.cs203project.model.User;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
@@ -11,32 +12,21 @@ import java.util.List;
 @Service
 public class SESServiceImpl implements SESService{
 
-    public void sendMessageEmailRequest(List<String> realRecipient, List<String> changes) {
-//        final String USAGE = "\n" +
-//                "Usage:\n" +
-//                " SendMessage <sender> <recipient> <subject> \n\n" +
-//                "Where:\n" +
-//                " sender - an email address that represents the sender. \n" +
-//                " recipient - an email address that represents the recipient. \n" +
-//                " subject - the subject line. \n";
-//        if (args.length != 3) {
-//            System.out.println(USAGE);
-//            System.exit(1);
-//        }
-        String sender = "";
-        String recipient = "";
-        String subject = "Testing AWS SES";
+    public void sendMessageEmailRequest(List<String> changes, List<User> recipients, String typeOfShop) {
+        //System.out.println(recipients);
+        System.out.println(changes);
+        String sender = "richardyer@gmail.com";
         Region region = Region.AP_SOUTHEAST_1;
         SesClient client = SesClient.builder()
                 .region(region)
                 .build();
-        // The email body for non-HTML email clients
-        String bodyText = "Hello,\r\n" + "See the list of customers. ";
-        // The HTML body of the email
-        String bodyHTML = "<html>" + "<head></head>" + "<body>" + "<h1>Hello!</h1>"
-                + "<p> This is a test of AWS SES.</p>" + "</body>" + "</html>";
+        StringBuilder sb = new StringBuilder();
+        for (String change: changes) {
+            sb.append(change + "<br>");
+        }
+        System.out.println("No fail");
         try {
-            send(client, sender, recipient, subject, bodyText, bodyHTML);
+            send(client, sender, recipients, typeOfShop, sb.toString());
             client.close();
             System.out.println("Done");
         } catch (Exception e) {
@@ -45,37 +35,30 @@ public class SESServiceImpl implements SESService{
     }
     public void send(SesClient client,
                             String sender,
-                            String recipient,
-                            String subject,
-                            String bodyText,
-                            String bodyHTML
+                            List<User> recipients,
+                            String typeOfShop,
+                            String changes
     ) throws Exception {
-        Destination destination = Destination.builder()
-                .toAddresses(recipient)
-                .build();
-        Content content = Content.builder()
-                .data(bodyHTML)
-                .build();
-        Content sub = Content.builder()
-                .data(subject)
-                .build();
-        Body body = Body.builder()
-                .html(content)
-                .build();
-        Message msg = Message.builder()
-                .subject(sub)
-                .body(body)
-                .build();
-        SendEmailRequest emailRequest = SendEmailRequest.builder()
-                .destination(destination)
-                .message(msg)
-                .source(sender)
-                .build();
-        try {
-            System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
-            client.sendEmail(emailRequest);
-        } catch (SesException e) {
-            System.err.println(e.awsErrorDetails().errorMessage());
+        for (User recipient : recipients) {
+            String templateData = String.format("{\"name\":\"%s\", \"shopType\":\"%s\", \"changes\":\"%s\", \"favoriteanimal\": \"cat\"}", recipient.getName(), typeOfShop, changes);
+            System.out.println(templateData);
+            Destination destination = Destination.builder()
+                    .toAddresses(recipient.getEmail())
+                    .build();
+            SendTemplatedEmailRequest emailRequest = SendTemplatedEmailRequest.builder()
+                    .destination(destination)
+                    .source(sender)
+                    .template("cs203test2")
+                    .templateData(templateData)
+                    .build();
+
+            try {
+                System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
+                SendTemplatedEmailResponse r = client.sendTemplatedEmail(emailRequest);
+                System.out.println(r.toString());
+            } catch (SesException e) {
+                System.err.println(e.awsErrorDetails().errorMessage());
+            }
         }
     }
 }

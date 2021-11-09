@@ -23,7 +23,7 @@ public class MeasuresController {
         return measuresService.findAllMeasures();
     }
 
-    @PostMapping("/measures")
+    @PutMapping("/measures")
     public Measures updateMeasures(@RequestBody Measures measures) {
         System.out.println(measures);
         return measuresService.updateMeasures(measures);

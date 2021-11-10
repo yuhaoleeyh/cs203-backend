@@ -7,8 +7,6 @@ import csd.cs203project.repository.user.UserRepository;
 import csd.cs203project.service.measures.MeasuresService;
 import csd.cs203project.service.measures.MeasuresServiceImpl;
 import csd.cs203project.service.notifications.NotificationsService;
-import csd.cs203project.service.supervisor.SupervisorService;
-import csd.cs203project.service.supervisor.SupervisorServiceImpl;
 import csd.cs203project.service.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

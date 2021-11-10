@@ -22,7 +22,6 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import csd.cs203project.model.*;
-import csd.cs203project.service.supervisor.*;
 import csd.cs203project.service.tablelayout.*;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -37,7 +36,7 @@ public class TableLayoutController {
 
     @RequestMapping(value = "/tablelayout", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ArrayList<ArrayList<HashMap<String, Integer>>> getTableLayout(@RequestBody TableLayout tableLayout) {    
+    public ArrayList<ArrayList<HashMap<String, Integer>>> getTableLayout(@RequestBody TableLayout tableLayout) {  
         return tablelayoutService.generateTableLayout(tableLayout);
     }
 

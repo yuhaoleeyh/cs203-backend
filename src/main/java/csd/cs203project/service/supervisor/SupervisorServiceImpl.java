@@ -24,12 +24,12 @@ public class SupervisorServiceImpl implements SupervisorService {
 
     @Override
     public List<User> findEmployeesByCompany(String company) {
-        return userRepository.findEmployeesByCompany(company, "Admin");
+        return userRepository.findEmployeesByCompany(company, "Employee");
     }
 
     @Override
     public List<User> findEmployeesAndAdminsUnderCompany(String company) {
-        return userRepository.findEmployeesByCompany(company, "NULL");
+        return userRepository.findEmployeesByCompany(company, "Supervisor");
     }
 
     @Override

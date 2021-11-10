@@ -14,7 +14,7 @@ import csd.cs203project.model.User;
 @Repository
 public interface UserRepository extends JpaRepository <User, Long> {
     @Query(
-    value = "SELECT * FROM user u WHERE u.company = ?1 and u.user_type <> ?2", 
+    value = "SELECT * FROM user u WHERE u.company = ?1 and u.user_type = ?2", 
     nativeQuery = true)
     List<User> findEmployeesByCompany(String company, String userType);
 

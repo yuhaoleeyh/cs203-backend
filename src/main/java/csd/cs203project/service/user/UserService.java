@@ -8,7 +8,7 @@ import csd.cs203project.model.User;
 public interface UserService {
     List<User> findByShopShopType(String typeOfShop);
 
-    void addUser(User user);
+    User addUser(User user);
 
     User getUser(String email);
 

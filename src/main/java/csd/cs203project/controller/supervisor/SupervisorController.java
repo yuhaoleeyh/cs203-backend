@@ -18,10 +18,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
-import csd.cs203project.exception.supervisor.EmployeeExistsException;
-import csd.cs203project.exception.supervisor.EmployeeNotFoundException;
+import csd.cs203project.exception.ResourceExistsException;
+import csd.cs203project.exception.ResourceNotFoundException;
 import csd.cs203project.model.*;
 import csd.cs203project.service.supervisor.*;
 
@@ -50,7 +48,7 @@ public class SupervisorController {
     public User addEmployee(@RequestBody User employee) {
         User savedEmployee = supervisorService.addEmployee(employee);
         if (savedEmployee == null) {
-            throw new EmployeeExistsException(employee.getEmail());
+            throw new ResourceExistsException("User with email " + employee.getEmail());
         }
         return savedEmployee;
     }
@@ -60,7 +58,7 @@ public class SupervisorController {
         
         User user = supervisorService.updateEmployee(email, newEmployeeInfo);
         if (user == null) {
-            throw new EmployeeNotFoundException(email);
+            throw new ResourceNotFoundException("User with email " + email);
         }
         return user;
     }
@@ -70,10 +68,8 @@ public class SupervisorController {
         try {
             supervisorService.deleteEmployee(email);
         } catch (EmptyResultDataAccessException e) {
-            throw new EmployeeNotFoundException(email);
+            throw new ResourceNotFoundException("User with email " + email);
         }
     }
-
-    
     
 }

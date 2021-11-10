@@ -3,7 +3,8 @@ package csd.cs203project.controller.user;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import csd.cs203project.exception.UnauthorizedException;
 import csd.cs203project.model.User;
 import csd.cs203project.service.user.UserService;
 
@@ -27,7 +29,10 @@ public class UserController {
 
     @GetMapping("/users/email/{email}")
     public User getUser(@PathVariable String email) {
-        // User user = new User("joh.doe@smu.edu.sg", "John Doe", "Supervisor", "Compny A");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String authEmail = authentication.getName();
+        if (!authEmail.equals(email))
+            throw new UnauthorizedException("Authenticated email does not match");
         
         User user = userService.getUser(email);
         return user;

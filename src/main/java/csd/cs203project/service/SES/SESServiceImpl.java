@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class SESServiceImpl implements SESService{
 
-    public void sendMessageEmailRequest(List<String> realRecipient, String realBodyHTML) {
+    public void sendMessageEmailRequest(List<String> realRecipient, List<String> changes) {
 //        final String USAGE = "\n" +
 //                "Usage:\n" +
 //                " SendMessage <sender> <recipient> <subject> \n\n" +

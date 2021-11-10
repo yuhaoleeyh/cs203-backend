@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 
@@ -29,7 +30,7 @@ import lombok.*;
 @EqualsAndHashCode(exclude = "users")
 // @JsonIdentityInfo(generator = ObjectIdGenerator.None.class,property = "id")
 public class Shop {
-    private @Id @GeneratedValue int id;
+    private @Id @GeneratedValue Long id;
 
     private String name;
     private String shopType; 
@@ -37,7 +38,8 @@ public class Shop {
     private int numTables;
     private double sizeTables;
 
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIgnore
+    // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<User> users;
 

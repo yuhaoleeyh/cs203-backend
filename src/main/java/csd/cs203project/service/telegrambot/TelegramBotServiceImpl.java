@@ -24,7 +24,7 @@ public class TelegramBotServiceImpl implements TelegramBotService{
 
         for (User user: users) {
             String userChatId = user.getTelegramChatId();
-            if (userChatId != null) {
+            if (userChatId != null && !userChatId.equals("")) {
                 telegramBot.sendMessage(sb.toString(), userChatId);
             }
 

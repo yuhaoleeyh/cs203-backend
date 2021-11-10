@@ -38,7 +38,7 @@ public class SESServiceImpl implements SESService{
                             String changes
     ) throws Exception {
         for (User recipient : recipients) {
-            String templateData = String.format("{\"name\":\"%s\", \"shopType\":\"%s\", \"changes\":\"%s\", \"favoriteanimal\": \"cat\"}", recipient.getName(), typeOfShop, changes);
+            String templateData = String.format("{\"name\":\"%s\", \"shopType\":\"%s\", \"changes\":\"%s\"}", recipient.getName(), typeOfShop, changes);
             System.out.println(templateData);
             Destination destination = Destination.builder()
                     .toAddresses(recipient.getEmail())
@@ -46,7 +46,7 @@ public class SESServiceImpl implements SESService{
             SendTemplatedEmailRequest emailRequest = SendTemplatedEmailRequest.builder()
                     .destination(destination)
                     .source(sender)
-                    .template("cs203test2")
+                    .template("cs203test4")
                     .templateData(templateData)
                     .build();
 

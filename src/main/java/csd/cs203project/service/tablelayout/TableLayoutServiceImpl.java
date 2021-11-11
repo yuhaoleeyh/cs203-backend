@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class TableLayoutServiceImpl implements TableLayoutService {
     private UserRepository userRepository;
+
+    
     
     @Autowired
     public TableLayoutServiceImpl(UserRepository userRepository){
@@ -23,47 +25,33 @@ public class TableLayoutServiceImpl implements TableLayoutService {
     public ArrayList<ArrayList<HashMap<String, Integer>>> generateTableLayout(TableLayout tableLayout) {
         int widthOfShop = tableLayout.getWidthOfShop();
         int heightOfShop = tableLayout.getHeightOfShop();
-        int numOfTables = tableLayout.getNumOfTables();
         int widthOfTable = tableLayout.getWidthOfTable();
         int heightOfTable = tableLayout.getHeightOfTable();
 
-        int multiplierSpacing = 2; //spacing between each table (i assume it to be the width/height of 1 table)
 
-        int numOfWidths = widthOfShop / (widthOfTable * multiplierSpacing);
+        int multiplierSpacing = 2;
+        int numOfWidths = widthOfShop / widthOfTable;
 
-        int numOfHeights = heightOfShop / (heightOfTable * multiplierSpacing);
-
-        if (numOfTables > numOfWidths * numOfHeights) {
-            return null;
-        } 
-
+        int numOfHeights = heightOfShop / heightOfTable;
 
         ArrayList<ArrayList<HashMap<String, Integer>>> resultantList = new ArrayList<>();
 
-        int counterForTables = 0;
 
-        boolean setTables = true;
-
-
-        for (int i = 0; i < numOfHeights; i++) { //iterate through the height given
+        for (int i = 0; i < numOfHeights; i++) { 
             
 
             ArrayList<HashMap<String, Integer>> innerList = new ArrayList<>();
-            for (int j = 0; j < numOfWidths; j++) { //for the width
+            for (int j = 0; j < numOfWidths; j++) { 
                 HashMap<String, Integer> hashInnerMap = new HashMap<>();
 
                 hashInnerMap.put("x", j + 1);
 
-                if (i % multiplierSpacing != 0 || j % multiplierSpacing != 0 || !setTables) { //indicating it will be a blank space
+                if (i % multiplierSpacing != 0 || j % multiplierSpacing != 0) { 
                     hashInnerMap.put("y", 0);
-                } else { //indicating a table should be filled there
-                    if (counterForTables == numOfTables) {
-                        setTables = false;
-                        hashInnerMap.put("y", 0);
-                    } else {
-                        hashInnerMap.put("y", 100);
-                        counterForTables++;
-                    }
+                } else if ((i % multiplierSpacing == 0 && j % multiplierSpacing == 0)) { 
+                    
+                    hashInnerMap.put("y", 100);
+                    
                     
                 }
 
@@ -71,10 +59,13 @@ public class TableLayoutServiceImpl implements TableLayoutService {
 
             }
             resultantList.add(innerList);
+
+            if (numOfWidths == 0 || numOfHeights == 0) {
+                return null;
+            }
         }
 
 
-        return resultantList; //data now being represented as a 2D arraylist, within which we have a hashmap which represents each position.
-        //print the list to find out more 
+        return resultantList; 
     }
 }

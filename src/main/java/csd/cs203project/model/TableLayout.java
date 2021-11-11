@@ -23,13 +23,11 @@ public class TableLayout {
     private int heightOfShop;
     private int widthOfTable;
     private int heightOfTable;
-    private int numOfTables;
 
-    public TableLayout(int widthOfShop, int heightOfShop, int widthOfTable, int heightOfTable, int numOfTables) {
+    public TableLayout(int widthOfShop, int heightOfShop, int widthOfTable, int heightOfTable) {
         this.widthOfShop = widthOfShop;
         this.heightOfShop = heightOfShop;
         this.widthOfTable = widthOfTable;
         this.heightOfTable = heightOfTable;
-        this.numOfTables = numOfTables;
     }
 }

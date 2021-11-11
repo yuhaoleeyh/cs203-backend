@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import csd.cs203project.model.User;
@@ -34,8 +35,7 @@ public class UserServiceImpl implements UserService{
         if (u.isPresent()) {
             return null;
         }
-        
-        //Generate TelegramSignUpToken
+
         String telegramSignUpToken = telegramBot.generateSignUpToken(user.getId());
         user.setTelegramSignUpToken(telegramSignUpToken);
 
@@ -49,11 +49,45 @@ public class UserServiceImpl implements UserService{
         }).orElse(null);
     }
 
+
     @Override
     public User updateUser(String email, User newUserInfo) {
-        return userRepository.findByEmail(email).map(user -> {
+        Optional<User> u = userRepository.findByEmail(email);
+        if (u.isPresent()){
+            User user = u.get();
             user.setName(newUserInfo.getName());
+            user.setVaccinationStatus(newUserInfo.getVaccinationStatus());
+            user.setSwabTestResult(newUserInfo.getSwabTestResult());
+            user.setFetStatus(newUserInfo.getFetStatus());
+            user.setCompany(newUserInfo.getCompany());
+
+            user.setTelegramHandle(newUserInfo.getTelegramHandle());
+
             return userRepository.save(user);
-        }).orElse(null);
+        } else {
+            return null;
+        }
     }
+
+    @Override
+    public void deleteUser(String email) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            userRepository.deleteByEmail(email);
+        } else {
+            throw new EmptyResultDataAccessException(1); 
+        }
+    }
+
+    @Override
+    public List<User> findEmployeesByCompany(String company) {
+        return userRepository.findEmployeesByCompany(company, "Employee");
+    }
+
+    @Override
+    public List<User> findEmployeesAndAdminsUnderCompany(String company) {
+        return userRepository.findEmployeesByCompany(company, "Supervisor");
+    }
+
+
+    
 }

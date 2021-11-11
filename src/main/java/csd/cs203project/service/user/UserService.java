@@ -12,5 +12,12 @@ public interface UserService {
 
     User getUser(String email);
 
-    public User updateUser(String email, User user);
+    User updateUser(String email, User newUserInfo);
+
+    void deleteUser(String email);
+
+    List<User> findEmployeesByCompany(String company);
+
+    List<User> findEmployeesAndAdminsUnderCompany(String company);
+
 }

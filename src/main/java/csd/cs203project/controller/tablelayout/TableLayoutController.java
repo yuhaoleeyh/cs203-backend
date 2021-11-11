@@ -36,7 +36,7 @@ public class TableLayoutController {
 
     @RequestMapping(value = "/tablelayout", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ArrayList<ArrayList<HashMap<String, Integer>>> getTableLayout(@RequestBody TableLayout tableLayout) {  
+    public ArrayList<ArrayList<HashMap<String, Double>>> getTableLayout(@Valid @RequestBody TableLayout tableLayout) {
         return tablelayoutService.generateTableLayout(tableLayout);
     }
 

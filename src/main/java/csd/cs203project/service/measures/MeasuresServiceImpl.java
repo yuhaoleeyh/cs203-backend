@@ -3,16 +3,13 @@ package csd.cs203project.service.measures;
 import csd.cs203project.model.Measures;
 import csd.cs203project.model.User;
 import csd.cs203project.repository.measures.MeasuresRepository;
-import csd.cs203project.service.SES.SESService;
 import csd.cs203project.service.notifications.NotificationsService;
-import csd.cs203project.service.telegrambot.TelegramBotService;
 import csd.cs203project.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MeasuresServiceImpl implements MeasuresService {
@@ -29,7 +26,7 @@ public class MeasuresServiceImpl implements MeasuresService {
     }
 
     @Override
-    public Measures updateMeasures(Measures measures) {
+    public Measures updateMeasures(Measures measures){
         System.out.println("Pass 1");
         String typeOfShop = measures.getTypeOfShop();
         Measures oldMeasures = findByTypeOfShop(typeOfShop);

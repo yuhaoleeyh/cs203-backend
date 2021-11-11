@@ -14,7 +14,7 @@ public class SESServiceImpl implements SESService{
 
     public void sendMessageEmailRequest(List<String> changes, List<User> recipients, String typeOfShop) {
         System.out.println(changes);
-        String sender = "richardyer@gmail.com";
+        String sender = "covfeed203@gmail.com";
         Region region = Region.AP_SOUTHEAST_1;
         SesClient client = SesClient.builder()
                 .region(region)

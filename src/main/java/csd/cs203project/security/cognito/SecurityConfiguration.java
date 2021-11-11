@@ -24,12 +24,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.and()
 		.csrf().disable()
 			.authorizeRequests()
+			
 			/** Permit all requests at these endpoints */
 			.antMatchers("**/health").permitAll()
 			.antMatchers("/cognito/all-allow").permitAll()
 
 			/** Measures */
-			.antMatchers(HttpMethod.PUT, "/measures").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.PUT, "/measures").hasAnyRole("ADMIN", "PROF")
 
 			/** News Articles */
 			.antMatchers(HttpMethod.POST, "/newsArticle").hasAnyRole("ADMIN", "PROF")
@@ -39,19 +40,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PUT, "/shops/*").hasAnyRole("ADMIN", "PROF")
 			.antMatchers(HttpMethod.DELETE, "/shops/*").hasAnyRole("ADMIN", "PROF")
 
-			/** Supervisor for Employees */
-			.antMatchers(HttpMethod.GET, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
-			.antMatchers(HttpMethod.POST, "/employees").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
-			.antMatchers(HttpMethod.PUT, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
-			.antMatchers(HttpMethod.DELETE, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
-
 			/** Table Layouts */
-			.antMatchers(HttpMethod.POST, "/tablelayout").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.POST, "/tablelayout").hasAnyRole("EMPLOYEE", "SUPERVISOR", "ADMIN", "PROF")
 
 			/** Users */
+			.antMatchers(HttpMethod.GET, "/users/supervisor/*").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.GET, "/users/administrator/*").hasAnyRole("ADMIN", "PROF")
 			.antMatchers(HttpMethod.POST, "/users").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.PUT, "/users/*").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.DELETE, "/users/*").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
 
-			/** All other requests do not need to be authenticated */
+			/** Remaining requests */
 			.anyRequest().permitAll()
 			.and()
 			.addFilterBefore(awsCognitoJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

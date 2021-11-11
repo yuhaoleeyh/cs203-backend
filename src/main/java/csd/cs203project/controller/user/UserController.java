@@ -2,18 +2,33 @@ package csd.cs203project.controller.user;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import csd.cs203project.model.User;
+import csd.cs203project.exception.ResourceExistsException;
+import csd.cs203project.exception.ResourceNotFoundException;
+import csd.cs203project.exception.UnauthorizedException;
+import csd.cs203project.model.*;
 import csd.cs203project.service.user.UserService;
+
+
+import org.springframework.http.HttpStatus;
+
+import java.util.List;
+
 
 @CrossOrigin
 @RestController
@@ -25,24 +40,65 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/email/{email}")
+    @GetMapping("/users/supervisor/{company}")
+    public List<User> getEmployeesUnderCompany(@PathVariable (value = "company") String company){
+        return userService.findEmployeesByCompany(company);
+    }
+
+    @GetMapping("/users/administrator/{company}")
+    public List<User> getEmployeesAndAdminsUnderCompany(@PathVariable (value = "company") String company) {
+        return userService.findEmployeesAndAdminsUnderCompany(company);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping("/users")
+    public User addUser(@RequestBody User employee) {
+        User savedEmployee = userService.addUser(employee);
+        if (savedEmployee == null) {
+            throw new ResourceExistsException("User with email " + employee.getEmail());
+        }
+        return savedEmployee;
+    }
+
+    @PutMapping("/users/{email}")
+    public User updateUser(@PathVariable String email, @RequestBody User newEmployeeInfo) {
+        
+        User user = userService.updateUser(email, newEmployeeInfo);
+        if (user == null) {
+            throw new ResourceNotFoundException("User with email " + email);
+        }
+        return user;
+    }
+
+    @DeleteMapping("/users/{email}")
+    public void deleteEmployee(@PathVariable String email) {
+        try {
+            userService.deleteUser(email);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("User with email " + email);
+        }
+    }
+
+
+    @GetMapping("/users/{email}")
     public User getUser(@PathVariable String email) {
-        // User user = new User("joh.doe@smu.edu.sg", "John Doe", "Supervisor", "Compny A");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String authEmail = authentication.getName();
+        if (!authEmail.equals(email))
+            throw new UnauthorizedException("Authenticated email does not match");
         
         User user = userService.getUser(email);
         return user;
     }
-    
-    @PostMapping("/users")
-    public void addUser(@RequestBody @Valid User user) {
-        userService.addUser(user);
-    }
 
     @PutMapping("/users/email/{email}")
-    public User updateUser(@PathVariable String email, @RequestBody User newUserInfo) {
+    public User updateUserProfile(@PathVariable String email, @RequestBody User newUserInfo) {
         User user = userService.updateUser(email, newUserInfo);
         if (user == null) return null;
         
         return user;
     }
+    
+
+
 }

@@ -91,9 +91,9 @@ public class MeasuresServiceTest {
         Measures oldMeasures = new Measures(1L, "fastfoodoutlet", 2,2,2,2,"11:11:11", "3");
         Measures newMeasures = new Measures(1L, "fastfoodoutlet", 3,3,3,3,"22:22:22", "2");
         List<String> testChanges = List.of(
-                "Dine In Size changed from 2 to 3",
-                "Max Group Size for Vaccinated customers changed from 2 to 3",
-                "Max Group Size for Non Vaccinated customers changed from 2 to 3",
+                "The Dine In Size changed from 2 to 3",
+                "The Max Group Size for Vaccinated customers changed from 2 to 3",
+                "The Max Group Size for Non Vaccinated customers changed from 2 to 3",
                 "The Social Distance changed from 2 to 3",
                 "The Closing Time changed from 11:11:11 to 22:22:22",
                 "The Phase changed from 3 to 2"

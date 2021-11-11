@@ -9,19 +9,22 @@ import org.springframework.stereotype.Service;
 
 import csd.cs203project.model.User;
 import csd.cs203project.repository.user.UserRepository;
-import csd.cs203project.telegrambot.TelegramBot;
+
+import java.security.SecureRandom;
+import java.util.Base64;
+
 
 @Service
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
-    private TelegramBot telegramBot;
+    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
+    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, TelegramBot telegramBot) {
+    public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.telegramBot = telegramBot;
     }
 
     @Override
@@ -36,7 +39,7 @@ public class UserServiceImpl implements UserService{
             return null;
         }
 
-        String telegramSignUpToken = telegramBot.generateSignUpToken(user.getId());
+        String telegramSignUpToken = generateSignUpToken(user.getId());
         user.setTelegramSignUpToken(telegramSignUpToken);
 
         return userRepository.save(user);
@@ -87,6 +90,11 @@ public class UserServiceImpl implements UserService{
         return userRepository.findEmployeesByCompany(company, "Supervisor");
     }
 
+    public String generateSignUpToken(Long userId) {
+        byte[] randomBytes = new byte[24];
+        secureRandom.nextBytes(randomBytes);
+        return base64Encoder.encodeToString(randomBytes);
+    }
 
     
 }

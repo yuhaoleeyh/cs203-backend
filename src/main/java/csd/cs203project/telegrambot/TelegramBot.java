@@ -21,8 +21,7 @@ import java.util.Optional;
 
 @Component
 public class TelegramBot extends TelegramLongPollingBot {
-    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
-    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
+
 
     @Autowired
     private UserRepository userRepository;
@@ -81,11 +80,5 @@ public class TelegramBot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
-    }
-
-    public String generateSignUpToken(Long userId) {
-        byte[] randomBytes = new byte[24];
-        secureRandom.nextBytes(randomBytes);
-        return base64Encoder.encodeToString(randomBytes);
     }
 }

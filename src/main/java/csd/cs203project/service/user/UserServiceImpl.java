@@ -61,7 +61,6 @@ public class UserServiceImpl implements UserService{
             user.setFetStatus(newUserInfo.getFetStatus());
             user.setCompany(newUserInfo.getCompany());
 
-            user.setTelegramHandle(newUserInfo.getTelegramHandle());
 
             return userRepository.save(user);
         } else {

@@ -41,7 +41,6 @@ public class User implements UserDetails {
     private String swabTestResult;
     private String fetStatus;
     private String company;
-    private String telegramHandle;
     private String telegramSignUpToken;
     private String telegramChatId;
 

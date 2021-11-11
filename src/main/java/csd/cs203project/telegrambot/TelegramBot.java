@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import javax.annotation.PostConstruct;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.NoSuchElementException;
@@ -22,13 +24,14 @@ public class TelegramBot extends TelegramLongPollingBot {
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
     private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
 
+    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    public TelegramBot(UserRepository userRepository) {
-        super();
-        this.userRepository = userRepository;
-    }
+//    @Autowired
+//    public TelegramBot(UserRepository userRepository) {
+//        super();
+//        this.userRepository = userRepository;
+//    }
 
     @Value("${telegramBotToken}")
     private String botToken;

@@ -14,8 +14,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import javax.annotation.PostConstruct;
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 

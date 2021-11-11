@@ -2,7 +2,6 @@ package csd.cs203project.service.tablelayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,7 +21,7 @@ public class TableLayoutServiceImpl implements TableLayoutService {
     }
 
     @Override
-    public ArrayList<ArrayList<HashMap<String, Integer>>> generateTableLayout(TableLayout tableLayout) {
+    public ArrayList<ArrayList<HashMap<String, Double>>> generateTableLayout(TableLayout tableLayout) {
         int widthOfShop = tableLayout.getWidthOfShop();
         int heightOfShop = tableLayout.getHeightOfShop();
         int widthOfTable = tableLayout.getWidthOfTable();
@@ -34,23 +33,23 @@ public class TableLayoutServiceImpl implements TableLayoutService {
 
         int numOfHeights = heightOfShop / heightOfTable;
 
-        ArrayList<ArrayList<HashMap<String, Integer>>> resultantList = new ArrayList<>();
+        ArrayList<ArrayList<HashMap<String, Double>>> resultantList = new ArrayList<>();
 
 
         for (int i = 0; i < numOfHeights; i++) { 
             
 
-            ArrayList<HashMap<String, Integer>> innerList = new ArrayList<>();
+            ArrayList<HashMap<String, Double>> innerList = new ArrayList<>();
             for (int j = 0; j < numOfWidths; j++) { 
-                HashMap<String, Integer> hashInnerMap = new HashMap<>();
+                HashMap<String, Double> hashInnerMap = new HashMap<>();
 
-                hashInnerMap.put("x", j + 1);
+                hashInnerMap.put("x", j + 1.00);
 
                 if (i % multiplierSpacing != 0 || j % multiplierSpacing != 0) { 
-                    hashInnerMap.put("y", 0);
+                    hashInnerMap.put("y", 0.00);
                 } else if ((i % multiplierSpacing == 0 && j % multiplierSpacing == 0)) { 
-                    
-                    hashInnerMap.put("y", 100);
+                    String number = widthOfTable + "." + heightOfTable;
+                    hashInnerMap.put("y", Double.valueOf(number));
                     
                     
                 }

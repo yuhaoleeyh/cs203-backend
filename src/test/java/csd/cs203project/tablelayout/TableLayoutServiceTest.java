@@ -46,7 +46,7 @@ public class TableLayoutServiceTest {
     void generateTableLayout_EnoughSpace_ReturnLayout() {
         TableLayout tableLayout = new TableLayout(5000,4000,500,500);
 
-        ArrayList<ArrayList<HashMap<String, Integer>>> layout = tableLayoutService.generateTableLayout(tableLayout);
+        ArrayList<ArrayList<HashMap<String, Double>>> layout = tableLayoutService.generateTableLayout(tableLayout);
 
         assertNotNull(layout);
     }

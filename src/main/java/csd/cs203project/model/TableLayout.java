@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @Entity
@@ -21,7 +23,10 @@ public class TableLayout {
 
     private int widthOfShop;
     private int heightOfShop;
+
+    @Max(value=9) @Min(value=1)
     private int widthOfTable;
+    @Max(value=9) @Min(value=1)
     private int heightOfTable;
 
     public TableLayout(int widthOfShop, int heightOfShop, int widthOfTable, int heightOfTable) {

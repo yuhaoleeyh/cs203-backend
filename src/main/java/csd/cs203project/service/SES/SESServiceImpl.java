@@ -23,8 +23,11 @@ public class SESServiceImpl implements SESService{
         for (String change: changes) {
             sb.append(change + "<br>");
         }
+        
         try {
+            System.out.println("TRYING TO SEND");
             send(client, sender, recipients, typeOfShop, sb.toString());
+            System.out.println("SENT");
             client.close();
             System.out.println("Done");
         } catch (Exception e) {

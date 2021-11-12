@@ -20,51 +20,84 @@ public class TableLayoutServiceImpl implements TableLayoutService {
         this.userRepository = userRepository;
     }
 
+
+
+    /**
+     * Function to generate the table layout for the table 
+     * @Input TableLayout tablelayout:
+     * Consists of: widthOfShop, lengthOfShop, widthOfTable, lengthOfTable
+     * @Output A 2D arraylist with each hashmap representing a grid in the table layout
+     * 
+     */
     @Override
     public ArrayList<ArrayList<HashMap<String, Double>>> generateTableLayout(TableLayout tableLayout) {
+
         int widthOfShop = tableLayout.getWidthOfShop();
-        int heightOfShop = tableLayout.getHeightOfShop();
+        int lengthOfShop = tableLayout.getLengthOfShop();
         int widthOfTable = tableLayout.getWidthOfTable();
-        int heightOfTable = tableLayout.getHeightOfTable();
+        int lengthOfTable = tableLayout.getLengthOfTable();
+        int tableGap = tableLayout.getTableGap();
 
+        final int multiplierSpacing = tableGap + 1;
 
-        int multiplierSpacing = 2;
         int numOfWidths = widthOfShop / widthOfTable;
 
-        int numOfHeights = heightOfShop / heightOfTable;
+        int numOfLengths = lengthOfShop / lengthOfTable;
 
-        ArrayList<ArrayList<HashMap<String, Double>>> resultantList = new ArrayList<>();
+        if (numOfWidths == 0 || numOfLengths == 0) {
+            return null;
+        }
+
+        ArrayList<ArrayList<HashMap<String, Double>>> tableLayoutList = new ArrayList<>();
 
 
-        for (int i = 0; i < numOfHeights; i++) { 
+        for (int i = 0; i < numOfLengths; i++) { 
             
-
-            ArrayList<HashMap<String, Double>> innerList = new ArrayList<>();
+            ArrayList<HashMap<String, Double>> lengthList = new ArrayList<>();
             for (int j = 0; j < numOfWidths; j++) { 
-                HashMap<String, Double> hashInnerMap = new HashMap<>();
-
-                hashInnerMap.put("x", j + 1.00);
-
-                if (i % multiplierSpacing != 0 || j % multiplierSpacing != 0) { 
-                    hashInnerMap.put("y", 0.00);
-                } else if ((i % multiplierSpacing == 0 && j % multiplierSpacing == 0)) { 
-                    String number = widthOfTable + "." + heightOfTable;
-                    hashInnerMap.put("y", Double.valueOf(number));
-                    
-                    
-                }
-
-                innerList.add(hashInnerMap);
+                HashMap<String, Double> hashInnerMap = hashMapLength(i, j, multiplierSpacing, widthOfTable, lengthOfTable);
+                lengthList.add(hashInnerMap);
 
             }
-            resultantList.add(innerList);
 
-            if (numOfWidths == 0 || numOfHeights == 0) {
-                return null;
-            }
+            tableLayoutList.add(lengthList);
         }
 
 
-        return resultantList; 
+        return tableLayoutList; 
+    }
+
+
+    /**
+     * Function to generate whether the grid of dimension: widthOfTable by lengthOfTable should have a table there or not 
+     * @Input 
+     * int lengthNumber: the length we are currently on
+     * int widthNumber: the width we are currently on
+     * int multiplierSpacing: the number of tables we have for every space
+     * int widthOfTable: width of each table
+     * int lengthOfTable: length of each table
+     * @Output A grid, which would be blank if no table should be there, and a shaded region with the table width/length dimensions if a table is there
+     * 
+     */
+                                                                                   
+    public HashMap<String, Double> hashMapLength(int lengthNumber, int widthNumber, int multiplierSpacing, int widthOfTable, int lengthOfTable) {      
+        final double BLANK_TABLE = 0.00;
+        final double INCREMENT = 1.00;
+
+        HashMap<String, Double> hashInnerMap = new HashMap<>();
+
+        hashInnerMap.put("x", widthNumber + INCREMENT);
+
+        if (lengthNumber % multiplierSpacing != 0 || widthNumber % multiplierSpacing != 0) { 
+            hashInnerMap.put("y", BLANK_TABLE);
+        } else if ((lengthNumber % multiplierSpacing == 0 && widthNumber % multiplierSpacing == 0)) { 
+            String number = widthOfTable + "." + lengthOfTable;
+            hashInnerMap.put("y", Double.valueOf(number));
+            
+            
+        }
+
+        
+        return hashInnerMap;
     }
 }

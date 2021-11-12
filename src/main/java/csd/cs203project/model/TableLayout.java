@@ -22,17 +22,20 @@ public class TableLayout {
     private Long id;
 
     private int widthOfShop;
-    private int heightOfShop;
+    private int lengthOfShop;
+
+    private int tableGap;
 
     @Max(value=9) @Min(value=1)
     private int widthOfTable;
     @Max(value=9) @Min(value=1)
-    private int heightOfTable;
+    private int lengthOfTable;
 
-    public TableLayout(int widthOfShop, int heightOfShop, int widthOfTable, int heightOfTable) {
+    public TableLayout(int widthOfShop, int lengthOfShop, int widthOfTable, int lengthOfTable, int tableGap) {
         this.widthOfShop = widthOfShop;
-        this.heightOfShop = heightOfShop;
+        this.lengthOfShop = lengthOfShop;
         this.widthOfTable = widthOfTable;
-        this.heightOfTable = heightOfTable;
+        this.lengthOfTable = lengthOfTable;
+        this.tableGap = tableGap;
     }
 }

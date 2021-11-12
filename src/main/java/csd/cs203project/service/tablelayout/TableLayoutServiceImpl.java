@@ -44,6 +44,7 @@ public class TableLayoutServiceImpl implements TableLayoutService {
 
         int numOfLengths = lengthOfShop / lengthOfTable;
 
+
         if (numOfWidths == 0 || numOfLengths == 0) {
             return null;
         }

@@ -21,9 +21,7 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 public class Cs203ProjectApplication {
 
 	public static void main(String[] args) throws Exception{
-		ApplicationContext ctx = SpringApplication.run(Cs203ProjectApplication.class, args);
-
+		SpringApplication.run(Cs203ProjectApplication.class, args);
 	}
-
 
 }

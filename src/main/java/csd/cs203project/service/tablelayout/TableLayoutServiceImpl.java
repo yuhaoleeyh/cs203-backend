@@ -3,24 +3,11 @@ package csd.cs203project.service.tablelayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import csd.cs203project.model.TableLayout;
-import csd.cs203project.repository.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TableLayoutServiceImpl implements TableLayoutService {
-    private UserRepository userRepository;
-
-    
-    
-    @Autowired
-    public TableLayoutServiceImpl(UserRepository userRepository){
-        this.userRepository = userRepository;
-    }
-
-
 
     /**
      * Function to generate the table layout for the table 

@@ -1,9 +1,11 @@
 package csd.cs203project.service.measures;
 
 import csd.cs203project.model.Measures;
+import csd.cs203project.model.Shop;
 import csd.cs203project.model.User;
 import csd.cs203project.repository.measures.MeasuresRepository;
 import csd.cs203project.service.notifications.NotificationsService;
+import csd.cs203project.service.shop.ShopService;
 import csd.cs203project.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +19,14 @@ public class MeasuresServiceImpl implements MeasuresService {
     private MeasuresRepository measuresRepository;
     private UserService userService;
     private NotificationsService notificationsService;
+    private ShopService shopService;
 
     @Autowired
-    public MeasuresServiceImpl(MeasuresRepository measuresRepository, UserService userService, NotificationsService notificationsService) {
+    public MeasuresServiceImpl(MeasuresRepository measuresRepository, UserService userService, NotificationsService notificationsService, ShopService shopService) {
         this.measuresRepository = measuresRepository;
         this.userService = userService;
         this.notificationsService = notificationsService;
+        this.shopService = shopService;
     }
 
     @Override
@@ -33,7 +37,8 @@ public class MeasuresServiceImpl implements MeasuresService {
         if (measures.getClosingTime().length() == 5) measures.setClosingTime(measures.getClosingTime()+":00");
         if (oldMeasures != null){
             List<String> changes = getChangeInMeasures(oldMeasures, measures);
-            List<User> affectedUsers = userService.findByShopShopType(typeOfShop);
+            List<Shop> shops = shopService.findByShopType(typeOfShop);
+            List<User> affectedUsers = userService.findByShops(shops);
             if (changes.size() > 0) {
                 System.out.println("Pass 2");
                 notificationsService.sendChangedMeasures(changes, affectedUsers, typeOfShop);

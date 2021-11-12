@@ -1,8 +1,10 @@
 package csd.cs203project.service.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import csd.cs203project.model.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -63,7 +65,7 @@ public class UserServiceImpl implements UserService{
             user.setSwabTestResult(newUserInfo.getSwabTestResult());
             user.setFetStatus(newUserInfo.getFetStatus());
             user.setCompany(newUserInfo.getCompany());
-
+            user.setShop(newUserInfo.getShop());
 
             return userRepository.save(user);
         } else {
@@ -80,14 +82,34 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+//    @Override
+//    public List<User> findEmployeesByCompany(String company) {
+//        return userRepository.findEmployeesByCompany(company, "Employee");
+//    }
+//
+//    @Override
+//    public List<User> findEmployeesAndAdminsUnderCompany(String company) {
+//        return userRepository.findEmployeesByCompany(company, "Supervisor");
+//    }
+
     @Override
-    public List<User> findEmployeesByCompany(String company) {
-        return userRepository.findEmployeesByCompany(company, "Employee");
+    public List<User> findByAuthorities (String authorities) {
+        return userRepository.findByAuthorities(authorities);
     }
 
     @Override
-    public List<User> findEmployeesAndAdminsUnderCompany(String company) {
-        return userRepository.findEmployeesByCompany(company, "Supervisor");
+    public List<User> findByShops (List<Shop> shops) {
+        List<User> users = new ArrayList<>();
+        for (Shop shop : shops) {
+            users.addAll(userRepository.findByShopId(shop.getId()));
+        }
+
+        return users;
+    }
+
+    @Override
+    public List<User> findByShopShopIdAndAuthorities (Long id, String authorities) {
+        return userRepository.findByShopShopIdAndAuthorities(id, authorities);
     }
 
     public String generateSignUpToken(Long userId) {

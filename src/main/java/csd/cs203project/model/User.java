@@ -45,7 +45,7 @@ public class User implements UserDetails {
     private String telegramChatId;
 
     // Different roles/authorities: ROLE_PROF, ROLE_ADMIN, ROLE_SUPERVISOR, ROLE_EMPLOYEE
-    private String authorities = "ROLE_EMPLOYEE";
+    private String authorities;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @ManyToOne
@@ -88,5 +88,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Shop getShop() {
+        return shop;
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
     }
 }

@@ -40,14 +40,19 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users/supervisor/{company}")
-    public List<User> getEmployeesUnderCompany(@PathVariable (value = "company") String company){
-        return userService.findEmployeesByCompany(company);
-    }
+//    @GetMapping("/users/supervisor/{company}")
+//    public List<User> getEmployeesUnderCompany(@PathVariable (value = "company") String company){
+//        return userService.findEmployeesByCompany(company);
+//    }
+//
+//    @GetMapping("/users/administrator/{company}")
+//    public List<User> getEmployeesAndAdminsUnderCompany(@PathVariable (value = "company") String company) {
+//        return userService.findEmployeesAndAdminsUnderCompany(company);
+//    }
 
-    @GetMapping("/users/administrator/{company}")
-    public List<User> getEmployeesAndAdminsUnderCompany(@PathVariable (value = "company") String company) {
-        return userService.findEmployeesAndAdminsUnderCompany(company);
+    @GetMapping("/users/id/{id}/authorities/{authorities}")
+    public List<User> getEmployeesfromShopId (@PathVariable Long id, @PathVariable String authorities) {
+        return userService.findByShopShopIdAndAuthorities(id, authorities);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
@@ -98,7 +103,10 @@ public class UserController {
         
         return user;
     }
-    
 
+    @GetMapping("/users/authorities/{authorities}")
+    public List<User> getUserByAuthorities (@PathVariable String authorities) {
+        return userService.findByAuthorities(authorities);
+    }
 
 }

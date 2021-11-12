@@ -15,6 +15,8 @@ public interface ShopRepository extends JpaRepository <Shop, Long> {
 
     Optional<Shop> findByName(String name);
 
+    List<Shop> findByShopType (String shopType);
+
     @Transactional
     Long deleteByName(String name);
 }

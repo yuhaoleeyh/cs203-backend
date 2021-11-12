@@ -10,6 +10,8 @@ public interface ShopService {
 
     List<Shop> findAllShops();
 
+    List<Shop> findByShopType(String shopType);
+
     Shop addShop (Shop shop);
 
     Shop updateShop(String name, Shop newShop);

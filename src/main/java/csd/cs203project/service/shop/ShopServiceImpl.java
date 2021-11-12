@@ -31,6 +31,11 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
+    public List<Shop> findByShopType (String shopType) {
+        return shopRepository.findByShopType(shopType);
+    }
+
+    @Override
     public Shop addShop (Shop shop) {
         Optional<Shop> shopOptional = shopRepository.findByName(shop.getName());
         if (!shopOptional.isPresent()) {

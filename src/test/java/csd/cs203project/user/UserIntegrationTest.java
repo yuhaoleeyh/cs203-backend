@@ -1,4 +1,4 @@
-// package csd.cs203project.supervisor;
+// package csd.cs203project.user;
 
 // import org.dom4j.util.UserDataAttribute;
 // import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@
 
 
 // @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-// public class SupervisorIntegrationTest {
+// public class UserIntegrationTest {
 //     @LocalServerPort
 //     private int port;
 

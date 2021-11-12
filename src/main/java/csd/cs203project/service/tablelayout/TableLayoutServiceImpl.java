@@ -18,40 +18,30 @@ public class TableLayoutServiceImpl implements TableLayoutService {
      */
     @Override
     public ArrayList<ArrayList<HashMap<String, Double>>> generateTableLayout(TableLayout tableLayout) {
-
-        int widthOfShop = tableLayout.getWidthOfShop();
-        int lengthOfShop = tableLayout.getLengthOfShop();
+        int widthOfShop = tableLayout.getWidthOfShop(); 
+        int lengthOfShop = tableLayout.getLengthOfShop(); 
         int widthOfTable = tableLayout.getWidthOfTable();
         int lengthOfTable = tableLayout.getLengthOfTable();
         int tableGap = tableLayout.getTableGap();
+        int numOfWidths = widthOfShop / widthOfTable; //number of tables in each width
+        int numOfLengths = lengthOfShop / lengthOfTable; //number of tables in each length
 
-        final int multiplierSpacing = tableGap + 1;
+        final int multiplierSpacing = tableGap + 1; //number of tables for every multiplier
 
-        int numOfWidths = widthOfShop / widthOfTable;
-
-        int numOfLengths = lengthOfShop / lengthOfTable;
-
-
-        if (numOfWidths == 0 || numOfLengths == 0) {
+        if (numOfWidths == 0 || numOfLengths == 0) { //fail fast if the table is too small for the shop: edge case
             return null;
         }
 
         ArrayList<ArrayList<HashMap<String, Double>>> tableLayoutList = new ArrayList<>();
-
-
+        //construction of the tablelayout list 
         for (int i = 0; i < numOfLengths; i++) { 
-            
             ArrayList<HashMap<String, Double>> lengthList = new ArrayList<>();
             for (int j = 0; j < numOfWidths; j++) { 
-                HashMap<String, Double> hashInnerMap = hashMapLength(i, j, multiplierSpacing, widthOfTable, lengthOfTable);
+                HashMap<String, Double> hashInnerMap = hashGridDetails(i, j, multiplierSpacing, widthOfTable, lengthOfTable);
                 lengthList.add(hashInnerMap);
-
             }
-
             tableLayoutList.add(lengthList);
         }
-
-
         return tableLayoutList; 
     }
 
@@ -66,26 +56,22 @@ public class TableLayoutServiceImpl implements TableLayoutService {
      * int lengthOfTable: length of each table
      * @Output A grid, which would be blank if no table should be there, and a shaded region with the table width/length dimensions if a table is there
      * 
-     */
-                                                                                   
-    public HashMap<String, Double> hashMapLength(int lengthNumber, int widthNumber, int multiplierSpacing, int widthOfTable, int lengthOfTable) {      
+     */                                                                              
+    public HashMap<String, Double> hashGridDetails(int lengthNumber, int widthNumber, int multiplierSpacing, int widthOfTable, int lengthOfTable) {      
         final double BLANK_TABLE = 0.00;
         final double INCREMENT = 1.00;
 
         HashMap<String, Double> hashInnerMap = new HashMap<>();
-
-        hashInnerMap.put("x", widthNumber + INCREMENT);
+        hashInnerMap.put("x", widthNumber + INCREMENT); //add the x which represents the width we are referring to at the moment
 
         if (lengthNumber % multiplierSpacing != 0 || widthNumber % multiplierSpacing != 0) { 
-            hashInnerMap.put("y", BLANK_TABLE);
+            hashInnerMap.put("y", BLANK_TABLE); //no table at this point
         } else if ((lengthNumber % multiplierSpacing == 0 && widthNumber % multiplierSpacing == 0)) { 
-            String number = widthOfTable + "." + lengthOfTable;
-            hashInnerMap.put("y", Double.valueOf(number));
-            
-            
+            String number = widthOfTable + "." + lengthOfTable; //string to show on the table with its dimensions
+            hashInnerMap.put("y", Double.valueOf(number));      //adding a table at this point 
         }
-
-        
         return hashInnerMap;
     }
 }
+
+

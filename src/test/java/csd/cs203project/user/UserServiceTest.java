@@ -77,4 +77,78 @@ public class UserServiceTest {
         assertNull(savedUser);
         verify(users).findByEmail(user.getEmail());
     }
+
+
+
+
+
+        @Test
+    void addNewEmployee_ReturnSavedEmployee() {
+        //arrange
+        User user = new User("hi@gmail.com", "Mary", "ROLE_ADMIN", "KFC");
+        // mock the "findByEmail" operation
+        when(users.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(null));
+        // mock the "save" operation 
+        when(users.save(any(User.class))).thenReturn(user);
+
+        //act
+        User savedUser = userService.addUser(user);
+
+        //assert
+        assertNotNull(savedUser);
+
+        verify(users).findByEmail(user.getEmail());
+        verify(users).save(user);
+    }
+
+    @Test 
+    void addEmployee_SameEmail_ReturnNull() {
+        User user = new User("a@b", "Mary", "ROLE_ADMIN", "KFC");
+        // mock the "findByEmail" operation
+        when(users.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
+        
+
+        //act
+        User savedUser = userService.addUser(user);
+
+        //assert
+        assertNull(savedUser);
+
+        verify(users).findByEmail(user.getEmail());
+    }
+
+    @Test 
+    void updateEmployee_NotFound_ReturnNull(){
+        User user = new User("EFSGFDCDSFDSF", "Test", "ROLE_ADMIN", "KFC");
+        when(users.findByEmail(user.getEmail())).thenReturn(Optional.empty());
+        
+        User updatedUser = userService.updateUser(user.getEmail(), user);
+        
+        assertNull(updatedUser);
+        verify(users).findByEmail(user.getEmail());
+    }
+
+    @Test 
+    void updateEmployee_Found_ReturnSavedUser(){
+        User user = new User("yay@gmail.com", "NewNameForMe", "ROLE_ADMIN", "KFC");
+        when(users.findByEmail(user.getEmail())).thenReturn(Optional.of(new User("yay@gmail.com", "Marysss", "ROLE_ADMIN", "CoffeeBean")));
+        // mock the "save" operation 
+        when(users.save(any(User.class))).thenReturn(user);
+        
+        User updatedUser = userService.updateUser(user.getEmail(), user);
+        
+        assertNotNull(updatedUser);
+        verify(users).findByEmail(user.getEmail());
+        verify(users).save(user);
+    }
+
+    // @Test
+    // void deleteEmployee_Deleted() {
+    //     User user = new User("test@gmail.com", "Test", "Admin", "KFC");
+    //     when(users.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
+
+    //     userService.deleteUser(user.getEmail());
+
+    //     verify(users, times(1)).deleteByEmail(user.getEmail());
+    // }
 }

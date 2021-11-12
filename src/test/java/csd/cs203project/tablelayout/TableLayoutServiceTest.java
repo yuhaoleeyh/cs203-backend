@@ -44,7 +44,7 @@ public class TableLayoutServiceTest {
 
     @Test 
     void generateTableLayout_EnoughSpace_ReturnLayout() {
-        TableLayout tableLayout = new TableLayout(5000,4000,500,500);
+        TableLayout tableLayout = new TableLayout(5000,4000,500,500, 2);
 
         ArrayList<ArrayList<HashMap<String, Double>>> layout = tableLayoutService.generateTableLayout(tableLayout);
 

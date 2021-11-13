@@ -1,12 +1,14 @@
 package csd.cs203project.measures;
 
 import csd.cs203project.model.Measures;
+import csd.cs203project.model.Shop;
 import csd.cs203project.model.User;
 import csd.cs203project.repository.measures.MeasuresRepository;
 import csd.cs203project.repository.user.UserRepository;
 import csd.cs203project.service.measures.MeasuresService;
 import csd.cs203project.service.measures.MeasuresServiceImpl;
 import csd.cs203project.service.notifications.NotificationsService;
+import csd.cs203project.service.shop.ShopService;
 import csd.cs203project.service.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -33,6 +35,9 @@ public class MeasuresServiceTest {
 
     @Mock
     private NotificationsService notificationsService;
+
+    @Mock
+    private ShopService shopService;
 
     @Spy
     @InjectMocks
@@ -139,8 +144,10 @@ public class MeasuresServiceTest {
         doReturn(oldMeasures).when(measuresService).findByTypeOfShop(any(String.class));
         //mock the "getChangeInMeasures" operation
         doReturn(new ArrayList<String>()).when(measuresService).getChangeInMeasures(any(Measures.class), any(Measures.class));
-        //mock the "findByShopShopType" operation
-        when(userService.findByShopShopType(any(String.class))).thenReturn(new ArrayList<>());
+        //mock the "shopService.findByShopType" operation
+        when(shopService.findByShopType(any(String.class))).thenReturn(new ArrayList<Shop>());
+        //mock the "userService.findByShops" operation
+        when(userService.findByShops(any(List.class))).thenReturn(new ArrayList<User>());
         //mock the "deleteByTypeOfShop" operation
         doNothing().when(measuresRepository).deleteByTypeOfShop(any(String.class));
         //mock the "save" operation
@@ -154,7 +161,8 @@ public class MeasuresServiceTest {
 
         verify(measuresService).findByTypeOfShop(newMeasures.getTypeOfShop());
         verify(measuresService).getChangeInMeasures(oldMeasures, newMeasures);
-        verify(userService).findByShopShopType(newMeasures.getTypeOfShop());
+        verify(shopService).findByShopType(newMeasures.getTypeOfShop());
+        verify(userService).findByShops(new ArrayList<Shop>());
         verify(measuresRepository).deleteByTypeOfShop(newMeasures.getTypeOfShop());
         verify(measuresRepository).save(newMeasures);
     }

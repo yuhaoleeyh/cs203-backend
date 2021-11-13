@@ -136,10 +136,10 @@ public class MeasuresServiceTest {
     }
 
     @Test
-    void updateMeasures_WithOldMeasures_ReturnNewMeasures() {
+    void updateMeasures_WithOldMeasuresAndNoChanges_ReturnNewMeasures() {
         //arrange
         Measures oldMeasures = new Measures(1L, "fastfoodoutlet", 2,2,2,2,"11:11:11", "3");
-        Measures newMeasures = new Measures(1L, "fastfoodoutlet", 3,3,3,3,"22:22:22", "2");
+        Measures newMeasures = new Measures(1L, "fastfoodoutlet", 3,3,3,3,"11:11:11", "3");
         //mock the "findByTypeOfShop" operation
         doReturn(oldMeasures).when(measuresService).findByTypeOfShop(any(String.class));
         //mock the "getChangeInMeasures" operation
@@ -167,5 +167,39 @@ public class MeasuresServiceTest {
         verify(measuresRepository).save(newMeasures);
     }
 
+    @Test
+    void updateMeasures_WithOldMeasuresAndWithChanges_ReturnNewMeasures() {
+        //arrange
+        Measures oldMeasures = new Measures(1L, "fastfoodoutlet", 2,2,2,2,"11:11:11", "3");
+        Measures newMeasures = new Measures(1L, "fastfoodoutlet", 3,3,3,3,"22:22:22", "2");
+        List<String> changes = List.of("1");
+        //mock the "findByTypeOfShop" operation
+        doReturn(oldMeasures).when(measuresService).findByTypeOfShop(any(String.class));
+        //mock the "getChangeInMeasures" operation
+        doReturn(changes).when(measuresService).getChangeInMeasures(any(Measures.class), any(Measures.class));
+        //mock the "shopService.findByShopType" operation
+        when(shopService.findByShopType(any(String.class))).thenReturn(new ArrayList<Shop>());
+        //mock the "userService.findByShops" operation
+        when(userService.findByShops(any(List.class))).thenReturn(new ArrayList<User>());
+        //mock the "notificationsService.sendChangedMeasures" operation
+        doNothing().when(notificationsService).sendChangedMeasures(any(List.class), any(List.class), any(String.class));
+        //mock the "deleteByTypeOfShop" operation
+        doNothing().when(measuresRepository).deleteByTypeOfShop(any(String.class));
+        //mock the "save" operation
+        when(measuresRepository.save(any(Measures.class))).thenReturn(newMeasures);
 
+        //act
+        Measures measures = measuresService.updateMeasures(newMeasures);
+
+        //assert
+        assertEquals(newMeasures, measures);
+
+        verify(measuresService).findByTypeOfShop(newMeasures.getTypeOfShop());
+        verify(measuresService).getChangeInMeasures(oldMeasures, newMeasures);
+        verify(shopService).findByShopType(newMeasures.getTypeOfShop());
+        verify(userService).findByShops(new ArrayList<Shop>());
+        verify(notificationsService).sendChangedMeasures(changes, new ArrayList<User>(), newMeasures.getTypeOfShop());
+        verify(measuresRepository).deleteByTypeOfShop(newMeasures.getTypeOfShop());
+        verify(measuresRepository).save(newMeasures);
+    }
 }

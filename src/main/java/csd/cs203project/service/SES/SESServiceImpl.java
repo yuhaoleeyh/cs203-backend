@@ -23,23 +23,19 @@ public class SESServiceImpl implements SESService{
         for (String change: changes) {
             sb.append(change + "<br>");
         }
-        
-        try {
-            System.out.println("TRYING TO SEND");
-            send(client, sender, recipients, typeOfShop, sb.toString());
-            System.out.println("SENT");
-            client.close();
-            System.out.println("Done");
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+
+        System.out.println("TRYING TO SEND");
+        send(client, sender, recipients, typeOfShop, sb.toString());
+        System.out.println("SENT");
+        client.close();
+        System.out.println("Done");
     }
     public void send(SesClient client,
                             String sender,
                             List<User> recipients,
                             String typeOfShop,
                             String changes
-    ) throws Exception {
+    ) {
         for (User recipient : recipients) {
             String templateData = String.format("{\"name\":\"%s\", \"shopType\":\"%s\", \"changes\":\"%s\"}", recipient.getName(), typeOfShop, changes);
             System.out.println(templateData);

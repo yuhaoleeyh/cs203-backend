@@ -52,7 +52,6 @@ public class SESServiceImpl implements SESService{
             try {
                 System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
                 SendTemplatedEmailResponse r = client.sendTemplatedEmail(emailRequest);
-                System.out.println(r.toString());
             } catch (SesException e) {
                 System.err.println(e.awsErrorDetails().errorMessage());
             }

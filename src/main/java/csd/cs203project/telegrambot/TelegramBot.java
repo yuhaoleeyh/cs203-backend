@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -18,17 +20,12 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Component
-public class TelegramBot extends TelegramLongPollingBot {
+public class TelegramBot extends TelegramWebhookBot {
 
 
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    public TelegramBot(UserRepository userRepository) {
-//        super();
-//        this.userRepository = userRepository;
-//    }
 
     @Value("${telegramBotToken}")
     private String botToken;
@@ -43,8 +40,19 @@ public class TelegramBot extends TelegramLongPollingBot {
         return botToken;
     }
 
+    public void sendMessage(String message, String chatId) {
+        SendMessage telegramMessage = new SendMessage();
+        telegramMessage.setText(message);
+        telegramMessage.setChatId(chatId);
+        try{
+            execute(telegramMessage);
+        } catch (TelegramApiException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
-    public void onUpdateReceived(Update update) {
+    public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         Message updateMessage = update.getMessage();
         if (updateMessage != null) {
             String chatId = Long.toString(updateMessage.getChatId());
@@ -67,16 +75,11 @@ public class TelegramBot extends TelegramLongPollingBot {
             System.out.println(update.getMessage().getText());
 
         }
+        return null;
     }
 
-    public void sendMessage(String message, String chatId) {
-        SendMessage telegramMessage = new SendMessage();
-        telegramMessage.setText(message);
-        telegramMessage.setChatId(chatId);
-        try{
-            execute(telegramMessage);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public String getBotPath() {
+        return "/webhook";
     }
 }

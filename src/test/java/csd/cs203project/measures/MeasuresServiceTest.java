@@ -45,7 +45,7 @@ public class MeasuresServiceTest {
 
 
     @Test
-    void findByTypeOfShop_ReturnFoundMeasures() {
+    void findByTypeOfShop_MeasuresExist_ReturnFoundMeasures() {
         //arrange
         String typeOfShop = "fastfoodoutlet";
         Measures measures = new Measures(1L, "fastfoodoutlet", 2,2,2,2,"11:11:11", "3");
@@ -56,13 +56,13 @@ public class MeasuresServiceTest {
         Measures foundMeasures = measuresService.findByTypeOfShop(typeOfShop);
 
         //assert
-        assertNotNull(foundMeasures);
+        assertEquals(foundMeasures, measures);
 
         verify(measuresRepository).findByTypeOfShop(typeOfShop);
     }
 
     @Test
-    void findByTypeOfShop_ReturnNull() {
+    void findByTypeOfShop_NoSuchMeasures_ReturnNull() {
         //arrange
         String typeOfShop = "fastfoodoutlet";
         // mock the "findByTypeOfShop" operation
@@ -78,7 +78,7 @@ public class MeasuresServiceTest {
     }
 
     @Test
-    void getChangeInMeasures_NoChanges() {
+    void getChangeInMeasures_NoChanges_ReturnEmptyArrayList() {
         //arrange
         Measures measures = new Measures(1L, "fastfoodoutlet", 2,2,2,2,"11:11:11", "3");
 
@@ -91,7 +91,7 @@ public class MeasuresServiceTest {
     }
 
     @Test
-    void getChangeInMeasures_WithChanges() {
+    void getChangeInMeasures_WithChanges_ReturnArrayListWithChanges() {
         
         //arrange
         Measures oldMeasures = new Measures(1L, "fastfoodoutlet", 2,2,2,2,"11:11:11", "3");

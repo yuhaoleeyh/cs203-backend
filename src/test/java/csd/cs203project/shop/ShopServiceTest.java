@@ -60,15 +60,15 @@ public class ShopServiceTest {
     void updateShop_Found_ReturnUpdatedShop(){
         //Arrange
         Shop shop = new Shop(0L, "TestShop", "restaurant", 0.0, 0, 0.0, new ArrayList<User>());
-        when(shopRepository.findByName(any(String.class))).thenReturn(Optional.ofNullable(shop));
+        when(shopRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(shop));
         when(shopRepository.save(any(Shop.class))).thenReturn(shop);
 
         //Act
-        Shop updatedShop = shopService.updateShop(shop.getName(), shop);
+        Shop updatedShop = shopService.updateShop(shop.getId(), shop);
 
         //Assert & Verify
         assertNotNull(updatedShop);
-        verify(shopRepository).findByName(shop.getName());
+        verify(shopRepository).findById(shop.getId());
         verify(shopRepository).save(shop);
     }
 
@@ -76,26 +76,26 @@ public class ShopServiceTest {
     void updateShop_NotFound_ReturnNull(){
         //Arrange
         Shop shop = new Shop(0L, "TestShop", "restaurant", 0.0, 0, 0.0, new ArrayList<User>());
-        when(shopRepository.findByName(any(String.class))).thenReturn(Optional.ofNullable(null));
+        when(shopRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(null));
 
         //Act
-        Shop updatedShop = shopService.updateShop(shop.getName(), shop);
+        Shop updatedShop = shopService.updateShop(shop.getId(), shop);
 
         //Assert & Verify
         assertNull(updatedShop);
-        verify(shopRepository).findByName(shop.getName());
+        verify(shopRepository).findById(shop.getId());
     }
 
     @Test
     void deleteShop_Deleted(){
         //Arrange
         Shop shop = new Shop(0L, "TestShop", "restaurant", 0.0, 0, 0.0, new ArrayList<User>());
-        when(shopRepository.findByName(any(String.class))).thenReturn(Optional.ofNullable(shop));
+        when(shopRepository.findById(any(Long.class))).thenReturn(Optional.ofNullable(shop));
 
         //Act
-        shopService.deleteShop(shop.getName());
+        shopService.deleteShop(shop.getId());
 
         //Assert & Verify
-        verify(shopRepository, times(1)).deleteByName(shop.getName());
+        verify(shopRepository, times(1)).deleteById(shop.getId());
     }
 }

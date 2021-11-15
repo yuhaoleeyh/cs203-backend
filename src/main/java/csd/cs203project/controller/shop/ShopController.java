@@ -43,21 +43,21 @@ public class ShopController {
         return savedShop;
     }
 
-    @PutMapping("/shops/{name}")
-    public Shop updateShop (@PathVariable String name, @RequestBody Shop newShopInfo) {
-        Shop shop = shopService.updateShop(name, newShopInfo);
+    @PutMapping("/shops/{id}")
+    public Shop updateShop (@PathVariable Long id, @RequestBody Shop newShopInfo) {
+        Shop shop = shopService.updateShop(id, newShopInfo);
         if (shop == null) {
-            throw new ResourceNotFoundException("Shop with name " + name);
+            throw new ResourceNotFoundException("Shop with id " + id);
         }
         return shop;
     }
 
-    @DeleteMapping("/shops/{name}")
-    public void deleteShop (@PathVariable String name) {
+    @DeleteMapping("/shops/{id}")
+    public void deleteShop (@PathVariable Long id) {
         try {
-            shopService.deleteShop(name);
+            shopService.deleteShop(id);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Shop with name " + name);
+            throw new ResourceNotFoundException("Shop with id " + id);
         }
     }
 }

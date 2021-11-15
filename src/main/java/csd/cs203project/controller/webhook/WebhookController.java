@@ -14,8 +14,6 @@ public class WebhookController {
 
     @PostMapping("/webhook")
     public void handleUpdates(@RequestBody Update update) {
-        System.out.println("Works");
-        System.out.println(update);
         telegramBot.onWebhookUpdateReceived(update);
     }
 }

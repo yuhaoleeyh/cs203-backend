@@ -63,7 +63,6 @@ public class FootfallDataServiceImpl implements FootfallDataService {
      */
     @Override
     public void reloadFootfallData () {
-        System.out.println("I AM EXECUTED???");
         String dateInDb = lastUpdateDateRepository.findById(1L).map(date -> date.getDataLastUpdated()).orElse(null);
 
         try {
@@ -72,14 +71,12 @@ public class FootfallDataServiceImpl implements FootfallDataService {
             String dataLastUpdated = jsonObject.getString("DataLastUpdated");
 
             if (dataLastUpdated.equals(dateInDb)) {
-                System.out.println("ok same");
                 LastUpdateDate lastUpdateDate = new LastUpdateDate(1L, dataLastUpdated, false);
                 lastUpdateDateRepository.deleteAll();
                 lastUpdateDateRepository.save(lastUpdateDate);
                 return;
             }
 
-            System.out.println("not same");
             LastUpdateDate lastUpdateDate = new LastUpdateDate(1L, dataLastUpdated, true);
             lastUpdateDateRepository.deleteAll();
             lastUpdateDateRepository.save(lastUpdateDate);
@@ -95,7 +92,6 @@ public class FootfallDataServiceImpl implements FootfallDataService {
      * Parses footfall data from singstat such that only 5 years worth of relevant data is kept
      */
     public void parseFootfallData (JSONObject jsonObject) throws IOException, JSONException {
-        System.out.println("i am now parsing footfall data");
         JSONArray level1Array = jsonObject.getJSONArray("Level1");
         JSONArray level2Array = jsonObject.getJSONArray("Level2");
         int length1 = level1Array.length();

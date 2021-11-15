@@ -1,8 +1,5 @@
 package csd.cs203project.model;
 
-import java.sql.Date;
-import java.sql.Time;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

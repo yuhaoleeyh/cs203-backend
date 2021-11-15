@@ -18,7 +18,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		http.headers().cacheControl();
 		
-		// added this line
 		http
 		.cors()
 			.and()
@@ -51,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			/** Users */
 			.antMatchers(HttpMethod.POST, "/users").hasAnyRole("SUPERVISOR", "ADMIN")
 
-			/** All other requests do not need to be authenticated */
+			/** All other requests */
 			.anyRequest().permitAll()
 			.and()
 			.addFilterBefore(awsCognitoJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

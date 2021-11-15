@@ -1,7 +1,6 @@
 package csd.cs203project.service.user;
 
 import java.util.List;
-import java.util.Optional;
 
 import csd.cs203project.model.Shop;
 import csd.cs203project.model.User;
@@ -16,10 +15,6 @@ public interface UserService {
     User updateUser(String email, User newUserInfo);
 
     void deleteUser(String email);
-
-//    List<User> findEmployeesByCompany(String company);
-//
-//    List<User> findEmployeesAndAdminsUnderCompany(String company);
 
     List<User> findByAuthorities (String authorities);
 

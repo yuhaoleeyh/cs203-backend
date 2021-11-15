@@ -1,10 +1,8 @@
 package csd.cs203project.notifications;
 
-import csd.cs203project.model.Shop;
 import csd.cs203project.model.User;
 import csd.cs203project.service.SES.SESServiceImpl;
 import csd.cs203project.service.notifications.NotificationsServiceImpl;
-import csd.cs203project.service.telegrambot.TelegramBotService;
 import csd.cs203project.service.telegrambot.TelegramBotServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

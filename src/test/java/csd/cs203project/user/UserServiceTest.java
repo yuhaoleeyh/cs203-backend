@@ -1,17 +1,11 @@
 package csd.cs203project.user;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -79,10 +73,7 @@ public class UserServiceTest {
     }
 
 
-
-
-
-        @Test
+    @Test
     void addNewEmployee_ReturnSavedEmployee() {
         //arrange
         User user = new User("hi@gmail.com", "Mary", "ROLE_ADMIN");

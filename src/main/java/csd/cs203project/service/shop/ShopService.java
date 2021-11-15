@@ -14,7 +14,7 @@ public interface ShopService {
 
     Shop addShop (Shop shop);
 
-    Shop updateShop(String name, Shop newShop);
+    Shop updateShop(Long id, Shop newShop);
 
-    void deleteShop (String name);
+    void deleteShop (Long id);
 }

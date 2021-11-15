@@ -45,8 +45,8 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
-    public Shop updateShop(String name, Shop newShop) {
-        return shopRepository.findByName(name).map(shop -> {
+    public Shop updateShop(Long id, Shop newShop) {
+        return shopRepository.findById(id).map(shop -> {
             shop.setName(newShop.getName());
             shop.setShopType(newShop.getShopType());
             shop.setArea(newShop.getArea());
@@ -57,9 +57,9 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
-    public void deleteShop (String name) {
-        if (shopRepository.findByName(name).isPresent()) {
-            shopRepository.deleteByName(name);
+    public void deleteShop (Long id) {
+        if (shopRepository.findById(id).isPresent()) {
+            shopRepository.deleteById(id);
         } else {
             throw new EmptyResultDataAccessException(1);
         }

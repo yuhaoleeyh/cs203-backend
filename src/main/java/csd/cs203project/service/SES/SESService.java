@@ -1,9 +1,7 @@
 package csd.cs203project.service.SES;
 
 import csd.cs203project.model.User;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.ses.SesClient;
-import software.amazon.awssdk.services.ses.model.*;
 
 import java.util.List;
 

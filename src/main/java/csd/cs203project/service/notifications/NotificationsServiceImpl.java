@@ -23,7 +23,6 @@ public class NotificationsServiceImpl implements NotificationsService{
 
     @Override
     public void sendChangedMeasures(List<String> changes, List<User> affectedUsers, String typeOfShop) {
-        System.out.println("Pass 3");
         // List<String> affectedUsersEmails = affectedUsers.stream()
         //         .map(affectedUser -> affectedUser.getEmail())
         //         .collect(Collectors.toList());

@@ -13,7 +13,6 @@ import java.util.List;
 public class SESServiceImpl implements SESService{
 
     public void sendMessageEmailRequest(List<String> changes, List<User> recipients, String typeOfShop) {
-        System.out.println(changes);
         String sender = "covfeed203@gmail.com";
         Region region = Region.AP_SOUTHEAST_1;
         SesClient client = SesClient.builder()
@@ -24,11 +23,8 @@ public class SESServiceImpl implements SESService{
             sb.append(change + "<br>");
         }
 
-        System.out.println("TRYING TO SEND");
         send(client, sender, recipients, typeOfShop, sb.toString());
-        System.out.println("SENT");
         client.close();
-        System.out.println("Done");
     }
     public void send(SesClient client,
                             String sender,
@@ -38,7 +34,6 @@ public class SESServiceImpl implements SESService{
     ) {
         for (User recipient : recipients) {
             String templateData = String.format("{\"name\":\"%s\", \"shopType\":\"%s\", \"changes\":\"%s\"}", recipient.getName(), typeOfShop, changes);
-            System.out.println(templateData);
             Destination destination = Destination.builder()
                     .toAddresses(recipient.getEmail())
                     .build();
@@ -50,7 +45,6 @@ public class SESServiceImpl implements SESService{
                     .build();
 
             try {
-                System.out.println("Attempting to send an email through Amazon SES " + "using the AWS SDK for Java...");
                 SendTemplatedEmailResponse r = client.sendTemplatedEmail(emailRequest);
             } catch (SesException e) {
                 System.err.println(e.awsErrorDetails().errorMessage());

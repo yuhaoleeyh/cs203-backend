@@ -31,7 +31,6 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     @Override
     public Measures updateMeasures(Measures measures){
-        System.out.println("Pass 1");
         String typeOfShop = measures.getTypeOfShop();
         Measures oldMeasures = findByTypeOfShop(typeOfShop);
         if (measures.getClosingTime().length() == 5) measures.setClosingTime(measures.getClosingTime()+":00");
@@ -40,7 +39,6 @@ public class MeasuresServiceImpl implements MeasuresService {
             List<Shop> shops = shopService.findByShopType(typeOfShop);
             List<User> affectedUsers = userService.findByShops(shops);
             if (changes.size() > 0) {
-                System.out.println("Pass 2");
                 notificationsService.sendChangedMeasures(changes, affectedUsers, typeOfShop);
             }
         }

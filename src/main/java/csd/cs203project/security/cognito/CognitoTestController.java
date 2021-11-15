@@ -20,8 +20,6 @@ public class CognitoTestController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String authEmail = authentication.getName();
         
-        System.out.println("authenticatedEmail: " + authEmail);
-        
         return  "Response: You are cognito-authenticated at this email: " + authEmail;
     }
 

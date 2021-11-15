@@ -108,7 +108,6 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
             NewsArticle article = new NewsArticle(title, description, date, url, imageUrl);
             addNewsArticle(article);
-            System.out.println("Added article: " + article);
         }
     }
 }

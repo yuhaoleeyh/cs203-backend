@@ -4,8 +4,6 @@ import csd.cs203project.model.Measures;
 import csd.cs203project.model.Shop;
 import csd.cs203project.model.User;
 import csd.cs203project.repository.measures.MeasuresRepository;
-import csd.cs203project.repository.user.UserRepository;
-import csd.cs203project.service.measures.MeasuresService;
 import csd.cs203project.service.measures.MeasuresServiceImpl;
 import csd.cs203project.service.notifications.NotificationsService;
 import csd.cs203project.service.shop.ShopService;
@@ -19,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;

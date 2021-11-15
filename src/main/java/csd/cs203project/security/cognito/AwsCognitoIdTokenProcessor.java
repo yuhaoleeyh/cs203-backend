@@ -12,7 +12,6 @@ import com.nimbusds.jwt.proc.ConfigurableJWTProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
@@ -43,7 +42,7 @@ public class AwsCognitoIdTokenProcessor {
                 return new JwtAuthentication(user, claims, grantedAuthorities);
             }
         } else {
-            // System.out.println("User is not authenticated when calling this API endpoint");
+            
         }
         return null;
     }

@@ -34,7 +34,6 @@ public class FootfallDataIntegrationTest {
         URI uri = new URI(baseUrl + port + "/footfallData");
 
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
-//        String jsonObject = result.getBody();
 
         assertEquals(200, result.getStatusCode().value());
     }

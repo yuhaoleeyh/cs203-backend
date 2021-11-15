@@ -4,20 +4,15 @@ import csd.cs203project.model.User;
 import csd.cs203project.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import javax.annotation.PostConstruct;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Component
 public class TelegramBot extends TelegramWebhookBot {
@@ -59,21 +54,15 @@ public class TelegramBot extends TelegramWebhookBot {
             String text = updateMessage.getText();
             String[] textArray = text.split(" ");
             if (textArray[0].equals("/start") && textArray.length == 2) {
-                System.out.println(textArray[1]);
                 try {
                     User user = userRepository.findByTelegramSignUpToken(textArray[1]).orElseThrow();
                     user.setTelegramChatId(chatId);
                     userRepository.save(user);
                 }
                 catch (NoSuchElementException e) {
-                    System.out.println("There is no user with this SignUpToken");
+                    e.printStackTrace();
                 }
-
-
             }
-            System.out.println(update.getMessage().getChatId());
-            System.out.println(update.getMessage().getText());
-
         }
         return null;
     }

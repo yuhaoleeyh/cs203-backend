@@ -30,7 +30,7 @@ public class TelegramBotServiceTest {
                 "The Dine In Size changed from 3 to 2\n";
         List<String> updates = new ArrayList<>();
         updates.add("The Dine In Size changed from 3 to 2");
-        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE", "SMU");
+        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE");
         user.setTelegramChatId("12345678");
         List<User> users = List.of(user);
         String typeOfShop = "restaurant";

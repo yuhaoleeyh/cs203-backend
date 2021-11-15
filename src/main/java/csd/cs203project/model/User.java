@@ -36,11 +36,9 @@ public class User implements UserDetails {
 
     private String name;
     private String email;
-    private String userType;
     private String vaccinationStatus;
     private String swabTestResult;
     private String fetStatus;
-    private String company;
     private String telegramSignUpToken;
     private String telegramChatId;
 
@@ -52,11 +50,10 @@ public class User implements UserDetails {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
-    public User(String email, String name, String authorities, String company) {
+    public User(String email, String name, String authorities) {
         this.email = email;
         this.name = name;
         this.authorities = authorities;
-        this.company = company;
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

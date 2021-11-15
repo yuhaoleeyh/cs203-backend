@@ -40,7 +40,7 @@ public class UserServiceTest {
     @Test
     void addUser_NewEmail_ReturnSavedUser() {
         // Arrange
-        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE", "SMU");
+        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE");
         when(users.findByEmail(any(String.class))).thenReturn(Optional.empty());
         when(users.save(any(User.class))).thenReturn(user);
 
@@ -56,7 +56,7 @@ public class UserServiceTest {
     @Test
     void addUser_SameEmail_ReturnNull() {
         // Arrange
-        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE", "SMU");
+        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE");
         when(users.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
 
         // Act
@@ -69,7 +69,7 @@ public class UserServiceTest {
 
     @Test
     void updateUser_InvalidEmail_ReturnNull() {
-        User user = new User("john.doe@smu.edu.sg", "John Updated Name", "ROLE_EMPLOYEE", "SMU");
+        User user = new User("john.doe@smu.edu.sg", "John Updated Name", "ROLE_EMPLOYEE");
         when(users.findByEmail(user.getEmail())).thenReturn(Optional.empty());
 
         User savedUser = userService.updateUser(user.getEmail(), user);
@@ -85,7 +85,7 @@ public class UserServiceTest {
         @Test
     void addNewEmployee_ReturnSavedEmployee() {
         //arrange
-        User user = new User("hi@gmail.com", "Mary", "ROLE_ADMIN", "KFC");
+        User user = new User("hi@gmail.com", "Mary", "ROLE_ADMIN");
         // mock the "findByEmail" operation
         when(users.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(null));
         // mock the "save" operation 
@@ -103,7 +103,7 @@ public class UserServiceTest {
 
     @Test 
     void addEmployee_SameEmail_ReturnNull() {
-        User user = new User("a@b", "Mary", "ROLE_ADMIN", "KFC");
+        User user = new User("a@b", "Mary", "ROLE_ADMIN");
         // mock the "findByEmail" operation
         when(users.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
         
@@ -119,7 +119,7 @@ public class UserServiceTest {
 
     @Test 
     void updateEmployee_NotFound_ReturnNull(){
-        User user = new User("EFSGFDCDSFDSF", "Test", "ROLE_ADMIN", "KFC");
+        User user = new User("EFSGFDCDSFDSF", "Test", "ROLE_ADMIN");
         when(users.findByEmail(user.getEmail())).thenReturn(Optional.empty());
         
         User updatedUser = userService.updateUser(user.getEmail(), user);
@@ -130,8 +130,8 @@ public class UserServiceTest {
 
     @Test 
     void updateEmployee_Found_ReturnSavedUser(){
-        User user = new User("yay@gmail.com", "NewNameForMe", "ROLE_ADMIN", "KFC");
-        when(users.findByEmail(user.getEmail())).thenReturn(Optional.of(new User("yay@gmail.com", "Marysss", "ROLE_ADMIN", "CoffeeBean")));
+        User user = new User("yay@gmail.com", "NewNameForMe", "ROLE_ADMIN");
+        when(users.findByEmail(user.getEmail())).thenReturn(Optional.of(new User("yay@gmail.com", "Marysss", "ROLE_ADMIN")));
         // mock the "save" operation 
         when(users.save(any(User.class))).thenReturn(user);
         

@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService{
             user.setVaccinationStatus(newUserInfo.getVaccinationStatus());
             user.setSwabTestResult(newUserInfo.getSwabTestResult());
             user.setFetStatus(newUserInfo.getFetStatus());
-            user.setCompany(newUserInfo.getCompany());
             user.setShop(newUserInfo.getShop());
 
             return userRepository.save(user);
@@ -81,16 +80,6 @@ public class UserServiceImpl implements UserService{
             throw new EmptyResultDataAccessException(1); 
         }
     }
-
-//    @Override
-//    public List<User> findEmployeesByCompany(String company) {
-//        return userRepository.findEmployeesByCompany(company, "Employee");
-//    }
-//
-//    @Override
-//    public List<User> findEmployeesAndAdminsUnderCompany(String company) {
-//        return userRepository.findEmployeesByCompany(company, "Supervisor");
-//    }
 
     @Override
     public List<User> findByAuthorities (String authorities) {

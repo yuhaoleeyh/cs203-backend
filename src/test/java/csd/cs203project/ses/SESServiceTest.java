@@ -41,7 +41,7 @@ public class SESServiceTest {
         String built = "The Dine In Size changed from 3 to 2<br>";
         List<String> changes = new ArrayList<>();
         changes.add("The Dine In Size changed from 3 to 2");
-        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE", "SMU");
+        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE");
         List<User> users = List.of(user);
         String typeOfShop = "restaurant";
         SesClient client = SesClient.builder()
@@ -62,7 +62,7 @@ public class SESServiceTest {
         //Arrange
         String built = "The Dine In Size changed from 3 to 2<br>";
         String sender = "covfeed203@gmail.com";
-        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE", "SMU");
+        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE");
         List<User> users = List.of(user);
         String typeOfShop = "restaurant";
         SesClient client = SesClient.builder()
@@ -83,7 +83,7 @@ public class SESServiceTest {
         //Arrange
         String built = "The Dine In Size changed from 3 to 2<br>";
         String sender = "covfeed203@gmail.com";
-        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE", "SMU");
+        User user = new User("john.doe@smu.edu.sg", "John Doe", "ROLE_EMPLOYEE");
         List<User> users = List.of(user);
         String typeOfShop = "restaurant";
         SesClient client = SesClient.builder()

@@ -29,41 +29,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers("/cognito/all-allow").permitAll()
 
 			/** Measures */
-			.antMatchers(HttpMethod.PUT, "/measures").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.PUT, "/measures").hasAnyRole("SUPERVISOR", "ADMIN")
 
 			/** News Articles */
-			.antMatchers(HttpMethod.POST, "/newsArticle").hasAnyRole("ADMIN", "PROF")
+			.antMatchers(HttpMethod.POST, "/newsArticle").hasAnyRole("ADMIN")
 
 			/** Shops */
-			.antMatchers(HttpMethod.POST, "/shops").hasAnyRole("ADMIN", "PROF")
-			.antMatchers(HttpMethod.PUT, "/shops/*").hasAnyRole("ADMIN", "PROF")
-			.antMatchers(HttpMethod.DELETE, "/shops/*").hasAnyRole("ADMIN", "PROF")
+			.antMatchers(HttpMethod.POST, "/shops").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.PUT, "/shops/*").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/shops/*").hasAnyRole("ADMIN")
 
 			/** Supervisor for Employees */
-			.antMatchers(HttpMethod.GET, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
-			.antMatchers(HttpMethod.POST, "/employees").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
-			.antMatchers(HttpMethod.PUT, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
-			.antMatchers(HttpMethod.DELETE, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.GET, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN")
+			.antMatchers(HttpMethod.POST, "/employees").hasAnyRole("SUPERVISOR", "ADMIN")
+			.antMatchers(HttpMethod.PUT, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN")
 
 			/** Table Layouts */
-			.antMatchers(HttpMethod.POST, "/tablelayout").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.POST, "/tablelayout").hasAnyRole("SUPERVISOR", "ADMIN")
 
 			/** Users */
-			.antMatchers(HttpMethod.POST, "/users").hasAnyRole("SUPERVISOR", "ADMIN", "PROF")
+			.antMatchers(HttpMethod.POST, "/users").hasAnyRole("SUPERVISOR", "ADMIN")
 
 			/** All other requests do not need to be authenticated */
 			.anyRequest().permitAll()
 			.and()
 			.addFilterBefore(awsCognitoJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-
-	// @Bean
-    // public WebMvcConfigurer corsConfigurer() {
-    //     return new WebMvcConfigurer() {
-    //         @Override
-    //         public void addCorsMappings(CorsRegistry registry) {
-    //             registry.addMapping("/**");
-    //         }
-    //     };
-    // }
 }

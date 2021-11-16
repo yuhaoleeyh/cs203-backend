@@ -2,6 +2,7 @@ package csd.cs203project.controller.webhook;
 
 import csd.cs203project.telegrambot.TelegramBot;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -13,7 +14,8 @@ public class WebhookController {
     private TelegramBot telegramBot;
 
     @PostMapping("/webhook")
-    public void handleUpdates(@RequestBody Update update) {
+    public ResponseEntity handleUpdates(@RequestBody Update update) {
         telegramBot.onWebhookUpdateReceived(update);
+        return ResponseEntity.ok().build();
     }
 }

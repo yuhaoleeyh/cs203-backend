@@ -14,7 +14,6 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class Measures {
-    //admin keys this
     private @Id @GeneratedValue Long id;
     @NotNull
     private String typeOfShop;

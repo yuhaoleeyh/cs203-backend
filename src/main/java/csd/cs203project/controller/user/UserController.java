@@ -36,7 +36,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @GetMapping("/users/id/{id}/authorities/{authorities}")
     public List<User> getEmployeesfromShopId (@PathVariable Long id, @PathVariable String authorities) {
         return userService.findByShopShopIdAndAuthorities(id, authorities);
@@ -70,7 +69,6 @@ public class UserController {
             throw new ResourceNotFoundException("User with email " + email);
         }
     }
-
 
     @GetMapping("/users/{email}")
     public User getUser(@PathVariable String email) {

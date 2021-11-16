@@ -27,6 +27,9 @@ public class NotificationsServiceTest {
     @InjectMocks
     private NotificationsServiceImpl notificationsService;
 
+    /**
+     * Test for sending changed measures using both SES and Telegram
+     */
     @Test
     void sendChangedMeasures_CalledBothSESAndTelegram(){
         //Arrange

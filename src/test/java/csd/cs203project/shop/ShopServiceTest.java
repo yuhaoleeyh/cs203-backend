@@ -26,6 +26,9 @@ public class ShopServiceTest {
     @InjectMocks
     private ShopServiceImpl shopService;
 
+    /**
+     * Test for adding new shop that is valid
+     */
     @Test
     void addShop_NewShop_ReturnSavedShop(){
         //Arrange
@@ -42,6 +45,9 @@ public class ShopServiceTest {
         verify(shopRepository).save(shop);
     }
 
+    /**
+     * Test for adding new shop that is repeated
+     */
     @Test
     void addShop_RepeatedShop_ReturnNull(){
         //Arrange
@@ -56,6 +62,9 @@ public class ShopServiceTest {
         verify(shopRepository).findByName(shop.getName());
     }
 
+    /**
+     * Test for update shop, where it is Valid
+     */
     @Test
     void updateShop_Found_ReturnUpdatedShop(){
         //Arrange
@@ -72,6 +81,9 @@ public class ShopServiceTest {
         verify(shopRepository).save(shop);
     }
 
+    /**
+     * Test for update shop, where it is Invalid
+     */
     @Test
     void updateShop_NotFound_ReturnNull(){
         //Arrange
@@ -86,6 +98,9 @@ public class ShopServiceTest {
         verify(shopRepository).findById(shop.getId());
     }
 
+    /**
+     * Test for deleting shop
+     */
     @Test
     void deleteShop_Deleted(){
         //Arrange

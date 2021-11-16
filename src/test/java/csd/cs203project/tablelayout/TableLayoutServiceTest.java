@@ -31,6 +31,9 @@ public class TableLayoutServiceTest {
     @InjectMocks
     private TableLayoutServiceImpl tableLayoutService;
 
+    /**
+     * Test for generating table layout with not enough height space
+     */
     @Test
     void generateTableLayout_NotEnoughHeightSpace_ReturnNull() {
         TableLayout tableLayout = new TableLayout(5,6,6,6, 1);
@@ -38,10 +41,11 @@ public class TableLayoutServiceTest {
         ArrayList<ArrayList<HashMap<String, Double>>> layout = tableLayoutService.generateTableLayout(tableLayout);
 
         assertNull(layout);
-
-
     }
 
+    /**
+     * Test for generating table layout with not enough width space
+     */
     @Test
     void generateTableLayout_NotEnoughWidthSpace_ReturnNull() {
         TableLayout tableLayout = new TableLayout(5,6,5,7, 1);
@@ -49,10 +53,11 @@ public class TableLayoutServiceTest {
         ArrayList<ArrayList<HashMap<String, Double>>> layout = tableLayoutService.generateTableLayout(tableLayout);
 
         assertNull(layout);
-
-
     }
 
+    /**
+     * Test for generating table layout with not Sufficient space
+     */
     @Test 
     void generateTableLayout_EnoughSpace_ReturnLayout() {
         TableLayout tableLayout = new TableLayout(5000,4000,7,8, 1);

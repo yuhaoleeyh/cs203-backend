@@ -30,6 +30,11 @@ public class FootfallDataServiceImpl implements FootfallDataService {
         this.lastUpdateDateRepository = lastUpdateDateRepository;
     }
 
+    
+    /** 
+     * Returns all Footfall data
+     * @return List<FootfallData>
+     */
     @Override
     public List<FootfallData> listFootfallData() {
         return footfallDataRepository.findAll();
@@ -39,7 +44,7 @@ public class FootfallDataServiceImpl implements FootfallDataService {
      * Returns a JSON formatted String that contains:
      * 1. boolean indicating if information is updated
      * 2. the list of footfall data for a year
-     * @return
+     * @return String JSON response
      */
     @Override
     public String getJsonResponse () {
@@ -62,7 +67,7 @@ public class FootfallDataServiceImpl implements FootfallDataService {
      * Else clear database and reload the database with updated data
      */
     @Override
-    public void reloadFootfallData () {
+    public void reloadFootfallData() {
         String dateInDb = lastUpdateDateRepository.findById(1L).map(date -> date.getDataLastUpdated()).orElse(null);
 
         try {
@@ -88,8 +93,12 @@ public class FootfallDataServiceImpl implements FootfallDataService {
         }
     }
 
+    
     /**
      * Parses footfall data from singstat such that only 5 years worth of relevant data is kept
+     * @param jsonObject JSON object for Footfall Data
+     * @throws IOException
+     * @throws JSONException
      */
     public void parseFootfallData (JSONObject jsonObject) throws IOException, JSONException {
         JSONArray level1Array = jsonObject.getJSONArray("Level1");
@@ -135,9 +144,9 @@ public class FootfallDataServiceImpl implements FootfallDataService {
     }
 
     /**
-     * Reads data from singstat and returns string
+     * Reads data from singstat and returns string response from API
      *
-     * @return String
+     * @return String response from API
      * @throws IOException
      */
     public String parseAPI () throws IOException {
@@ -161,6 +170,11 @@ public class FootfallDataServiceImpl implements FootfallDataService {
         return null;
     }
 
+    
+    /** 
+     * @param data
+     * @return List<Double>
+     */
     public List<Double> calculateAverage(List<FootfallData> data) {
         Double restaurant = 0.0, fastFoodOutlet = 0.0, caterer = 0.0, other = 0.0;
 

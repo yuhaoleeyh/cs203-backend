@@ -24,12 +24,18 @@ import java.util.Map;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
+    
+    
     /**
      * Construct a new ResponseEntity to customize the Http error messages
      * This method handles the case in which validation failed for
      * controller method's arguments.
+     * @param ex exception
+     * @param headers HTTP headers
+     * @param status HTTP status
+     * @param request Web Request
+     * @return ResponseEntity<Object>
      */
-    
     @Override
     protected ResponseEntity<Object>
     handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
@@ -53,12 +59,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     /**
      * Handle the case in which arguments for controller's methods did not match the type.
      * E.g., bookId passed in is not a number
+     * @param response HttpServletResponse
+     * @throws IOException
      */
-    
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public void handleTypeMismatch(HttpServletResponse response) throws IOException {
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }
-
-
 }

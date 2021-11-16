@@ -14,6 +14,13 @@ public class TelegramBotServiceImpl implements TelegramBotService{
     private TelegramBot telegramBot;
 
 
+    
+    /** 
+     * Send notification for updates using Telegram bot
+     * @param updates updates information
+     * @param users users to receive updates
+     * @param typeOfShop type of shop for updates
+     */
     @Override
     public void sendUpdate(List<String> updates, List<User> users, String typeOfShop) {
         StringBuilder sb = new StringBuilder();

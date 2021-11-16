@@ -23,6 +23,9 @@ public class TelegramBotServiceTest {
     @InjectMocks
     private TelegramBotServiceImpl telegramBotService;
 
+    /**
+     * Test for sending update where updates exist
+     */
     @Test
     void sendUpdate_UpdatesExist_ReturnNull() {
         //Arrange
@@ -41,7 +44,5 @@ public class TelegramBotServiceTest {
 
         //Assert
         verify(telegramBot, times(1)).sendMessage(built, "12345678");
-
     }
-
 }

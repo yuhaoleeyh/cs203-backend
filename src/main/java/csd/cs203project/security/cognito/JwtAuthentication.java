@@ -19,14 +19,29 @@ public class JwtAuthentication extends AbstractAuthenticationToken {
         super.setAuthenticated(true);
     }
 
+    
+    /** 
+     * Get credentials object
+     * @return Object
+     */
     public Object getCredentials() {
         return null;
     }
 
+    
+    /** 
+     * Get principal object
+     * @return Object
+     */
     public Object getPrincipal() {
         return this.principal;
     }
 
+    
+    /** 
+     * Get JWTClaimsSet claims object
+     * @return JWTClaimsSet
+     */
     public JWTClaimsSet getJwtClaimsSet() {
         return this.jwtClaimsSet;
     }

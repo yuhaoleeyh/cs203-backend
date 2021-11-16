@@ -17,11 +17,22 @@ public class NewsArticleController {
         this.newsArticleService = newsArticleService;
     }
 
+    
+    /** 
+     * Allows administrators to add a news article
+     * @param newsArticle
+     * @return NewsArticle
+     */
     @PostMapping("/newsArticle")
     public NewsArticle addNewsArticle (@RequestBody NewsArticle newsArticle) {
         return newsArticleService.addNewsArticle(newsArticle);
     }
 
+    
+    /** 
+     * Get the latest news articles 
+     * @return List<NewsArticle> of latest news articles
+     */
     @GetMapping("/newsArticle")
     public List<NewsArticle> getNewsArticles() {
         return newsArticleService.getLatestArticles();

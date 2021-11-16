@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class TableLayoutServiceImpl implements TableLayoutService {
 
+    
     /**
      * Function to generate the table layout for the table 
-     * @Input TableLayout tablelayout:
+     * @param tableLayout
      * Consists of: widthOfShop, lengthOfShop, widthOfTable, lengthOfTable
-     * @Output A 2D arraylist with each hashmap representing a grid in the table layout
-     * 
+     * @return ArrayList<ArrayList<HashMap<String, Double>>> 
+     * A 2D arraylist with each hashmap representing a grid in the table layout
      */
     @Override
     public ArrayList<ArrayList<HashMap<String, Double>>> generateTableLayout(TableLayout tableLayout) {
@@ -46,17 +47,16 @@ public class TableLayoutServiceImpl implements TableLayoutService {
     }
 
 
+                                                                                
     /**
      * Function to generate whether the grid of dimension: widthOfTable by lengthOfTable should have a table there or not 
-     * @Input 
-     * int lengthNumber: the length we are currently on
-     * int widthNumber: the width we are currently on
-     * int multiplierSpacing: the number of tables we have for every space
-     * int widthOfTable: width of each table
-     * int lengthOfTable: length of each table
-     * @Output A grid, which would be blank if no table should be there, and a shaded region with the table width/length dimensions if a table is there
-     * 
-     */                                                                              
+     * @param lengthNumber the length we are currently on
+     * @param widthNumber the width we are currently on
+     * @param multiplierSpacing the number of tables we have for every space
+     * @param widthOfTable width of each table
+     * @param lengthOfTable length of each table
+     * @return HashMap<String, Double> A grid, which would be blank if no table should be there, and a shaded region with the table width/length dimensions if a table is there
+     */
     public HashMap<String, Double> hashGridDetails(int lengthNumber, int widthNumber, int multiplierSpacing, int widthOfTable, int lengthOfTable) {      
         final double BLANK_TABLE = 0.00;
         final double INCREMENT = 1.00;

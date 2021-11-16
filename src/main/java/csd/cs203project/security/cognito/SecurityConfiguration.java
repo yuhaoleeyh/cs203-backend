@@ -13,6 +13,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AwsCognitoJwtAuthFilter awsCognitoJwtAuthenticationFilter;
 
+	
+	/** 
+	 * Configure HTTP security
+	 * @param http
+	 * @throws Exception
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 

@@ -45,7 +45,6 @@ public class TelegramBot extends TelegramWebhookBot {
         return botToken;
     }
 
-    
     /** 
      * Send Telegram notification message using Telegram bot
      * @param message notification message to send
@@ -62,7 +61,6 @@ public class TelegramBot extends TelegramWebhookBot {
         }
     }
 
-    
     /** 
      * Handle Webhook Update
      * @param update Webhook Update

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class NotificationsServiceImpl implements NotificationsService{
@@ -30,11 +29,7 @@ public class NotificationsServiceImpl implements NotificationsService{
      */
     @Override
     public void sendChangedMeasures(List<String> changes, List<User> affectedUsers, String typeOfShop) {
-        // List<String> affectedUsersEmails = affectedUsers.stream()
-        //         .map(affectedUser -> affectedUser.getEmail())
-        //         .collect(Collectors.toList());
         telegramBotService.sendUpdate(changes, affectedUsers, typeOfShop);
         sesService.sendMessageEmailRequest(changes, affectedUsers, typeOfShop);
-
     }
 }

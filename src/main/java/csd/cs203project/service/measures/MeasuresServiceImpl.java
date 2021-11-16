@@ -29,11 +29,10 @@ public class MeasuresServiceImpl implements MeasuresService {
         this.shopService = shopService;
     }
 
-    
     /** 
      * Update measures
      * @param measures updated measures object
-     * @return Measures updated measures
+     * @return Measures updated measure
      */
     @Override
     public Measures updateMeasures(Measures measures){
@@ -66,7 +65,7 @@ public class MeasuresServiceImpl implements MeasuresService {
         else return null;
     }
 
-    
+
     /** 
      * Return the changes in measures by comparing the old and new measures
      * @param oldMeasures

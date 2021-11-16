@@ -19,7 +19,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "users")
-// @JsonIdentityInfo(generator = ObjectIdGenerator.None.class,property = "id")
 public class Shop {
     private @Id @GeneratedValue Long id;
 
@@ -30,7 +29,6 @@ public class Shop {
     private double sizeTables;
 
     @JsonIgnore
-    // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<User> users;
 

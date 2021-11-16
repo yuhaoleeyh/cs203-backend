@@ -11,8 +11,7 @@ import java.util.List;
 
 @Service
 public class SESServiceImpl implements SESService{
-
-    
+ 
     /** 
      * Send Message Email Request given the changes, recipients, and type of shop
      * @param changes updates to include in notification email
@@ -33,7 +32,7 @@ public class SESServiceImpl implements SESService{
         send(client, sender, recipients, typeOfShop, sb.toString());
         client.close();
     }
-    
+
     /** 
      * Send the email notification for updated measures to recipients
      * @param client Amazon Simple Email Service client

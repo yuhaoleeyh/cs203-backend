@@ -1,138 +1,89 @@
-// package csd.cs203project.user;
+package csd.cs203project.user;
 
-// import org.dom4j.util.UserDataAttribute;
-// import org.junit.jupiter.api.Test;
-// import org.mockito.Mock;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-// import org.springframework.boot.test.web.client.TestRestTemplate;
-// import org.springframework.boot.web.server.LocalServerPort;
-// import org.springframework.http.ResponseEntity;
+import org.dom4j.util.UserDataAttribute;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.ResponseEntity;
 
-// import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
-// import csd.cs203project.model.User;
-// import csd.cs203project.repository.user.UserRepository;
+import csd.cs203project.model.User;
+import csd.cs203project.repository.user.UserRepository;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// import java.net.URI;
+import java.net.URI;
 
-// import org.springframework.http.HttpEntity;
-// import org.springframework.http.HttpHeaders;
-// import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 
-// import java.util.List;
-// import java.util.Optional;
-
-
-// @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-// public class UserIntegrationTest {
-//     @LocalServerPort
-//     private int port;
-
-//     private final String baseUrl = "http://localhost:";
-
-//     @Autowired
-//     private TestRestTemplate restTemplate;
-
-//     @Autowired
-// 	private UserRepository userRepository;
+import java.util.List;
+import java.util.Optional;
 
 
-//     // @Test
-//     // public void getEmployees_Success() throws Exception {
-//     //     URI uri = new URI(baseUrl + port + "/employees/KFC");
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 
-//     //    restTemplate.getForEntity(uri, User[].class);
+/*NOTE CAN only test getting of users, add/delete/update users cannot be done with integration tests due to cognito constraint, tested in unit testing*/
+public class UserIntegrationTest {
+    @LocalServerPort
+    private int port;
+
+    private final String baseUrl = "http://localhost:";
+
+    @Autowired
+    private TestRestTemplate restTemplate;
+
+    @Autowired
+	private UserRepository userRepository;
 
 
-//     // //    User[] listOfEmployees = result.getBody();
+    @Test
+    public void getEmployees_Success() throws Exception {
+        URI uri = new URI(baseUrl + port + "/users/id/1/authorities/ROLE_ADMIN");
 
-//     // //    assertEquals(200, result.getStatusCode().value());
+        // /users/id/{id}/authorities/{authorities}
 
-//     // //    assertEquals(1, listOfEmployees.length);
+        ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
+
+        assertEquals(200, result.getStatusCode().value());
+
     
-//     // }
+    }
 
-//     @Test 
-//     public void addEmployee_Success() throws Exception {
-//         URI uri = new URI(baseUrl + port + "/employees");
+    @Test
+    public void getEmployees_Failure() throws Exception {
+        URI uri = new URI(baseUrl + port + "/users/id/1/authorities/ROLE_???");
 
-//         User user = new User("hi@gmail.com", "Mary", "Admin", "KFC");
+        // /users/id/{id}/authorities/{authorities}
 
-//         ResponseEntity<User> result = restTemplate.postForEntity(uri, user, User.class);
+        ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
 
-//         assertEquals(201, result.getStatusCode().value());
-// 		assertEquals(user.getEmail(), result.getBody().getEmail());
-//     }
+        assertEquals(200, result.getStatusCode().value());
 
-//     @Test
-//     public void addEmployee_Failure() throws Exception {
-//         URI uri = new URI(baseUrl + port + "/employees");
-//         User user = new User("a@b", "Mary", "Admin", "KFC");
+    
+    }
 
-//         ResponseEntity<User> result = restTemplate.postForEntity(uri, user, User.class);
+    /*Due to cognito*/
 
-//         assertEquals(409, result.getStatusCode().value());
-//     }
+    @Test
+    public void addEmployee_Failure() throws Exception {
+        URI uri = new URI(baseUrl + port + "/users");
+        User user = new User("a@b", "Mary", "ROLE_ADMIN");
 
-//     @Test
-//     public void updateEmployee_ValidEmail_Success() throws Exception {
-//         User user = new User("hi@gmail.com", "Mary", "Admin", "KFC");
-//         User updatedUser = new User("hi@gmail.com", "MaryUpdatedName", "Admin", "KFC");
-//         URI uri = new URI(baseUrl + port + "/employees/" + user.getEmail());
+        ResponseEntity<User> result = restTemplate.postForEntity(uri, user, User.class);
 
-//         ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedUser), User.class);
+        assertEquals(403, result.getStatusCode().value());
+    }
 
-//         assertEquals(200, result.getStatusCode().value());
-// 		assertEquals(updatedUser.getEmail(), result.getBody().getEmail());
-//     }
-
-//     @Test
-//     public void updateEmployee_InvalidEmail_Failure() throws Exception {
-//         User user = new User("EFSGFDCDSFDSF", "Mary", "Admin", "KFC");
-//         User updatedUser = new User("EFSGFDCDSFDSF", "222", "Admin", "KFC");
-//         URI uri = new URI(baseUrl + port + "/employees/" + user.getEmail());
-
-//         ResponseEntity<User> result = restTemplate.exchange(uri, HttpMethod.PUT, new HttpEntity<>(updatedUser), User.class);
-
-//         assertEquals(404, result.getStatusCode().value());
-//     }
-
-//     @Test 
-//     public void deleteEmployee_ValidEmail_Success() throws Exception {
-//         User user = new User("hi@gmail.com", "MaryUpdatedName", "Admin", "KFC");
-//         URI uri = new URI(baseUrl + port + "/employees/" + "abcde");
-
-//         userRepository.save(new User("abcde", "edcba", "Admin", "KFC"));
-
-//         ResponseEntity<Void> result = restTemplate.exchange(uri, HttpMethod.DELETE, null, Void.class);
-//         assertEquals(200,result.getStatusCode().value());
-
-//         Optional<User>emptyValue = Optional.empty();
-//         assertEquals(emptyValue,userRepository.findByEmail(user.getEmail()));
-
-
-//     }
-
-//     @Test 
-//     public void deleteEmployee_InvalidEmail_Failure() throws Exception {
-//         User user = new User("EFSGFDCDSFDSF", "Mary", "Admin", "KFC");
-//         URI uri = new URI(baseUrl + port + "/employees/" + user.getEmail());
-
-//         ResponseEntity<Void> result = restTemplate.exchange(uri, HttpMethod.DELETE, null, Void.class);
-
-//         assertEquals(404,result.getStatusCode().value());
-
-
-
-
-//     }
-
+    
     
 
     
 
-// }
+}

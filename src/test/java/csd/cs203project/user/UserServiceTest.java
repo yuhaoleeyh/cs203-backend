@@ -18,6 +18,8 @@ import csd.cs203project.model.User;
 import csd.cs203project.repository.user.UserRepository;
 import csd.cs203project.service.user.UserServiceImpl;
 import csd.cs203project.telegrambot.TelegramBot;
+import static org.mockito.Mockito.times;
+
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -133,13 +135,13 @@ public class UserServiceTest {
         verify(users).save(user);
     }
 
-    // @Test
-    // void deleteEmployee_Deleted() {
-    //     User user = new User("test@gmail.com", "Test", "Admin", "KFC");
-    //     when(users.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
+    @Test
+    void deleteEmployee_Deleted() {
+        User user = new User("test@gmail.com", "Test", "ROLE_ADMIN");
+        when(users.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
 
-    //     userService.deleteUser(user.getEmail());
+        userService.deleteUser(user.getEmail());
 
-    //     verify(users, times(1)).deleteByEmail(user.getEmail());
-    // }
+        verify(users, times(1)).deleteByEmail(user.getEmail());
+    }
 }

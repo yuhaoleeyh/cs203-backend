@@ -21,6 +21,12 @@ public class NotificationsServiceImpl implements NotificationsService{
         this.sesService = sesService;
     }
 
+    
+    /** 
+     * @param changes
+     * @param affectedUsers
+     * @param typeOfShop
+     */
     @Override
     public void sendChangedMeasures(List<String> changes, List<User> affectedUsers, String typeOfShop) {
         // List<String> affectedUsersEmails = affectedUsers.stream()

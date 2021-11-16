@@ -30,6 +30,10 @@ public class FootfallDataServiceImpl implements FootfallDataService {
         this.lastUpdateDateRepository = lastUpdateDateRepository;
     }
 
+    
+    /** 
+     * @return List<FootfallData>
+     */
     @Override
     public List<FootfallData> listFootfallData() {
         return footfallDataRepository.findAll();
@@ -161,6 +165,11 @@ public class FootfallDataServiceImpl implements FootfallDataService {
         return null;
     }
 
+    
+    /** 
+     * @param data
+     * @return List<Double>
+     */
     public List<Double> calculateAverage(List<FootfallData> data) {
         Double restaurant = 0.0, fastFoodOutlet = 0.0, caterer = 0.0, other = 0.0;
 

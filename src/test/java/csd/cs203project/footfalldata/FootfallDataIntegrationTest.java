@@ -29,6 +29,10 @@ public class FootfallDataIntegrationTest {
     @Autowired
     private LastUpdateDateRepository lastUpdateDateRepository;
 
+    
+    /** 
+     * @throws Exception
+     */
     @Test
     public void getFootfallData_Success () throws Exception {
         URI uri = new URI(baseUrl + port + "/footfallData");
@@ -38,6 +42,10 @@ public class FootfallDataIntegrationTest {
         assertEquals(200, result.getStatusCode().value());
     }
 
+    
+    /** 
+     * @throws Exception
+     */
     @Test
     public void postFootfallData_Success () throws Exception {
         URI uri = new URI(baseUrl + port + "/footfallData");

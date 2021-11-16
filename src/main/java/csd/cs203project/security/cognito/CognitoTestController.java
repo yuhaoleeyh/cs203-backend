@@ -10,11 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CognitoTestController {
 
+    
+    /** 
+     * @return String
+     */
     @GetMapping("/cognito/all-allow")
     public String getAnyone() {
         return "Response: anyone can see this!";
     }
     
+    
+    /** 
+     * @return String
+     */
     @GetMapping(path = "/cognito/only-authenticated")
     public String getResp(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

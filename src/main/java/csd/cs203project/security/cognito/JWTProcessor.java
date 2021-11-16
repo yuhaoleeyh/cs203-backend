@@ -23,6 +23,11 @@ public class JWTProcessor {
 	@Autowired
 	private JwtConfiguration jwtConfiguration;
 
+	
+	/** 
+	 * @return ConfigurableJWTProcessor
+	 * @throws MalformedURLException
+	 */
 	@Bean
 	public ConfigurableJWTProcessor configurableJWTProcessor() throws MalformedURLException {
 		ResourceRetriever resourceRetriever =

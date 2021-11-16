@@ -25,6 +25,10 @@ public class MeasuresIntegrationTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    
+    /** 
+     * @throws Exception
+     */
     @Test
     public void getMeasures_Success() throws Exception {
         URI uri = new URI(baseUrl + port + "/measures");

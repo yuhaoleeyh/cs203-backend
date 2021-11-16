@@ -26,6 +26,10 @@ public class NewsArticleIntegrationTest {
     @Autowired
     private NewsArticleRepository newsArticleRepository;
 
+    
+    /** 
+     * @throws Exception
+     */
     @Test
     public void getNewsArticles_Success () throws Exception {
         URI uri = new URI(baseUrl + port + "/newsArticle");

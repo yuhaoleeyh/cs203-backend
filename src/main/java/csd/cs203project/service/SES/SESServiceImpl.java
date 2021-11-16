@@ -12,6 +12,12 @@ import java.util.List;
 @Service
 public class SESServiceImpl implements SESService{
 
+    
+    /** 
+     * @param changes
+     * @param recipients
+     * @param typeOfShop
+     */
     public void sendMessageEmailRequest(List<String> changes, List<User> recipients, String typeOfShop) {
         String sender = "covfeed203@gmail.com";
         Region region = Region.AP_SOUTHEAST_1;
@@ -26,6 +32,14 @@ public class SESServiceImpl implements SESService{
         send(client, sender, recipients, typeOfShop, sb.toString());
         client.close();
     }
+    
+    /** 
+     * @param client
+     * @param sender
+     * @param recipients
+     * @param typeOfShop
+     * @param changes
+     */
     public void send(SesClient client,
                             String sender,
                             List<User> recipients,

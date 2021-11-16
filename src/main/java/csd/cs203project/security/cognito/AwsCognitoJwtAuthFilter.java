@@ -25,6 +25,14 @@ public class AwsCognitoJwtAuthFilter extends GenericFilter {
         this.cognitoIdTokenProcessor = cognitoIdTokenProcessor;
     }
 
+    
+    /** 
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         Authentication authentication;

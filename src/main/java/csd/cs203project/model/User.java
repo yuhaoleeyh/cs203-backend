@@ -56,6 +56,10 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
+    
+    /** 
+     * @return Collection<? extends GrantedAuthority>
+     */
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority(authorities));
     }
@@ -65,32 +69,59 @@ public class User implements UserDetails {
         return null;
     }
     
+    /** 
+     * @return String
+     */
     @Override
     public String getPassword() {
         return null;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+    
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+    
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+    
+    /** 
+     * @return boolean
+     */
     @Override
     public boolean isEnabled() {
         return true;
     }
 
+    
+    /** 
+     * @return Shop
+     */
     public Shop getShop() {
         return shop;
     }
 
+    
+    /** 
+     * @param shop
+     */
     public void setShop(Shop shop) {
         this.shop = shop;
     }

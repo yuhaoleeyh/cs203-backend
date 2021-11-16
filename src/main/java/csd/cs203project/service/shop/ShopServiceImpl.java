@@ -20,21 +20,40 @@ public class ShopServiceImpl implements ShopService{
         this.shopRepository = shopRepository;
     }
 
+    
+    /** 
+     * @param shopId
+     * @return Shop
+     */
     @Override
     public Shop findById(Long shopId){
         return shopRepository.findById(shopId).orElse(null);
     }
 
+    
+    /** 
+     * @return List<Shop>
+     */
     @Override
     public List<Shop> findAllShops() {
         return shopRepository.findAll();
     }
 
+    
+    /** 
+     * @param shopType
+     * @return List<Shop>
+     */
     @Override
     public List<Shop> findByShopType (String shopType) {
         return shopRepository.findByShopType(shopType);
     }
 
+    
+    /** 
+     * @param shop
+     * @return Shop
+     */
     @Override
     public Shop addShop (Shop shop) {
         Optional<Shop> shopOptional = shopRepository.findByName(shop.getName());
@@ -44,6 +63,12 @@ public class ShopServiceImpl implements ShopService{
         return null;
     }
 
+    
+    /** 
+     * @param id
+     * @param newShop
+     * @return Shop
+     */
     @Override
     public Shop updateShop(Long id, Shop newShop) {
         return shopRepository.findById(id).map(shop -> {
@@ -56,6 +81,10 @@ public class ShopServiceImpl implements ShopService{
         }).orElse(null);
     }
 
+    
+    /** 
+     * @param id
+     */
     @Override
     public void deleteShop (Long id) {
         if (shopRepository.findById(id).isPresent()) {

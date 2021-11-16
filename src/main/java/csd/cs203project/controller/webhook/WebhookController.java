@@ -12,6 +12,10 @@ public class WebhookController {
     @Autowired
     private TelegramBot telegramBot;
 
+    
+    /** 
+     * @param update
+     */
     @PostMapping("/webhook")
     public void handleUpdates(@RequestBody Update update) {
         telegramBot.onWebhookUpdateReceived(update);

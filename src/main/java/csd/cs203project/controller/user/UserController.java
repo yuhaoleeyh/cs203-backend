@@ -36,11 +36,22 @@ public class UserController {
         this.userService = userService;
     }
 
+    
+    /** 
+     * @param id
+     * @param authorities
+     * @return List<User>
+     */
     @GetMapping("/users/id/{id}/authorities/{authorities}")
     public List<User> getEmployeesfromShopId (@PathVariable Long id, @PathVariable String authorities) {
         return userService.findByShopShopIdAndAuthorities(id, authorities);
     }
 
+    
+    /** 
+     * @param employee
+     * @return User
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users")
     public User addUser(@RequestBody User employee) {
@@ -51,6 +62,12 @@ public class UserController {
         return savedEmployee;
     }
 
+    
+    /** 
+     * @param email
+     * @param newEmployeeInfo
+     * @return User
+     */
     @PutMapping("/users/{email}")
     public User updateUser(@PathVariable String email, @RequestBody User newEmployeeInfo) {
         
@@ -61,6 +78,10 @@ public class UserController {
         return user;
     }
 
+    
+    /** 
+     * @param email
+     */
     @DeleteMapping("/users/{email}")
     public void deleteEmployee(@PathVariable String email) {
         try {
@@ -70,6 +91,11 @@ public class UserController {
         }
     }
 
+    
+    /** 
+     * @param email
+     * @return User
+     */
     @GetMapping("/users/{email}")
     public User getUser(@PathVariable String email) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -81,6 +107,12 @@ public class UserController {
         return user;
     }
 
+    
+    /** 
+     * @param email
+     * @param newUserInfo
+     * @return User
+     */
     @PutMapping("/users/email/{email}")
     public User updateUserProfile(@PathVariable String email, @RequestBody User newUserInfo) {
         User user = userService.updateUser(email, newUserInfo);
@@ -89,6 +121,11 @@ public class UserController {
         return user;
     }
 
+    
+    /** 
+     * @param authorities
+     * @return List<User>
+     */
     @GetMapping("/users/authorities/{authorities}")
     public List<User> getUserByAuthorities (@PathVariable String authorities) {
         return userService.findByAuthorities(authorities);

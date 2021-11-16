@@ -17,16 +17,30 @@ public class MeasuresController {
         this.measuresService = measuresService;
     }
 
+    
+    /** 
+     * @return List<Measures>
+     */
     @GetMapping("/measures")
     public List<Measures> findAllMeasures() {
         return measuresService.findAllMeasures();
     }
 
+    
+    /** 
+     * @param measures
+     * @return Measures
+     */
     @PutMapping("/measures")
     public Measures updateMeasures(@RequestBody Measures measures) {
         return measuresService.updateMeasures(measures);
     }
 
+    
+    /** 
+     * @param shopType
+     * @return Measures
+     */
     @GetMapping("/measures/{shopType}")
     public Measures getMeasures(@PathVariable("shopType") String shopType){
         return measuresService.findByTypeOfShop(shopType);

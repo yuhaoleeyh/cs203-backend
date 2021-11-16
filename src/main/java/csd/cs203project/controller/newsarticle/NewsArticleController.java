@@ -17,11 +17,20 @@ public class NewsArticleController {
         this.newsArticleService = newsArticleService;
     }
 
+    
+    /** 
+     * @param newsArticle
+     * @return NewsArticle
+     */
     @PostMapping("/newsArticle")
     public NewsArticle addNewsArticle (@RequestBody NewsArticle newsArticle) {
         return newsArticleService.addNewsArticle(newsArticle);
     }
 
+    
+    /** 
+     * @return List<NewsArticle>
+     */
     @GetMapping("/newsArticle")
     public List<NewsArticle> getNewsArticles() {
         return newsArticleService.getLatestArticles();

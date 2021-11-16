@@ -20,6 +20,10 @@ public class FootfallDataController {
         footfallDataService.reloadFootfallData();
     }
 
+    
+    /** 
+     * @return String
+     */
     @GetMapping("/footfallData")
     public String getJsonResponse() {
         return footfallDataService.getJsonResponse();

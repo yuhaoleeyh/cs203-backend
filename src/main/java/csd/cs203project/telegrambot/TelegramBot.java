@@ -25,16 +25,29 @@ public class TelegramBot extends TelegramWebhookBot {
     @Value("${telegramBotToken}")
     private String botToken;
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String getBotUsername() {
         return "SpringTestBot";
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String getBotToken() {
         return botToken;
     }
 
+    
+    /** 
+     * @param message
+     * @param chatId
+     */
     public void sendMessage(String message, String chatId) {
         SendMessage telegramMessage = new SendMessage();
         telegramMessage.setText(message);
@@ -46,6 +59,11 @@ public class TelegramBot extends TelegramWebhookBot {
         }
     }
 
+    
+    /** 
+     * @param update
+     * @return BotApiMethod<?>
+     */
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         Message updateMessage = update.getMessage();
@@ -67,6 +85,10 @@ public class TelegramBot extends TelegramWebhookBot {
         return null;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String getBotPath() {
         return "/webhook";

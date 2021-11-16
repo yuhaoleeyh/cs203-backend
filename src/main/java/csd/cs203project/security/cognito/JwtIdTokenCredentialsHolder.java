@@ -9,10 +9,19 @@ public class JwtIdTokenCredentialsHolder {
     public JwtIdTokenCredentialsHolder() {
     }
 
+    
+    /** 
+     * @return String
+     */
     public String getIdToken() {
         return this.idToken;
     }
 
+    
+    /** 
+     * @param idToken
+     * @return JwtIdTokenCredentialsHolder
+     */
     public JwtIdTokenCredentialsHolder setIdToken(String idToken) {
         this.idToken = idToken;
         return this;

@@ -23,16 +23,30 @@ public class ShopController {
         this.shopService = shopService;
     }
 
+    
+    /** 
+     * @param shopId
+     * @return Shop
+     */
     @GetMapping("/shops/shopId/{shopId}")
     public Shop findById(@PathVariable("shopId") Long shopId){
         return shopService.findById(shopId);
     }
 
+    
+    /** 
+     * @return List<Shop>
+     */
     @GetMapping("/shops")
     public List<Shop> getAllShops () {
         return shopService.findAllShops();
     }
 
+    
+    /** 
+     * @param shop
+     * @return Shop
+     */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/shops")
     public Shop addShop (@RequestBody Shop shop) {
@@ -43,6 +57,12 @@ public class ShopController {
         return savedShop;
     }
 
+    
+    /** 
+     * @param id
+     * @param newShopInfo
+     * @return Shop
+     */
     @PutMapping("/shops/{id}")
     public Shop updateShop (@PathVariable Long id, @RequestBody Shop newShopInfo) {
         Shop shop = shopService.updateShop(id, newShopInfo);
@@ -52,6 +72,10 @@ public class ShopController {
         return shop;
     }
 
+    
+    /** 
+     * @param id
+     */
     @DeleteMapping("/shops/{id}")
     public void deleteShop (@PathVariable Long id) {
         try {

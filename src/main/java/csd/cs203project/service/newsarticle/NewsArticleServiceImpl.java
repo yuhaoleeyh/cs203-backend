@@ -36,11 +36,20 @@ public class NewsArticleServiceImpl implements NewsArticleService {
         this.newsArticleRepository = newsArticleRepository;
     }
 
+    
+    /** 
+     * @return List<NewsArticle>
+     */
     @Override
     public List<NewsArticle> getLatestArticles () {
         return newsArticleRepository.findTop5ByOrderByIdDesc();
     }
 
+    
+    /** 
+     * @param newsArticle
+     * @return NewsArticle
+     */
     @Override
     public NewsArticle addNewsArticle (NewsArticle newsArticle) {
         return newsArticleRepository.save(newsArticle);
@@ -86,6 +95,12 @@ public class NewsArticleServiceImpl implements NewsArticleService {
         }
     }
 
+    
+    /** 
+     * @param jsonObject
+     * @throws IOException
+     * @throws JSONException
+     */
     public void handleNewsApiResponse(JSONObject jsonObject) throws IOException, JSONException {
         JSONArray jsonArray = jsonObject.getJSONArray("articles");
 

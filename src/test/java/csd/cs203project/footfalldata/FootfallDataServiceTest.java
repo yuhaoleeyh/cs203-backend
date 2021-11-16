@@ -26,6 +26,9 @@ public class FootfallDataServiceTest {
     @InjectMocks
     private FootfallDataServiceImpl footfallDataService;
 
+    /**
+     * Test for calculating averages in footfall data
+     */
     @Test
     void calculateAverageTest() {
         //Arrange

@@ -41,6 +41,9 @@ public class MeasuresServiceTest {
     private MeasuresServiceImpl measuresService;
 
 
+    /**
+     * Test for Measures Existing and findByTypeOfShop
+     */
     @Test
     void findByTypeOfShop_MeasuresExist_ReturnFoundMeasures() {
         //arrange
@@ -58,6 +61,9 @@ public class MeasuresServiceTest {
         verify(measuresRepository).findByTypeOfShop(typeOfShop);
     }
 
+    /**
+     * Test for Measures NOT Existing and findByTypeOfShop
+     */
     @Test
     void findByTypeOfShop_NoSuchMeasures_ReturnNull() {
         //arrange
@@ -74,6 +80,9 @@ public class MeasuresServiceTest {
         verify(measuresRepository).findByTypeOfShop(typeOfShop);
     }
 
+    /**
+     * Test for No Change in Measures
+     */
     @Test
     void getChangeInMeasures_NoChanges_ReturnEmptyArrayList() {
         //arrange
@@ -87,6 +96,9 @@ public class MeasuresServiceTest {
 
     }
 
+    /**
+     * Test for Changes in Measures
+     */
     @Test
     void getChangeInMeasures_WithChanges_ReturnArrayListWithChanges() {
         
@@ -110,6 +122,9 @@ public class MeasuresServiceTest {
 
     }
 
+    /**
+     * Test for Updating Measures
+     */
     @Test
     void updateMeasures_NoOldMeasures_ReturnNewMeasures() {
         //arrange
@@ -132,6 +147,9 @@ public class MeasuresServiceTest {
         verify(measuresRepository).save(newMeasures);
     }
 
+    /**
+     * Test for Updating Measures with No Changes
+     */
     @Test
     void updateMeasures_WithOldMeasuresAndNoChanges_ReturnNewMeasures() {
         //arrange
@@ -164,6 +182,9 @@ public class MeasuresServiceTest {
         verify(measuresRepository).save(newMeasures);
     }
 
+    /**
+     * Test for Updating Measures with Changes
+     */
     @Test
     void updateMeasures_WithOldMeasuresAndWithChanges_ReturnNewMeasures() {
         //arrange

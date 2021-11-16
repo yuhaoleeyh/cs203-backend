@@ -12,6 +12,13 @@ import java.util.List;
 @Service
 public class SESServiceImpl implements SESService{
 
+    
+    /** 
+     * Send Message Email Request given the changes, recipients, and type of shop
+     * @param changes updates to include in notification email
+     * @param recipients users to send the notification email
+     * @param typeOfShop type of shop for the notification email
+     */
     public void sendMessageEmailRequest(List<String> changes, List<User> recipients, String typeOfShop) {
         String sender = "covfeed203@gmail.com";
         Region region = Region.AP_SOUTHEAST_1;
@@ -26,6 +33,15 @@ public class SESServiceImpl implements SESService{
         send(client, sender, recipients, typeOfShop, sb.toString());
         client.close();
     }
+    
+    /** 
+     * Send the email notification for updated measures to recipients
+     * @param client Amazon Simple Email Service client
+     * @param sender Email Sender
+     * @param recipients Email Recipients
+     * @param typeOfShop type of shop for the notification email
+     * @param changes updates to include in notification email
+     */
     public void send(SesClient client,
                             String sender,
                             List<User> recipients,

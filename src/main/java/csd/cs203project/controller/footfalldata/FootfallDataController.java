@@ -15,11 +15,20 @@ public class FootfallDataController {
         this.footfallDataService = footfallDataService;
     }
 
+    /** 
+     * Reload Footfall data
+     * This method ensures that the Footfall data fetched is always up-to-date with the original source
+     */
     @PostMapping("/footfallData")
     public void reloadFootfallData () {
         footfallDataService.reloadFootfallData();
     }
 
+    
+    /** 
+     * Returns Footfall data in JSON string response
+     * @return Footfall data
+     */
     @GetMapping("/footfallData")
     public String getJsonResponse() {
         return footfallDataService.getJsonResponse();

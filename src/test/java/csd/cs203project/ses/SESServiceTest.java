@@ -35,6 +35,9 @@ public class SESServiceTest {
     @Mock
     private SesException sesException;
 
+    /**
+     * Test for sending email message request, with changes
+     */
     @Test
     void sendMessageEmailRequest_WithChanges_ReturnNull() {
         //Arrange
@@ -56,6 +59,9 @@ public class SESServiceTest {
         verify(sesService, times(1)).send(any(SesClient.class), eq("covfeed203@gmail.com"), eq(users), eq(typeOfShop), eq(built));
     }
 
+    /**
+     * Test for sending email message to Valid users
+     */
     @Test
     void send_ValidUsers_ReturnNull() {
 
@@ -77,6 +83,9 @@ public class SESServiceTest {
         verify(sesClient, times(1)).sendTemplatedEmail(any(SendTemplatedEmailRequest.class));
     }
 
+    /**
+     * Test for sending email message to Invalid users
+     */
     @Test
     void send_InvalidUsers_ExceptionThrownAndHandled() {
 
@@ -98,6 +107,5 @@ public class SESServiceTest {
         //Assert
         verify(sesClient, times(1)).sendTemplatedEmail(any(SendTemplatedEmailRequest.class));
         verify(sesException, times(1)).awsErrorDetails();
-
     }
 }

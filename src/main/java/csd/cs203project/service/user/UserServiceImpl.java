@@ -29,11 +29,23 @@ public class UserServiceImpl implements UserService{
         this.userRepository = userRepository;
     }
 
+    
+    /** 
+     * Return list of users based on type of shop
+     * @param typeOfShop type of shop
+     * @return List<User> list of users based on type of shop
+     */
     @Override
     public List<User> findByShopShopType(String typeOfShop) {
         return userRepository.findByShopShopType(typeOfShop);
     }
 
+    
+    /** 
+     * Add user
+     * @param user new user information
+     * @return User
+     */
     @Override
     public User addUser(User user) {
         Optional<User> u = userRepository.findByEmail(user.getEmail());
@@ -47,6 +59,12 @@ public class UserServiceImpl implements UserService{
         return userRepository.save(user);
     }
 
+    
+    /** 
+     * Return user based on email
+     * @param email email for user
+     * @return User
+     */
     @Override
     public User getUser(String email) {
         return userRepository.findByEmail(email).map(user -> {
@@ -55,6 +73,13 @@ public class UserServiceImpl implements UserService{
     }
 
 
+    
+    /** 
+     * Update user in database
+     * @param email email for user
+     * @param newUserInfo new user information
+     * @return User
+     */
     @Override
     public User updateUser(String email, User newUserInfo) {
         Optional<User> u = userRepository.findByEmail(email);
@@ -72,6 +97,11 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    
+    /** 
+     * Delete user based on their email
+     * @param email email for user
+     */
     @Override
     public void deleteUser(String email) {
         if (userRepository.findByEmail(email).isPresent()) {
@@ -81,11 +111,21 @@ public class UserServiceImpl implements UserService{
         }
     }
 
+    
+    /** 
+     * @param authorities
+     * @return List<User>
+     */
     @Override
     public List<User> findByAuthorities (String authorities) {
         return userRepository.findByAuthorities(authorities);
     }
 
+    
+    /** 
+     * @param shops
+     * @return List<User>
+     */
     @Override
     public List<User> findByShops (List<Shop> shops) {
         List<User> users = new ArrayList<>();
@@ -96,11 +136,22 @@ public class UserServiceImpl implements UserService{
         return users;
     }
 
+    
+    /** 
+     * @param id
+     * @param authorities
+     * @return List<User>
+     */
     @Override
     public List<User> findByShopShopIdAndAuthorities (Long id, String authorities) {
         return userRepository.findByShopShopIdAndAuthorities(id, authorities);
     }
 
+    
+    /** 
+     * @param userId
+     * @return String
+     */
     public String generateSignUpToken(Long userId) {
         byte[] randomBytes = new byte[24];
         secureRandom.nextBytes(randomBytes);

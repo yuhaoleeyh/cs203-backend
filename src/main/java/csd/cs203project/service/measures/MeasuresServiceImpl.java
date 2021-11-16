@@ -29,6 +29,12 @@ public class MeasuresServiceImpl implements MeasuresService {
         this.shopService = shopService;
     }
 
+    
+    /** 
+     * Update measures
+     * @param measures updated measures object
+     * @return Measures updated measures
+     */
     @Override
     public Measures updateMeasures(Measures measures){
         String typeOfShop = measures.getTypeOfShop();
@@ -47,6 +53,12 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     }
 
+    
+    /** 
+     * Return measures for a specific type of shop
+     * @param typeOfShop
+     * @return Measures
+     */
     @Override
     public Measures findByTypeOfShop(String typeOfShop) {
         List<Measures> measures = measuresRepository.findByTypeOfShop(typeOfShop);
@@ -54,6 +66,13 @@ public class MeasuresServiceImpl implements MeasuresService {
         else return null;
     }
 
+    
+    /** 
+     * Return the changes in measures by comparing the old and new measures
+     * @param oldMeasures
+     * @param newMeasures
+     * @return List<String> changes in measures
+     */
     @Override
     public List<String> getChangeInMeasures(Measures oldMeasures, Measures newMeasures) {
         ArrayList<String> changes = new ArrayList<>();
@@ -102,6 +121,11 @@ public class MeasuresServiceImpl implements MeasuresService {
         return changes;
     }
 
+    
+    /** 
+     * Return list of all measures
+     * @return List<Measures> list of all measures
+     */
     @Override
     public List<Measures> findAllMeasures() {
         return measuresRepository.findAll();

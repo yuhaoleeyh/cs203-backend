@@ -21,6 +21,13 @@ public class NotificationsServiceImpl implements NotificationsService{
         this.sesService = sesService;
     }
 
+    
+    /** 
+     * Send notification for updated measures to users on Telegram
+     * @param changes changes in measures
+     * @param affectedUsers users who should receive the notification for updated measures
+     * @param typeOfShop type of shop for updated measures
+     */
     @Override
     public void sendChangedMeasures(List<String> changes, List<User> affectedUsers, String typeOfShop) {
         // List<String> affectedUsersEmails = affectedUsers.stream()

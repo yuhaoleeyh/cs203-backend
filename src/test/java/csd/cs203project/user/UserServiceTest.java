@@ -33,6 +33,9 @@ public class UserServiceTest {
     @InjectMocks
     private UserServiceImpl userService;
 
+    /**
+     * Test for adding new user with new email
+     */
     @Test
     void addUser_NewEmail_ReturnSavedUser() {
         // Arrange
@@ -49,6 +52,9 @@ public class UserServiceTest {
         verify(users).save(user);
     }
 
+    /**
+     * Test for adding new user with same email
+     */
     @Test
     void addUser_SameEmail_ReturnNull() {
         // Arrange
@@ -63,6 +69,9 @@ public class UserServiceTest {
         verify(users).findByEmail(user.getEmail());
     }
 
+    /**
+     * Test for updating user with invalid email
+     */
     @Test
     void updateUser_InvalidEmail_ReturnNull() {
         User user = new User("john.doe@smu.edu.sg", "John Updated Name", "ROLE_EMPLOYEE");
@@ -74,7 +83,9 @@ public class UserServiceTest {
         verify(users).findByEmail(user.getEmail());
     }
 
-
+    /**
+     * Test for adding new employee with new email
+     */
     @Test
     void addNewEmployee_ReturnSavedEmployee() {
         //arrange
@@ -94,23 +105,27 @@ public class UserServiceTest {
         verify(users).save(user);
     }
 
+    /**
+     * Test for adding new employee with same email
+     */
     @Test 
     void addEmployee_SameEmail_ReturnNull() {
         User user = new User("a@b", "Mary", "ROLE_ADMIN");
         // mock the "findByEmail" operation
         when(users.findByEmail(any(String.class))).thenReturn(Optional.ofNullable(user));
         
-
         //act
         User savedUser = userService.addUser(user);
 
         //assert
         assertNull(savedUser);
-
         verify(users).findByEmail(user.getEmail());
     }
 
-    @Test 
+    /**
+     * Test for updating employee with invalid email
+     */
+    @Test
     void updateEmployee_NotFound_ReturnNull(){
         User user = new User("EFSGFDCDSFDSF", "Test", "ROLE_ADMIN");
         when(users.findByEmail(user.getEmail())).thenReturn(Optional.empty());
@@ -121,6 +136,9 @@ public class UserServiceTest {
         verify(users).findByEmail(user.getEmail());
     }
 
+    /**
+     * Test for updating employee with Valid email
+     */
     @Test 
     void updateEmployee_Found_ReturnSavedUser(){
         User user = new User("yay@gmail.com", "NewNameForMe", "ROLE_ADMIN");
@@ -135,6 +153,9 @@ public class UserServiceTest {
         verify(users).save(user);
     }
 
+    /**
+     * Test for deleting employee
+     */
     @Test
     void deleteEmployee_Deleted() {
         User user = new User("test@gmail.com", "Test", "ROLE_ADMIN");

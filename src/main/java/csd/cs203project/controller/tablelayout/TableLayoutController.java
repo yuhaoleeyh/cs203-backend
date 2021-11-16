@@ -26,6 +26,12 @@ public class TableLayoutController {
         this.tablelayoutService = tableLayoutService;
     }
 
+    
+    /** 
+     * Get the recommendation for floor planner based on table layout
+     * @param tableLayout layout of tables in shop
+     * @return ArrayList<ArrayList<HashMap<String, Double>>> recommendation for floor planner
+     */
     @RequestMapping(value = "/tablelayout", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ArrayList<ArrayList<HashMap<String, Double>>> getTableLayout(@Valid @RequestBody TableLayout tableLayout) {

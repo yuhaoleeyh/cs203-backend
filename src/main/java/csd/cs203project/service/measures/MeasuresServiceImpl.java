@@ -29,6 +29,9 @@ public class MeasuresServiceImpl implements MeasuresService {
         this.shopService = shopService;
     }
 
+    /**
+     * Updates measures, handling changes and sending notifications
+     */
     @Override
     public Measures updateMeasures(Measures measures){
         String typeOfShop = measures.getTypeOfShop();
@@ -54,6 +57,9 @@ public class MeasuresServiceImpl implements MeasuresService {
         else return null;
     }
 
+    /**
+     * parses 2 measures to get the difference between them in readable text form
+     */
     @Override
     public List<String> getChangeInMeasures(Measures oldMeasures, Measures newMeasures) {
         ArrayList<String> changes = new ArrayList<>();

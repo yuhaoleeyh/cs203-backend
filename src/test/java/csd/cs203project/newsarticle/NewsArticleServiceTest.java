@@ -24,6 +24,9 @@ public class NewsArticleServiceTest {
     @InjectMocks
     private NewsArticleServiceImpl newsArticleService;
 
+    /**
+     * Test for Add News Article
+     */
     @Test
     void addNewsArticleTest_ReturnSavedNewsArticle () {
         //Arrange

@@ -14,9 +14,10 @@ public class SESServiceImpl implements SESService{
 
     
     /** 
-     * @param changes
-     * @param recipients
-     * @param typeOfShop
+     * Send Message Email Request given the changes, recipients, and type of shop
+     * @param changes updates to include in notification email
+     * @param recipients users to send the notification email
+     * @param typeOfShop type of shop for the notification email
      */
     public void sendMessageEmailRequest(List<String> changes, List<User> recipients, String typeOfShop) {
         String sender = "covfeed203@gmail.com";
@@ -34,11 +35,12 @@ public class SESServiceImpl implements SESService{
     }
     
     /** 
-     * @param client
-     * @param sender
-     * @param recipients
-     * @param typeOfShop
-     * @param changes
+     * Send the email notification for updated measures to recipients
+     * @param client Amazon Simple Email Service client
+     * @param sender Email Sender
+     * @param recipients Email Recipients
+     * @param typeOfShop type of shop for the notification email
+     * @param changes updates to include in notification email
      */
     public void send(SesClient client,
                             String sender,

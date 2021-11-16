@@ -31,6 +31,7 @@ public class FootfallDataIntegrationTest {
 
     
     /** 
+     * Test for Get Footfall Data Success
      * @throws Exception
      */
     @Test
@@ -44,6 +45,7 @@ public class FootfallDataIntegrationTest {
 
     
     /** 
+     * Test for Post Footfall Data Success
      * @throws Exception
      */
     @Test

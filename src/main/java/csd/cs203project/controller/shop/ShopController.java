@@ -25,7 +25,8 @@ public class ShopController {
 
     
     /** 
-     * @param shopId
+     * Get information for a specific shop
+     * @param shopId id for a specific shop
      * @return Shop
      */
     @GetMapping("/shops/shopId/{shopId}")
@@ -35,6 +36,7 @@ public class ShopController {
 
     
     /** 
+     * Get the information for all shops
      * @return List<Shop>
      */
     @GetMapping("/shops")
@@ -44,7 +46,8 @@ public class ShopController {
 
     
     /** 
-     * @param shop
+     * Add a new shop
+     * @param shop information for new shop
      * @return Shop
      */
     @ResponseStatus(HttpStatus.CREATED)
@@ -59,8 +62,9 @@ public class ShopController {
 
     
     /** 
+     * Update shop information
      * @param id
-     * @param newShopInfo
+     * @param newShopInfo information for updated shop
      * @return Shop
      */
     @PutMapping("/shops/{id}")
@@ -74,7 +78,8 @@ public class ShopController {
 
     
     /** 
-     * @param id
+     * Delete a shop from database
+     * @param id for a specific shop
      */
     @DeleteMapping("/shops/{id}")
     public void deleteShop (@PathVariable Long id) {

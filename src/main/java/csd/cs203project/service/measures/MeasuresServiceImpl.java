@@ -31,8 +31,9 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     
     /** 
-     * @param measures
-     * @return Measures
+     * Update measures
+     * @param measures updated measures object
+     * @return Measures updated measures
      */
     @Override
     public Measures updateMeasures(Measures measures){
@@ -54,6 +55,7 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     
     /** 
+     * Return measures for a specific type of shop
      * @param typeOfShop
      * @return Measures
      */
@@ -66,9 +68,10 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     
     /** 
+     * Return the changes in measures by comparing the old and new measures
      * @param oldMeasures
      * @param newMeasures
-     * @return List<String>
+     * @return List<String> changes in measures
      */
     @Override
     public List<String> getChangeInMeasures(Measures oldMeasures, Measures newMeasures) {
@@ -120,7 +123,8 @@ public class MeasuresServiceImpl implements MeasuresService {
 
     
     /** 
-     * @return List<Measures>
+     * Return list of all measures
+     * @return List<Measures> list of all measures
      */
     @Override
     public List<Measures> findAllMeasures() {

@@ -38,7 +38,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
     
     /** 
-     * @return List<NewsArticle>
+     * Return top 5 latest articles
+     * @return List<NewsArticle> top 5 latest articles
      */
     @Override
     public List<NewsArticle> getLatestArticles () {
@@ -47,7 +48,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
     
     /** 
-     * @param newsArticle
+     * Add new news article
+     * @param newsArticle new news article object
      * @return NewsArticle
      */
     @Override
@@ -55,7 +57,9 @@ public class NewsArticleServiceImpl implements NewsArticleService {
         return newsArticleRepository.save(newsArticle);
     }
 
-    /** Call the News API at 7am every day */
+    /** 
+     * Call the News API at 7am every day 
+     */
     @Scheduled(cron = "0 0 7 * * *")
     @Override
     public void callNewsAPI() {
@@ -97,7 +101,8 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
     
     /** 
-     * @param jsonObject
+     * Handle JSONObject Response from News API by adding new articles into database
+     * @param jsonObject Response from News API
      * @throws IOException
      * @throws JSONException
      */

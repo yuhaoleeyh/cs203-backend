@@ -22,7 +22,8 @@ public class ShopServiceImpl implements ShopService{
 
     
     /** 
-     * @param shopId
+     * Return shop by shop id
+     * @param shopId shop id
      * @return Shop
      */
     @Override
@@ -32,6 +33,7 @@ public class ShopServiceImpl implements ShopService{
 
     
     /** 
+     * Return all shops
      * @return List<Shop>
      */
     @Override
@@ -41,8 +43,9 @@ public class ShopServiceImpl implements ShopService{
 
     
     /** 
-     * @param shopType
-     * @return List<Shop>
+     * Return all shops of specific shop type
+     * @param shopType specific shop type
+     * @return List<Shop> all shops of specific shop type
      */
     @Override
     public List<Shop> findByShopType (String shopType) {
@@ -51,8 +54,9 @@ public class ShopServiceImpl implements ShopService{
 
     
     /** 
-     * @param shop
-     * @return Shop
+     * Add new shop
+     * @param shop new shop information
+     * @return Shop new shop information
      */
     @Override
     public Shop addShop (Shop shop) {
@@ -65,9 +69,10 @@ public class ShopServiceImpl implements ShopService{
 
     
     /** 
-     * @param id
-     * @param newShop
-     * @return Shop
+     * Update shop information based on shop id
+     * @param id shop id
+     * @param newShop Updated shop information
+     * @return Shop Updated shop information
      */
     @Override
     public Shop updateShop(Long id, Shop newShop) {
@@ -83,7 +88,8 @@ public class ShopServiceImpl implements ShopService{
 
     
     /** 
-     * @param id
+     * Delete shop by shop id
+     * @param id shop id
      */
     @Override
     public void deleteShop (Long id) {

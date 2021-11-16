@@ -21,6 +21,7 @@ public class JwtAuthentication extends AbstractAuthenticationToken {
 
     
     /** 
+     * Get credentials object
      * @return Object
      */
     public Object getCredentials() {
@@ -29,6 +30,7 @@ public class JwtAuthentication extends AbstractAuthenticationToken {
 
     
     /** 
+     * Get principal object
      * @return Object
      */
     public Object getPrincipal() {
@@ -37,6 +39,7 @@ public class JwtAuthentication extends AbstractAuthenticationToken {
 
     
     /** 
+     * Get JWTClaimsSet claims object
      * @return JWTClaimsSet
      */
     public JWTClaimsSet getJwtClaimsSet() {

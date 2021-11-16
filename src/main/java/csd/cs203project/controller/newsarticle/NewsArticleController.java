@@ -19,6 +19,7 @@ public class NewsArticleController {
 
     
     /** 
+     * Allows administrators to add a news article
      * @param newsArticle
      * @return NewsArticle
      */
@@ -29,7 +30,8 @@ public class NewsArticleController {
 
     
     /** 
-     * @return List<NewsArticle>
+     * Get the latest news articles 
+     * @return List<NewsArticle> of latest news articles
      */
     @GetMapping("/newsArticle")
     public List<NewsArticle> getNewsArticles() {

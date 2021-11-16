@@ -12,7 +12,8 @@ public class CognitoTestController {
 
     
     /** 
-     * @return String
+     * Endpoint for cognito that should not be secured
+     * @return String response
      */
     @GetMapping("/cognito/all-allow")
     public String getAnyone() {
@@ -21,7 +22,8 @@ public class CognitoTestController {
     
     
     /** 
-     * @return String
+     * Endpoint for cognito that should be secured
+     * @return String response
      */
     @GetMapping(path = "/cognito/only-authenticated")
     public String getResp(){

@@ -22,7 +22,8 @@ public class JwtConfiguration {
 
     
     /** 
-     * @return String
+     * Get URL for JWK
+     * @return String JwkUrl
      */
     public String getJwkUrl() {
         return this.jwkUrl != null && !this.jwkUrl.isEmpty() ? this.jwkUrl : String.format("https://cognito-idp.%s.amazonaws.com/%s/.well-known/jwks.json", this.region, this.userPoolId);
@@ -30,6 +31,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Get URL for Cognito Identity Pool
      * @return String
      */
     public String getCognitoIdentityPoolUrl() {
@@ -38,6 +40,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Get User Pool Id
      * @return String
      */
     public String getUserPoolId() {
@@ -46,6 +49,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Set User Pool Id
      * @param userPoolId
      */
     public void setUserPoolId(String userPoolId) {
@@ -54,6 +58,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Get Identity Pool Id
      * @return String
      */
     public String getIdentityPoolId() {
@@ -62,6 +67,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Set Identity Pool Id
      * @param identityPoolId
      */
     public void setIdentityPoolId(String identityPoolId) {
@@ -70,6 +76,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Set Jwk Url
      * @param jwkUrl
      */
     public void setJwkUrl(String jwkUrl) {
@@ -78,6 +85,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Get Region
      * @return String
      */
     public String getRegion() {
@@ -86,6 +94,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Set Region
      * @param region
      */
     public void setRegion(String region) {
@@ -94,6 +103,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Get UserNameField
      * @return String
      */
     public String getUserNameField() {
@@ -102,6 +112,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Set UserNameField
      * @param userNameField
      */
     public void setUserNameField(String userNameField) {
@@ -110,6 +121,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Get Connection Timeout
      * @return int
      */
     public int getConnectionTimeout() {
@@ -118,6 +130,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Set Connection Timeout
      * @param connectionTimeout
      */
     public void setConnectionTimeout(int connectionTimeout) {
@@ -126,6 +139,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Get Read Timeout
      * @return int
      */
     public int getReadTimeout() {
@@ -134,6 +148,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Set Read Timeout
      * @param readTimeout
      */
     public void setReadTimeout(int readTimeout) {
@@ -142,6 +157,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Get HTTP Header
      * @return String
      */
     public String getHttpHeader() {
@@ -150,6 +166,7 @@ public class JwtConfiguration {
 
     
     /** 
+     * Set HTTP Header
      * @param httpHeader
      */
     public void setHttpHeader(String httpHeader) {

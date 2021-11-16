@@ -11,6 +11,7 @@ public class JwtIdTokenCredentialsHolder {
 
     
     /** 
+     * Get id token
      * @return String
      */
     public String getIdToken() {
@@ -19,8 +20,9 @@ public class JwtIdTokenCredentialsHolder {
 
     
     /** 
-     * @param idToken
-     * @return JwtIdTokenCredentialsHolder
+     * Set id token
+     * @param idToken id token
+     * @return JwtIdTokenCredentialsHolder id token
      */
     public JwtIdTokenCredentialsHolder setIdToken(String idToken) {
         this.idToken = idToken;

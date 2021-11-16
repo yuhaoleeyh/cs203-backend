@@ -30,8 +30,9 @@ public class AwsCognitoIdTokenProcessor {
 
     
     /** 
-     * @param request
-     * @return Authentication
+     * Check Http Servlet Request and return Authentication object
+     * @param request Http Servlet Request
+     * @return Authentication authenticated user's information 
      * @throws Exception
      */
     public Authentication authenticate(HttpServletRequest request) throws Exception {
@@ -55,8 +56,9 @@ public class AwsCognitoIdTokenProcessor {
 
     
     /** 
-     * @param claims
-     * @return String
+     * Get email from a user's JWTClaimsSet claims
+     * @param claims JWT claims
+     * @return String email
      */
     private String getEmailFrom(JWTClaimsSet claims) {
         return claims.getClaims().get("email").toString();
@@ -64,8 +66,9 @@ public class AwsCognitoIdTokenProcessor {
     
     
     /** 
-     * @param claims
-     * @return String
+     * Get username from a user's JWTClaimsSet claims
+     * @param claims JWT claims
+     * @return String username
      */
     private String getUserNameFrom(JWTClaimsSet claims) {
         return claims.getClaims().get(this.jwtConfiguration.getUserNameField()).toString();
@@ -73,7 +76,8 @@ public class AwsCognitoIdTokenProcessor {
 
     
     /** 
-     * @param claims
+     * Verify if the JWT Token is an ID token
+     * @param claims JWTClaimsSet claims
      * @throws Exception
      */
     private void verifyIfIdToken(JWTClaimsSet claims) throws Exception {
@@ -84,7 +88,8 @@ public class AwsCognitoIdTokenProcessor {
 
     
     /** 
-     * @param claims
+     * Validate that the issuer matches cognito's identity pool
+     * @param claims JWTClaimsSet claims
      * @throws Exception
      */
     private void validateIssuer(JWTClaimsSet claims) throws Exception {
@@ -95,6 +100,7 @@ public class AwsCognitoIdTokenProcessor {
 
     
     /** 
+     * Get the bearer token from the token
      * @param token
      * @return String
      */

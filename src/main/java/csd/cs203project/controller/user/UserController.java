@@ -38,9 +38,10 @@ public class UserController {
 
     
     /** 
-     * @param id
-     * @param authorities
-     * @return List<User>
+     * Get employees from a specific shop based on their role (authorities)
+     * @param id for a specific shop
+     * @param authorities specified for the users returned
+     * @return List<User> users belonging to a specific shop and based on their authorities
      */
     @GetMapping("/users/id/{id}/authorities/{authorities}")
     public List<User> getEmployeesfromShopId (@PathVariable Long id, @PathVariable String authorities) {
@@ -49,24 +50,26 @@ public class UserController {
 
     
     /** 
-     * @param employee
+     * Add new user into database
+     * @param user information for new user
      * @return User
      */
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/users")
-    public User addUser(@RequestBody User employee) {
-        User savedEmployee = userService.addUser(employee);
-        if (savedEmployee == null) {
-            throw new ResourceExistsException("User with email " + employee.getEmail());
+    public User addUser(@RequestBody User user) {
+        User savedUser = userService.addUser(user);
+        if (savedUser == null) {
+            throw new ResourceExistsException("User with email " + user.getEmail());
         }
-        return savedEmployee;
+        return savedUser;
     }
 
     
     /** 
-     * @param email
-     * @param newEmployeeInfo
-     * @return User
+     * Update user based on their email and new user information
+     * @param email of the user to be updated
+     * @param newEmployeeInfo for the new information
+     * @return User updated user information
      */
     @PutMapping("/users/{email}")
     public User updateUser(@PathVariable String email, @RequestBody User newEmployeeInfo) {
@@ -80,7 +83,8 @@ public class UserController {
 
     
     /** 
-     * @param email
+     * Delete user based on their email
+     * @param email of the user to be deleted
      */
     @DeleteMapping("/users/{email}")
     public void deleteEmployee(@PathVariable String email) {
@@ -93,7 +97,8 @@ public class UserController {
 
     
     /** 
-     * @param email
+     * Get the user based on their email (identifier)
+     * @param email of the user to be retrieved
      * @return User
      */
     @GetMapping("/users/{email}")
@@ -109,6 +114,7 @@ public class UserController {
 
     
     /** 
+     * Update user based on their email and new user information
      * @param email
      * @param newUserInfo
      * @return User
@@ -123,8 +129,9 @@ public class UserController {
 
     
     /** 
-     * @param authorities
-     * @return List<User>
+     * Get users of a certain user role (authorities)
+     * @param authorities for the users to be retrieved
+     * @return List<User> list of users
      */
     @GetMapping("/users/authorities/{authorities}")
     public List<User> getUserByAuthorities (@PathVariable String authorities) {

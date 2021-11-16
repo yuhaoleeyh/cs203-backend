@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Health {
     
     /** 
-     * @return ResponseEntity
+     * Get Health Check ResponseEntity
+     * @return Health Check
      */
     @GetMapping("/health")    
     public ResponseEntity getHealthCheck(){

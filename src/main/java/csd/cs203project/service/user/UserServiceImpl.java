@@ -31,8 +31,9 @@ public class UserServiceImpl implements UserService{
 
     
     /** 
-     * @param typeOfShop
-     * @return List<User>
+     * Return list of users based on type of shop
+     * @param typeOfShop type of shop
+     * @return List<User> list of users based on type of shop
      */
     @Override
     public List<User> findByShopShopType(String typeOfShop) {
@@ -41,7 +42,8 @@ public class UserServiceImpl implements UserService{
 
     
     /** 
-     * @param user
+     * Add user
+     * @param user new user information
      * @return User
      */
     @Override
@@ -59,7 +61,8 @@ public class UserServiceImpl implements UserService{
 
     
     /** 
-     * @param email
+     * Return user based on email
+     * @param email email for user
      * @return User
      */
     @Override
@@ -72,8 +75,9 @@ public class UserServiceImpl implements UserService{
 
     
     /** 
-     * @param email
-     * @param newUserInfo
+     * Update user in database
+     * @param email email for user
+     * @param newUserInfo new user information
      * @return User
      */
     @Override
@@ -95,7 +99,8 @@ public class UserServiceImpl implements UserService{
 
     
     /** 
-     * @param email
+     * Delete user based on their email
+     * @param email email for user
      */
     @Override
     public void deleteUser(String email) {

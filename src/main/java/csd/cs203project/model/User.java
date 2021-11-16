@@ -58,6 +58,7 @@ public class User implements UserDetails {
 
     
     /** 
+     * Get role (authorities) for the user
      * @return Collection<? extends GrantedAuthority>
      */
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -70,6 +71,7 @@ public class User implements UserDetails {
     }
     
     /** 
+     * Get password for user
      * @return String
      */
     @Override
@@ -79,6 +81,7 @@ public class User implements UserDetails {
 
     
     /** 
+     * Get boolean for whether Account is Non-Expired
      * @return boolean
      */
     @Override
@@ -87,6 +90,7 @@ public class User implements UserDetails {
     }
     
     /** 
+     * Get boolean for whether Account is Non-Locked
      * @return boolean
      */
     @Override
@@ -95,6 +99,7 @@ public class User implements UserDetails {
     }
     
     /** 
+     * Get boolean for whether Account is Non-Expired
      * @return boolean
      */
     @Override
@@ -103,6 +108,7 @@ public class User implements UserDetails {
     }
     
     /** 
+     * Get boolean for whether Account is Enabled
      * @return boolean
      */
     @Override
@@ -112,6 +118,7 @@ public class User implements UserDetails {
 
     
     /** 
+     * Return Shop for the user
      * @return Shop
      */
     public Shop getShop() {
@@ -120,6 +127,7 @@ public class User implements UserDetails {
 
     
     /** 
+     * Set shop for the user
      * @param shop
      */
     public void setShop(Shop shop) {

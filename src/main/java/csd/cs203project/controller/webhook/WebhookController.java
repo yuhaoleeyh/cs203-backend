@@ -14,7 +14,8 @@ public class WebhookController {
 
     
     /** 
-     * @param update
+     * Handle updates for webhook
+     * @param update updates for webhook
      */
     @PostMapping("/webhook")
     public void handleUpdates(@RequestBody Update update) {

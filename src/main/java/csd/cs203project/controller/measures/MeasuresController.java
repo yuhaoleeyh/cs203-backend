@@ -19,7 +19,8 @@ public class MeasuresController {
 
     
     /** 
-     * @return List<Measures>
+     * Get the list of all Measures
+     * @return List<Measures> list of all measures
      */
     @GetMapping("/measures")
     public List<Measures> findAllMeasures() {
@@ -28,7 +29,8 @@ public class MeasuresController {
 
     
     /** 
-     * @param measures
+     * Updates measures
+     * @param measures Updated measures
      * @return Measures
      */
     @PutMapping("/measures")
@@ -38,8 +40,9 @@ public class MeasuresController {
 
     
     /** 
-     * @param shopType
-     * @return Measures
+     * Get measures for a specific shop type
+     * @param shopType type of shop
+     * @return Measures for a specific shop type
      */
     @GetMapping("/measures/{shopType}")
     public Measures getMeasures(@PathVariable("shopType") String shopType){

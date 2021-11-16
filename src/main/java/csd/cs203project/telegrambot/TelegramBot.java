@@ -27,6 +27,7 @@ public class TelegramBot extends TelegramWebhookBot {
 
     
     /** 
+     * Get username for Telegram bot
      * @return String
      */
     @Override
@@ -36,6 +37,7 @@ public class TelegramBot extends TelegramWebhookBot {
 
     
     /** 
+     * Get token for Telegram bot
      * @return String
      */
     @Override
@@ -45,8 +47,9 @@ public class TelegramBot extends TelegramWebhookBot {
 
     
     /** 
-     * @param message
-     * @param chatId
+     * Send Telegram notification message using Telegram bot
+     * @param message notification message to send
+     * @param chatId id for Telegram chat to send the notification message
      */
     public void sendMessage(String message, String chatId) {
         SendMessage telegramMessage = new SendMessage();
@@ -61,7 +64,8 @@ public class TelegramBot extends TelegramWebhookBot {
 
     
     /** 
-     * @param update
+     * Handle Webhook Update
+     * @param update Webhook Update
      * @return BotApiMethod<?>
      */
     @Override
@@ -87,7 +91,8 @@ public class TelegramBot extends TelegramWebhookBot {
 
     
     /** 
-     * @return String
+     * Get path for Telegram bot
+     * @return String path for Telegram bot
      */
     @Override
     public String getBotPath() {

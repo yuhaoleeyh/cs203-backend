@@ -27,9 +27,10 @@ public class AwsCognitoJwtAuthFilter extends GenericFilter {
 
     
     /** 
-     * @param request
-     * @param response
-     * @param filterChain
+     * Set up HTTP security filter
+     * @param request HTTP Servlet Request
+     * @param response HTTP Servlet Response
+     * @param filterChain Filter Chain
      * @throws IOException
      * @throws ServletException
      */

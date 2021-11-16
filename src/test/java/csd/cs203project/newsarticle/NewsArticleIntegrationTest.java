@@ -28,10 +28,11 @@ public class NewsArticleIntegrationTest {
 
     
     /** 
+     * Test for Get News Articles
      * @throws Exception
      */
     @Test
-    public void getNewsArticles_Success () throws Exception {
+    public void getNewsArticles_Success() throws Exception {
         URI uri = new URI(baseUrl + port + "/newsArticle");
 
         ResponseEntity<NewsArticle[]> result = restTemplate.getForEntity(uri, NewsArticle[].class);

@@ -15,6 +15,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	
 	/** 
+	 * Configure HTTP security
 	 * @param http
 	 * @throws Exception
 	 */

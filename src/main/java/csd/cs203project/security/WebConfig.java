@@ -11,7 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
    
     
     /** 
-     * @param registry
+     * Add CORS mappings for allowed origins
+     * @param registry CORS Registry
      */
     @Override
     public void addCorsMappings(CorsRegistry registry){

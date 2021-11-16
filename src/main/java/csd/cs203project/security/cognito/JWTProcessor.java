@@ -25,6 +25,7 @@ public class JWTProcessor {
 
 	
 	/** 
+	 * Return Configurable JWT Processor used for processing JWT tokens
 	 * @return ConfigurableJWTProcessor
 	 * @throws MalformedURLException
 	 */

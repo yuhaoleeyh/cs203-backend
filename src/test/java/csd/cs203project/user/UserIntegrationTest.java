@@ -42,35 +42,37 @@ public class UserIntegrationTest {
     @Autowired
 	private UserRepository userRepository;
 
-
+    /**
+     * Test for getting employees, valid success
+     * @throws Exception
+     */
     @Test
     public void getEmployees_Success() throws Exception {
         URI uri = new URI(baseUrl + port + "/users/id/1/authorities/ROLE_ADMIN");
 
-        // /users/id/{id}/authorities/{authorities}
-
         ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
 
         assertEquals(200, result.getStatusCode().value());
-
-    
     }
 
+    /**
+     * Test for getting employees, invalid endpoint failure
+     * @throws Exception
+     */
     @Test
     public void getEmployees_Failure() throws Exception {
         URI uri = new URI(baseUrl + port + "/users/id/1/authorities/ROLE_???");
 
-        // /users/id/{id}/authorities/{authorities}
-
         ResponseEntity<User[]> result = restTemplate.getForEntity(uri, User[].class);
 
         assertEquals(200, result.getStatusCode().value());
-
-    
     }
 
-    /*Due to cognito*/
-
+    /**
+     * Test for adding employee
+     * Forbidden 403 error as the user is not authenticated with AWS Cognito
+     * @throws Exception
+     */
     @Test
     public void addEmployee_Failure() throws Exception {
         URI uri = new URI(baseUrl + port + "/users");

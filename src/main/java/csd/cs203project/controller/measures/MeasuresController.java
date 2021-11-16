@@ -19,14 +19,12 @@ public class MeasuresController {
 
     @GetMapping("/measures")
     public List<Measures> findAllMeasures() {
-        System.out.println("test");
         return measuresService.findAllMeasures();
     }
 
-    @PostMapping("/measures")
-    public Measures addMeasures(@RequestBody Measures measures) {
-        System.out.println(measures);
-        return measuresService.addMeasures(measures);
+    @PutMapping("/measures")
+    public Measures updateMeasures(@RequestBody Measures measures) {
+        return measuresService.updateMeasures(measures);
     }
 
     @GetMapping("/measures/{shopType}")

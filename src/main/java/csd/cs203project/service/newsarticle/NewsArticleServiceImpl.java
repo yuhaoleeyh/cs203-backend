@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -41,12 +42,12 @@ public class NewsArticleServiceImpl implements NewsArticleService {
     }
 
     @Override
-    public void addNewsArticle (NewsArticle newsArticle) {
-        newsArticleRepository.save(newsArticle);
+    public NewsArticle addNewsArticle (NewsArticle newsArticle) {
+        return newsArticleRepository.save(newsArticle);
     }
 
-    /** Call the News API at 7am and 7pm every day */
-    @Scheduled(cron = "0 0 7,19 * * *")
+    /** Call the News API at 7am every day */
+    @Scheduled(cron = "0 0 7 * * *")
     @Override
     public void callNewsAPI() {
         LocalDate fromDate = LocalDate.now().minusDays(2);
@@ -69,7 +70,7 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader in = new BufferedReader(
-                        new InputStreamReader(connection.getInputStream()));
+                        new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
                 StringBuffer response = new StringBuffer();
                 while ((readLine = in.readLine()) != null) {
                     response.append(readLine);
@@ -107,7 +108,6 @@ public class NewsArticleServiceImpl implements NewsArticleService {
 
             NewsArticle article = new NewsArticle(title, description, date, url, imageUrl);
             addNewsArticle(article);
-            System.out.println("Added article: " + article);
         }
     }
 }

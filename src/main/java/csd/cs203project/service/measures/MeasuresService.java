@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface MeasuresService {
 
-    Measures addMeasures(Measures measures);
+    Measures updateMeasures(Measures measures);
 
     Measures findByTypeOfShop(String typeOfShop);
 

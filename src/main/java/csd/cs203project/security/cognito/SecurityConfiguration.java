@@ -2,6 +2,7 @@ package csd.cs203project.security.cognito;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -17,28 +18,41 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		http.headers().cacheControl();
 		
-		// added this line
 		http
 		.cors()
 			.and()
 		.csrf().disable()
 			.authorizeRequests()
-			.antMatchers("/cognito/all-allow").permitAll()
-			.antMatchers("/cognito/only-authenticated").authenticated()
+			/** Permit all requests at these endpoints */
 			.antMatchers("**/health").permitAll()
-			.antMatchers("**").permitAll()
-			//.anyRequest().authenticated()
+			.antMatchers("/cognito/all-allow").permitAll()
+
+			/** Measures */
+			.antMatchers(HttpMethod.PUT, "/measures").hasAnyRole("SUPERVISOR", "ADMIN")
+
+			/** News Articles */
+			.antMatchers(HttpMethod.POST, "/newsArticle").hasAnyRole("ADMIN")
+
+			/** Shops */
+			.antMatchers(HttpMethod.POST, "/shops").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.PUT, "/shops/*").hasAnyRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/shops/*").hasAnyRole("ADMIN")
+
+			/** Supervisor for Employees */
+			.antMatchers(HttpMethod.GET, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN")
+			.antMatchers(HttpMethod.POST, "/employees").hasAnyRole("SUPERVISOR", "ADMIN")
+			.antMatchers(HttpMethod.PUT, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/employees/**").hasAnyRole("SUPERVISOR", "ADMIN")
+
+			/** Table Layouts */
+			.antMatchers(HttpMethod.POST, "/tablelayout").hasAnyRole("SUPERVISOR", "ADMIN")
+
+			/** Users */
+			.antMatchers(HttpMethod.POST, "/users").hasAnyRole("SUPERVISOR", "ADMIN")
+
+			/** All other requests */
+			.anyRequest().permitAll()
 			.and()
 			.addFilterBefore(awsCognitoJwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-
-	// @Bean
-    // public WebMvcConfigurer corsConfigurer() {
-    //     return new WebMvcConfigurer() {
-    //         @Override
-    //         public void addCorsMappings(CorsRegistry registry) {
-    //             registry.addMapping("/**");
-    //         }
-    //     };
-    // }
 }

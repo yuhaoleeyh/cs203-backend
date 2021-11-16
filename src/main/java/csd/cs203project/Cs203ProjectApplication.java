@@ -1,24 +1,13 @@
 package csd.cs203project;
 
-import csd.cs203project.telegrambot.TelegramBot;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-
-import csd.cs203project.model.Shop;
-import csd.cs203project.model.User;
-import csd.cs203project.repository.shop.ShopRepository;
-import csd.cs203project.repository.user.UserRepository;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-
 
 @SpringBootApplication
 public class Cs203ProjectApplication {
 
-	public static void main(String[] args) {
-		ApplicationContext ctx = SpringApplication.run(Cs203ProjectApplication.class, args);
+	public static void main(String[] args) throws Exception{
+		SpringApplication.run(Cs203ProjectApplication.class, args);
 	}
 
 }

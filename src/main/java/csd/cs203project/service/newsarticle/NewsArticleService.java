@@ -13,7 +13,7 @@ public interface NewsArticleService {
     /**
      * Adds NewsArticle into db
      */
-    void addNewsArticle (NewsArticle newsArticle);
+    NewsArticle addNewsArticle (NewsArticle newsArticle);
 
     void callNewsAPI();
 }

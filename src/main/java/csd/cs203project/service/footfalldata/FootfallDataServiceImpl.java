@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +63,6 @@ public class FootfallDataServiceImpl implements FootfallDataService {
      */
     @Override
     public void reloadFootfallData () {
-        System.out.println("I AM EXECUTED???");
         String dateInDb = lastUpdateDateRepository.findById(1L).map(date -> date.getDataLastUpdated()).orElse(null);
 
         try {
@@ -71,14 +71,12 @@ public class FootfallDataServiceImpl implements FootfallDataService {
             String dataLastUpdated = jsonObject.getString("DataLastUpdated");
 
             if (dataLastUpdated.equals(dateInDb)) {
-                System.out.println("ok same");
                 LastUpdateDate lastUpdateDate = new LastUpdateDate(1L, dataLastUpdated, false);
                 lastUpdateDateRepository.deleteAll();
                 lastUpdateDateRepository.save(lastUpdateDate);
                 return;
             }
 
-            System.out.println("not same");
             LastUpdateDate lastUpdateDate = new LastUpdateDate(1L, dataLastUpdated, true);
             lastUpdateDateRepository.deleteAll();
             lastUpdateDateRepository.save(lastUpdateDate);
@@ -94,7 +92,6 @@ public class FootfallDataServiceImpl implements FootfallDataService {
      * Parses footfall data from singstat such that only 5 years worth of relevant data is kept
      */
     public void parseFootfallData (JSONObject jsonObject) throws IOException, JSONException {
-        System.out.println("i am now parsing footfall data");
         JSONArray level1Array = jsonObject.getJSONArray("Level1");
         JSONArray level2Array = jsonObject.getJSONArray("Level2");
         int length1 = level1Array.length();
@@ -151,15 +148,15 @@ public class FootfallDataServiceImpl implements FootfallDataService {
         int responseCode = connection.getResponseCode();
 
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(connection.getInputStream()));
-            StringBuffer response = new StringBuffer();
-            while ((readLine = in .readLine()) != null) {
-                response.append(readLine);
-            } in .close();
-            // print result
-//            System.out.println("JSON String Result " + response.toString());
-            return response.toString();
+            try (BufferedReader in = new BufferedReader(
+                    new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));) {
+
+                StringBuffer response = new StringBuffer();
+                while ((readLine = in.readLine()) != null) {
+                    response.append(readLine);
+                } 
+                return response.toString();
+            }
         }
         return null;
     }

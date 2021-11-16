@@ -4,31 +4,23 @@ import csd.cs203project.model.User;
 import csd.cs203project.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.bots.TelegramWebhookBot;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.security.SecureRandom;
-import java.util.Base64;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Component
-public class TelegramBot extends TelegramLongPollingBot {
-    private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
-    private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); //threadsafe
+public class TelegramBot extends TelegramWebhookBot {
 
-    private UserRepository userRepository;
 
     @Autowired
-    public TelegramBot(UserRepository userRepository) {
-        super();
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
+
 
     @Value("${telegramBotToken}")
     private String botToken;
@@ -43,32 +35,6 @@ public class TelegramBot extends TelegramLongPollingBot {
         return botToken;
     }
 
-    @Override
-    public void onUpdateReceived(Update update) {
-        Message updateMessage = update.getMessage();
-        if (updateMessage != null) {
-            String chatId = Long.toString(updateMessage.getChatId());
-            String text = updateMessage.getText();
-            String[] textArray = text.split(" ");
-            if (textArray[0].equals("/start") && textArray.length == 2) {
-                System.out.println(textArray[1]);
-                try {
-                    User user = userRepository.findByTelegramSignUpToken(textArray[1]).orElseThrow();
-                    user.setTelegramChatId(chatId);
-                    userRepository.save(user);
-                }
-                catch (NoSuchElementException e) {
-                    System.out.println("There is no user with this SignUpToken");
-                }
-
-
-            }
-            System.out.println(update.getMessage().getChatId());
-            System.out.println(update.getMessage().getText());
-
-        }
-    }
-
     public void sendMessage(String message, String chatId) {
         SendMessage telegramMessage = new SendMessage();
         telegramMessage.setText(message);
@@ -80,9 +46,29 @@ public class TelegramBot extends TelegramLongPollingBot {
         }
     }
 
-    public String generateSignUpToken(Long userId) {
-        byte[] randomBytes = new byte[24];
-        secureRandom.nextBytes(randomBytes);
-        return base64Encoder.encodeToString(randomBytes);
+    @Override
+    public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
+        Message updateMessage = update.getMessage();
+        if (updateMessage != null) {
+            String chatId = Long.toString(updateMessage.getChatId());
+            String text = updateMessage.getText();
+            String[] textArray = text.split(" ");
+            if (textArray[0].equals("/start") && textArray.length == 2) {
+                try {
+                    User user = userRepository.findByTelegramSignUpToken(textArray[1]).orElseThrow();
+                    user.setTelegramChatId(chatId);
+                    userRepository.save(user);
+                }
+                catch (NoSuchElementException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String getBotPath() {
+        return "/webhook";
     }
 }

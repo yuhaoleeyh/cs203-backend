@@ -35,6 +35,11 @@ public class TelegramBot extends TelegramWebhookBot {
         return botToken;
     }
 
+    /**
+     * Sends message to user with specified chat ID
+     * @param message
+     * @param chatId
+     */
     public void sendMessage(String message, String chatId) {
         SendMessage telegramMessage = new SendMessage();
         telegramMessage.setText(message);
@@ -46,6 +51,9 @@ public class TelegramBot extends TelegramWebhookBot {
         }
     }
 
+    /**
+     * Handles webhook request, adds user telegram chat ID if start command given
+     */
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
         Message updateMessage = update.getMessage();
